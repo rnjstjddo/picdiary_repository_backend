@@ -33,6 +33,7 @@ jobs:
           echo "--------------------의존성(라이브러리) 설치----------------"
           npm ci
 
+
           echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
           IS_EXITED=$(sudo docker ps -a -f status=exited -q)
 
@@ -134,10 +135,7 @@ jobs:
             echo "--------------------- 엔진엑스 8081포트 현재동작중 도커이미지 8082가져오기"
             PS_GREEN_IF=$(sudo docker ps -a -f name=green -q)
             echo "--------------------- $PS_GREEN_IF ---------------------"   
-            if [ -n $PS_GREEN_IF ];then
-              docker stop green
-              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
-            fi     
+           
             docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 8082 green 컨테이너실행 ---------------------"   
             docker run -d --name green -p 8082:8082 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
@@ -155,10 +153,7 @@ jobs:
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
             PS_BLUE_IF=$(sudo docker ps -a -f name=blue -q)
             echo "--------------------- $PS_BLUE_IF ---------------------"   
-            if [ -n $PS_BLUE_IF ];then
-              docker stop blue
-              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
-            fi  
+           
             docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             echo "--------------------- 8081 blue 컨테이너실행 ---------------------"   
             docker run -d --name blue -p 8081:8081 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
