@@ -132,23 +132,31 @@ jobs:
           PRESENT_PORT=$(awk '{print $3}' /etc/nginx/conf.d/service-url.inc | cut -c 18-21) 
           echo "--------------------- 엔진엑스의 포트확인 -> $PRESENT_PORT "   
           if [ $PRESENT_PORT = "8081" ];then
-            sudo docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 8082 green 컨테이너실행 ---------------------"   
-            sudo docker run -d --name green -p 8082:8082 picdiary:8082
+            docker run -d --name green -p 8082:8082 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 8082 green 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8081/8082/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
-            echo "--------------------- 8081 blue 컨테이너 중지 ---------------------"   
-            sudo docker stop blue
-            sudo docker rmi picdiary:8081
+            echo "--------------------- 8081 blue 컨테이너 동작확인 ---------------------"   
+            IS_EXITED=$(sudo docker ps -a -f name=blue -q)
+            echo "--------------------- $IS_EXITED ---------------------"   
+            if [ -n IS_EXITED ]
+              docker stop blue
+              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            fi
           else
-            sudo docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             echo "--------------------- 8081 blue 컨테이너실행 ---------------------"   
-            sudo docker run -d --name blue -p 8081:8081 picdiary:8081
+            docker run -d --name blue -p 8081:8081 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             echo "--------------------- 8081 blue 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8082/8081/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
-            echo "--------------------- 8082 green 컨테이너 중지 ---------------------"   
-            sudo docker stop green
-            sudo docker rmi picdiary:8082
+            echo "--------------------- 8082 green 컨테이너 동작확인 ---------------------"   
+            IS_EXITED=$(sudo docker ps -a -f name=green -q)
+            echo "--------------------- $IS_EXITED ---------------------"   
+            if [ -n IS_EXITED ]
+              docker stop green
+              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            fi
           fi
