@@ -58,9 +58,9 @@ jobs:
           ls -al
           echo "-------------------- 프론드엔드 빌드만 남기기----------------"
           mkdir build
-          cp -r ./views/build ./build
-          rm -rf ./views
-          mv ./build ./views/build
+          cp -r views/build build
+          rm -rf views
+          mv build views/build
           echo "--------------------- 현재위치와 폴더확인 ---------------------"            
           pwd
           echo "--------------------- 도커이미지 생성과 도커허브로 푸시 ---------------------"   
