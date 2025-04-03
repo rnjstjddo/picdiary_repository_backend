@@ -78,7 +78,6 @@ jobs:
           cd views
           mkdir build
           cd ..
-          cd ..
           echo "-------------------- views/build 확인 ----------------"
           mv build/build views/build
           cd views/build
