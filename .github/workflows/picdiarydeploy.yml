@@ -105,14 +105,16 @@ jobs:
 
           if [ $ENV_PORT== "PORT=8081" ];then
           echo "--------------------- 8082태그 도커이미지에 붙임 "   
-
-            sudo docker build -t picdiary:8082 .
+            sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
             sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            sudo docker images
+            sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 
           else
           echo "--------------------- 8081태그 도커이미지에 붙임 "   
-
-            sudo docker build -t picdiary:8081 .
+            sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081 .
             sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            sudo docker images
+            sudo docker rmi picdiary:8081
           fi
 
       - name: 이미지 pull 후 컨테이너실행
