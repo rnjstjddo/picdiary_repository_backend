@@ -62,11 +62,29 @@ jobs:
           ls
           cd ..
 
-          echo "-------------------- 프론드엔드 빌드만 남기기----------------"
+          echo "-------------------- build폴더생성 ----------------"
           mkdir build
+          ls
+          echo "-------------------- build폴더에 담기 ----------------"
           mv views/build build
+          cd build
+          ls
+          cd ..
+          echo "-------------------- views폴더삭제 ----------------"
           rm -rf views
-          mv build/build view/build
+          echo "-------------------- views/build폴더 생성 ----------------"
+          mkdir views
+          cd views
+          mkdir build
+          cd ..
+          cd ..
+          echo "-------------------- views/build 확인 ----------------"
+          mv build/build views/build
+          cd view/build
+          ls
+          cd ..
+          cd ..
+          echo "-------------------- build 폴더삭제----------------"
           rm -rf build
 
           echo "--------------------- 현재위치와 폴더확인 ---------------------"            
