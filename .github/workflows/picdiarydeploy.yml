@@ -12,25 +12,7 @@ jobs:
           echo "--------------------현재위치확인----------------"
           pwd
           ls
-      #    cd ./picdiary_repository_backend
-      #    echo "--------------------./picdiary_repository_backend 파일확인----------------"
-      #    ls
-
-      #      - name: Node 설치
-      #        uses: actions/setup-node@v4
-      #        with:
-      #          node-version: "20"
-
-      #      - name: 이전 깃허브가져온 폴더삭제
-      #        run: |
-      #          echo "--------------------이전 깃허브가져온 폴더삭제----------------"
-      #          rm -rf picdiary_repository_backend
-
-      #      - name: 깃허브 clone
-      #        run: |
-      #          echo "--------------------깃허브 clone----------------"
-      #          git clone https://github.com/rnjstjddo/picdiary_repository_backend.git
-
+          
       - name: 의존성(라이브러리) 설치
         run: |
           echo "--------------------현재위치와 파일확인----------------"
