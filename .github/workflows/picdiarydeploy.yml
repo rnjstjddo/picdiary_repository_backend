@@ -141,7 +141,7 @@ jobs:
             echo "--------------------- 8081 blue 컨테이너 동작확인 ---------------------"   
             PS_BLUE_=$(sudo docker ps -a -f name=blue -q)
             echo "--------------------- $PS_BLUE ---------------------"   
-            if [ -n PS_BLUE ];then
+            if [ -n $PS_BLUE ];then
               docker stop blue
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             fi
@@ -155,7 +155,7 @@ jobs:
             echo "--------------------- 8082 green 컨테이너 동작확인 ---------------------"   
             PS_GREEN=$(sudo docker ps -a -f name=green -q)
             echo "--------------------- $PS_GREEN ---------------------"   
-            if [ -n PS_GREEN ];then
+            if [ -n $PS_GREEN ];then
               docker stop green
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             fi
