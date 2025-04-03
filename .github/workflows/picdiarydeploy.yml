@@ -87,18 +87,26 @@ jobs:
           echo "-------------------- build 폴더삭제----------------"
           rm -rf build
 
-          echo "--------------------- 현재위치와 폴더확인 ---------------------"            
+          echo "--------------------- 현재위치확인 ---------------------"            
           pwd
+          echo "--------------------- 현재위치에서 폴더확인 ---------------------"            
+          ls
 
           echo "--------------------- 도커이미지 생성과 도커허브로 푸시 ---------------------"   
           ENV_PORT=$(awk '/PORT/' ./.env)          
+
           echo "--------------------- .ENV파일 포트값 확인 -> $ENV_PORT "   
+
           if [ $ENV_PORT== "PORT=8081" ];then
-            sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081 .
-            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
-          else
-            sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
+          echo "--------------------- 8082태그 도커이미지에 붙임 "   
+
+            sudo docker build -t picdiary:8082 .
             sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+          else
+          echo "--------------------- 8081태그 도커이미지에 붙임 "   
+
+            sudo docker build -t picdiary:8081 .
+            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
           fi
 
       - name: pull을 위한 도커허브로그인
