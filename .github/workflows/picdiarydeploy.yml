@@ -149,6 +149,7 @@ jobs:
               docker stop blue
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             fi
+            
           else
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
             PS_BLUE_IF=$(sudo docker ps -a -f name=blue -q)
@@ -162,6 +163,7 @@ jobs:
             sudo nginx -s reload
             echo "--------------------- 8082 green 컨테이너 동작확인 ---------------------"   
             PS_GREEN=$(sudo docker ps -a -f name=green -q)
+
             echo "--------------------- $PS_GREEN ---------------------"   
             if [ -n $PS_GREEN ];then
               docker stop green
