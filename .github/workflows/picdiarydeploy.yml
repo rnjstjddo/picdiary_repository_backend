@@ -142,14 +142,9 @@ jobs:
             echo "--------------------- 8082 green 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8081/8082/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
-            echo "--------------------- 8081 blue 컨테이너 동작확인 ---------------------"   
-            PS_BLUE_=$(sudo docker ps -a -f name=blue -q)
-            echo "--------------------- $PS_BLUE ---------------------"   
-            if [ -n $PS_BLUE ];then
-              docker stop blue
-              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
-            fi
-            
+            echo "--------------------- 8081 blue 이미지삭제---------------------"   
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+
           else
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
             PS_BLUE_IF=$(sudo docker ps -a -f name=blue -q)
@@ -161,12 +156,6 @@ jobs:
             echo "--------------------- 8081 blue 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8082/8081/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
-            echo "--------------------- 8082 green 컨테이너 동작확인 ---------------------"   
-            PS_GREEN=$(sudo docker ps -a -f name=green -q)
-
-            echo "--------------------- $PS_GREEN ---------------------"   
-            if [ -n $PS_GREEN ];then
-              docker stop green
-              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
-            fi
+            echo "--------------------- 8082 green 이미지삭제--------------------"   
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
           fi
