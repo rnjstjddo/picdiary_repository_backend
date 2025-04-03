@@ -1,0 +1,128 @@
+name: picdiary익스프레스서버 배포워크플로우
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: 현재 위치 확인
+        run: |
+          echo "--------------------현재위치확인----------------"
+          pwd
+          ls
+      #    cd ./picdiary_repository_backend
+      #    echo "--------------------./picdiary_repository_backend 파일확인----------------"
+      #    ls
+
+      #      - name: Node 설치
+      #        uses: actions/setup-node@v4
+      #        with:
+      #          node-version: "20"
+
+      #      - name: 이전 깃허브가져온 폴더삭제
+      #        run: |
+      #          echo "--------------------이전 깃허브가져온 폴더삭제----------------"
+      #          rm -rf picdiary_repository_backend
+
+      #      - name: 깃허브 clone
+      #        run: |
+      #          echo "--------------------깃허브 clone----------------"
+      #          git clone https://github.com/rnjstjddo/picdiary_repository_backend.git
+
+      - name: 의존성(라이브러리) 설치
+        run: |
+          echo "--------------------현재위치와 파일확인----------------"
+          pwd
+          ls
+          echo "--------------------의존성(라이브러리) 설치----------------"
+          npm ci
+          npm i pm2
+          echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
+          IS_EXITED=$(sudo docker ps -a -f status=exited -q)
+          echo "---------------------이미지빌드전 IS_EXITED 값 확인 -> $IS_EXITED"
+
+          if [ -n "$IS_EXITED" ]; then
+            echo "--------------------- 이미지빌드전 exited상태 컨테이너 삭제 ---------------------"            
+            sudo docker rm $(sudo docker ps -a -f status=exited -q)
+          fi
+
+          IS_BLUE=$(sudo docker ps -a -f 'name=blue')
+          IS_GREEN=$(sudo docker ps -a -f 'name=green')
+          echo "--------------------- 이미지빌드전 IS_BLUE 값 확인 -> $IS_BLUE"
+          echo "--------------------- 이미지빌드전 IS_GREEN 값 확인 -> $IS_GREEN"
+
+          if [ -z $IS_BLUE_RUN ] && [ -z $IS_GREEN_RUN ];then
+            echo "---------------------  blue와 green 컨테이너 모두 동작하지 않기에 blue 컨테이너 8081포트로 이미지생성"
+            cp /home/ubuntu/node8081/.env ./
+          elif [ -n $IS_BLUE_RUN ];then
+            echo "--------------------- blue 컨테이너 동작하기에 green 8082 포트로 이미지생성"
+            cp /home/ubuntu/node8082/.env ./
+          else 
+            echo "--------------------- green 컨테이너 동작하기에 blue 8081 포트로 이미지생성"
+            cp /home/ubuntu/node8081/.env ./
+          fi
+
+          echo "--------------------현재위치확인과 파일확인----------------"
+          pwd
+          ls -al
+    #      echo "--------------------.env 파일확인 ----------------"
+    #      cat ./.env
+    #      echo "--------------------- views 폴더 내 파일확인 ---------------------"            
+    #      cd ./views
+    #      ls -al
+    #      echo "--------------------- 프론트엔드 빌드 ---------------------"            
+    #      npm ci
+    #      npm run build
+          echo "-------------------- 프론드엔드 빌드만 남기기----------------"
+          cp ./views/build ../build
+    #      echo "--------------------- 프론트엔드 빌드 후 확인---------------------"            
+    #      cd ../
+    #      echo "--------------------- 도커이미지 만들기전에 파일삭제 ---------------------"            
+          rm -rf ./views
+          mv ./build ./views/build
+          echo "--------------------- 현재위치와 폴더확인 ---------------------"            
+          pwd
+          echo "--------------------- 도커이미지 생성과 도커허브로 푸시 ---------------------"   
+          ENV_PORT=$(awk '/PORT/' ./.env)          
+          echo "--------------------- .ENV파일 포트값 확인 -> $ENV_PORT "   
+          if [ $ENV_PORT== "PORT=8081" ];then
+            sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081 .
+            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+          else
+            sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
+            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+          fi
+
+      - name: pull을 위한 도커허브로그인
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: 이미지 pull 후 컨테이너실행
+        run: |
+          PRESENT_PORT=$(awk '{print $3}' /etc/nginx/conf.d/service-url.inc | cut -c 18-21) 
+          echo "--------------------- 엔진엑스의 포트확인 -> $PRESENT_PORT "   
+          if [ $PRESENT_PORT == "http://127.0.0.1:8081" ];then
+            sudo docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            echo "--------------------- 8082 green 컨테이너실행 ---------------------"   
+            sudo docker run -d --name green -p 8082:8082 picdiary:8082
+            echo "--------------------- 8082 green 엔진엑스 포트변경 후 재실행---------------------"   
+            sudo sed -i "s/8081/8082/g" /etc/nginx/conf.d/service-url.inc  
+            sudo nginx -s reload
+            echo "--------------------- 8081 blue 컨테이너 중지 ---------------------"   
+            sudo docker stop blue
+            sudo docker rmi picdiary:8081
+          else
+            sudo docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            echo "--------------------- 8081 blue 컨테이너실행 ---------------------"   
+            sudo docker run -d --name blue -p 8081:8081 picdiary:8081
+            echo "--------------------- 8081 blue 엔진엑스 포트변경 후 재실행---------------------"   
+            sudo sed -i "s/8082/8081/g" /etc/nginx/conf.d/service-url.inc  
+            sudo nginx -s reload
+            echo "--------------------- 8082 green 컨테이너 중지 ---------------------"   
+            sudo docker stop green
+            sudo docker rmi picdiary:8082
+          fi

@@ -1,0 +1,8 @@
+
+# dependencies
+/node_modules
+/uploads
+/.env
+/.view/node_modules
+/.view/.vscode
+
