@@ -67,8 +67,9 @@ jobs:
           ls
           echo "-------------------- build폴더에 담기 ----------------"
           mv views/build build
-          cd build
+          cd build/build
           ls
+          cd ..
           cd ..
           echo "-------------------- views폴더삭제 ----------------"
           rm -rf views
