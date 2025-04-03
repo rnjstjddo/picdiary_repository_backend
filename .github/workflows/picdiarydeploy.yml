@@ -142,11 +142,15 @@ jobs:
             echo "--------------------- 8082 green 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8081/8082/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
-            echo "--------------------- 8081 blue 이미지삭제---------------------"   
-
-            docker stop blue
-            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
-
+            echo "--------------------- 8081 blue 상태가 up인지 확인--------------------"   
+            IS_UP_BLUE=$(sudo docker ps -a -f status=up name=blue -q)
+            echo "--------------------- 결과 -> $IS_UP_BLUE --------------------"   
+            
+            if [ -n $IS_UP_BLUE ];then
+              echo "--------------------- 8081 blue 종료하고 이미지삭제--------------------"   
+              docker stop blue
+              docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            fi
           else
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
             PS_BLUE_IF=$(sudo docker ps -a -f name=blue -q)
@@ -158,7 +162,13 @@ jobs:
             echo "--------------------- 8081 blue 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8082/8081/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
-            echo "--------------------- 8082 green 이미지삭제--------------------"   
-            docker stop green
-            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            echo "--------------------- 8082 green 상태가 up인지 확인--------------------"   
+            IS_UP_GREEN=$(sudo docker ps -a -f status=up name=green -q)
+            echo "--------------------- 결과 -> $IS_UP_GREEN --------------------"   
+            
+            if [ -n $IS_UP_GREEN ];then
+              echo "--------------------- 8082 green 종료하고 이미지삭제--------------------"   
+              docker stop green
+              docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            fi
           fi
