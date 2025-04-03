@@ -13,14 +13,17 @@ jobs:
         run: |
           echo "--------------------현재위치와 파일확인----------------"
           pwd
-          ls
+          echo "--------------------git clone으로 코드가져오기----------------"
+          git clone https://github.com/rnjstjddo/picdiary_repository_backend.git
+
           echo "--------------------의존성(라이브러리) 설치----------------"
           npm ci
           npm i pm2
+
           echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
           IS_EXITED=$(sudo docker ps -a -f status=exited -q)
-          echo "---------------------이미지빌드전 IS_EXITED 값 확인 -> $IS_EXITED"
 
+          echo "---------------------이미지빌드전 IS_EXITED 값 확인 -> $IS_EXITED"
           if [ -n "$IS_EXITED" ]; then
             echo "--------------------- 이미지빌드전 exited상태 컨테이너 삭제 ---------------------"            
             sudo docker rm $(sudo docker ps -a -f status=exited -q)
