@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: pull을 위한 도커허브로그인 미리해둠
+      - name: push을 위한 도커허브로그인 미리해둠
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -103,16 +103,19 @@ jobs:
           echo "--------------------- .ENV파일 포트값 확인 -> $ENV_PORT "   
 
           if [ $ENV_PORT== "PORT=8081" ];then
-          echo "--------------------- 8082태그 도커이미지에 붙임 "   
+            echo "--------------------- 8082태그 도커이미지에 붙임 ---------------------"   
             sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
-            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            echo "--------------------- 도커이미지출력--------------------- "   
             sudo docker images
+            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+           
             sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 
           else
-          echo "--------------------- 8081태그 도커이미지에 붙임 "   
+          echo "--------------------- 8081태그 도커이미지에 붙임--------------------- "   
             sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081 .
+            echo "--------------------- 도커이미지출력 ---------------------"   
+            sudo docker images            
             sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
-            sudo docker images
             sudo docker rmi picdiary:8081
           fi
 

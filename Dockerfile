@@ -1,5 +1,5 @@
 FROM node:20-alpine
-WORKDIR .
+WORKDIR ./
 COPY . .
 RUN npm install
 RUN npm i pm2 -g
