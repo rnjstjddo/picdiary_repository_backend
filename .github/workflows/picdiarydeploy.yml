@@ -141,7 +141,7 @@ jobs:
             echo "--------------------- 8081 blue 컨테이너 동작확인 ---------------------"   
             IS_EXITED=$(sudo docker ps -a -f name=blue -q)
             echo "--------------------- $IS_EXITED ---------------------"   
-            if [ -n IS_EXITED ]
+            if [ -n IS_EXITED ];then
               docker stop blue
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             fi
