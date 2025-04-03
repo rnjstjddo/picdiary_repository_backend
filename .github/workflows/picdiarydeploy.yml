@@ -66,7 +66,7 @@ jobs:
           mkdir build
           mv views/build build
           rm -rf views
-          mv build view/build
+          mv build/build view/build
           rm -rf build
 
           echo "--------------------- 현재위치와 폴더확인 ---------------------"            
