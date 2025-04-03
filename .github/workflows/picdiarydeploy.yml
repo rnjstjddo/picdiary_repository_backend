@@ -11,10 +11,12 @@ jobs:
     steps:
       - name: 의존성(라이브러리) 설치
         run: |
-          echo "--------------------현재위치와 파일확인----------------"
+          echo "--------------------현재위치확인----------------"
           pwd
+
           echo "--------------------git clone으로 코드가져오기----------------"
           git clone https://github.com/rnjstjddo/picdiary_repository_backend.git
+          cd picdiary_repository_backend
 
           echo "--------------------의존성(라이브러리) 설치----------------"
           npm ci
