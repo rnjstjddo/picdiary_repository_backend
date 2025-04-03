@@ -18,7 +18,7 @@ jobs:
           rm -rf picdiary_repository_backend
 
           echo "--------------------git clone으로 코드가져오기----------------"
-          git clone git@github.com:rnjstjddo/picdiary_repository_backend.git
+          git clone https://github.com/rnjstjddo/picdiary_repository_backend.git
 
           echo "--------------------picdiary_repository_backend 폴더이동 ----------------"
           cd picdiary_repository_backend
