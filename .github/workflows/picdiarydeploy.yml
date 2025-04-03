@@ -33,9 +33,6 @@ jobs:
           echo "--------------------의존성(라이브러리) 설치----------------"
           npm ci
 
-          echo "--------------------도커이미지 생성전에 기존이미지 삭제 ----------------"
-          docker rmi $(docker images --filter=reference="${{ secrets.DOCKERHUB_USERNAME }}/picdiary" -q)
-
           echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
           IS_EXITED=$(sudo docker ps -a -f status=exited -q)
 
