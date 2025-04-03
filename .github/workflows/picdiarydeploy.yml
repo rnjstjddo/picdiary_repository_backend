@@ -81,7 +81,7 @@ jobs:
           cd ..
           echo "-------------------- views/build 확인 ----------------"
           mv build/build views/build
-          cd view/build
+          cd views/build
           ls
           cd ..
           cd ..
