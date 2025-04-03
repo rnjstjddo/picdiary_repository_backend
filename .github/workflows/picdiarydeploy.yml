@@ -98,13 +98,11 @@ jobs:
           ls
 
           echo "--------------------- 도커이미지 생성과 도커허브로 푸시 ---------------------"   
-          ENV_PORT=$(awk '/PORT/' ./.env)          
+          ENV_PORT=$(awk '/PORT/' ./.env)           
+          PRESENT_PORT=$(awk '{print $3}' /etc/nginx/conf.d/service-url.inc | cut -c 18-21)   
 
-          echo "--------------------- .ENV파일 포트값 확인 -> $ENV_PORT "   
 
-          echo "---------------------  ${{ secrets.DOCKERHUB_USERNAME }} "   
-
-          if [ $ENV_PORT = "PORT=8081" ];then
+          if [ $PRESENT_PORT = "8081" ];then
             echo "--------------------- 현재포트 8081 동작중 도커이미지출력--------------------- "   
             docker images
             echo "--------------------- 현재포트 8081 동작중 새로운 도커이미지에 8082태그  붙임 ---------------------"   
@@ -132,6 +130,13 @@ jobs:
           PRESENT_PORT=$(awk '{print $3}' /etc/nginx/conf.d/service-url.inc | cut -c 18-21) 
           echo "--------------------- 엔진엑스의 포트확인 -> $PRESENT_PORT "   
           if [ $PRESENT_PORT = "8081" ];then
+            echo "--------------------- 엔진엑스 8081포트 현재동작중 도커이미지 8082가져오기"
+            PS_GREEN_IF=$(sudo docker ps -a -f name=green -q)
+            echo "--------------------- $PS_GREEN_IF ---------------------"   
+            if [ -n $PS_GREEN_IF ];then
+              docker stop green
+              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            fi     
             docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 8082 green 컨테이너실행 ---------------------"   
             docker run -d --name green -p 8082:8082 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
@@ -146,6 +151,13 @@ jobs:
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             fi
           else
+            echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
+            PS_BLUE_IF=$(sudo docker ps -a -f name=blue -q)
+            echo "--------------------- $PS_BLUE_IF ---------------------"   
+            if [ -n $PS_BLUE_IF ];then
+              docker stop blue
+              docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            fi  
             docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             echo "--------------------- 8081 blue 컨테이너실행 ---------------------"   
             docker run -d --name blue -p 8081:8081 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
