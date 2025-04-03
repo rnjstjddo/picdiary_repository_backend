@@ -1,8 +1,7 @@
 
-# dependencies
-/node_modules
-/uploads
-/.env
-/.view/node_modules
-/.view/.vscode
+node_modules
+uploads
+.env
+views/node_modules
+views/.vscode
 
