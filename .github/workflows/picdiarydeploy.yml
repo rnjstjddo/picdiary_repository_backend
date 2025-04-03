@@ -102,15 +102,17 @@ jobs:
 
           echo "--------------------- .ENV파일 포트값 확인 -> $ENV_PORT "   
 
+          echo "---------------------  ${{ secrets.DOCKERHUB_USERNAME }} "   
+
           if [ $ENV_PORT== "PORT=8081" ];then
             echo "--------------------- 8082태그 도커이미지에 붙임 ---------------------"   
-            sudo docker build -f Dockerfile_8082 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
+            docker build -f Dockerfile_8082 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
             echo "--------------------- 도커이미지출력--------------------- "   
-            sudo docker images
+            docker images
             echo "--------------------- 도커이미지push ---------------------"   
-            sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 도커이미지 8082삭제 ---------------------"   
-            sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 
           else
           echo "--------------------- 8081태그 도커이미지에 붙임--------------------- "   
             sudo docker build -f Dockerfile_8081 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081 .
