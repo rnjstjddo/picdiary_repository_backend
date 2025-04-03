@@ -107,8 +107,6 @@ jobs:
           if [ $ENV_PORT = "PORT=8081" ];then
             echo "--------------------- 현재포트 8081 동작중 도커이미지출력--------------------- "   
             docker images
-            echo "--------------------- 현재포트 8081 동작중 도커이미지 8082 삭제-------------------- "   
-            docker images rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 현재포트 8081 동작중 새로운 도커이미지에 8082태그  붙임 ---------------------"   
             docker build -f Dockerfile_8082 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 .
 
@@ -119,9 +117,6 @@ jobs:
           else
             echo "--------------------- 현재포트 8082 동작중 도커이미지출력 ---------------------"   
             sudo docker images  
-            echo "--------------------- 현재포트 8082 동작중 도커이미지 8081 삭제------------------- "   
-            docker images rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
-
             
             echo "--------------------- 현재포트 8082 동작중 8081태그 도커이미지에 붙임--------------------- "   
             sudo docker build -f Dockerfile_8081 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081 .
