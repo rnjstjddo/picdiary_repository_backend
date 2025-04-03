@@ -46,7 +46,8 @@ jobs:
           pwd
           ls -al
           echo "-------------------- 프론드엔드 빌드만 남기기----------------"
-          cp -r ./views/build/ ./build/
+          mkdir build
+          cp -r ./views/build ./build
           rm -rf ./views
           mv ./build ./views/build
           echo "--------------------- 현재위치와 폴더확인 ---------------------"            
