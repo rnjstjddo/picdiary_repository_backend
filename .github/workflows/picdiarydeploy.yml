@@ -112,7 +112,7 @@ jobs:
             echo "--------------------- 현재포트 8081 동작중 도커이미지 8082 push ---------------------"   
             docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 현재포트 8081 동작중  도커이미지 8082삭제 ---------------------"   
-            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 
+            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082 
 
           else
             echo "--------------------- 현재포트 8082 동작중 도커이미지출력 ---------------------"   
@@ -124,7 +124,7 @@ jobs:
             echo "--------------------- 현재포트 8082 동작중 도커이미지 8081 push ---------------------"   
             docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             echo "--------------------- 현재포트 8082 동작중 도커이미지 8081삭제 ---------------------"   
-            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
           fi
 
       - name: 이미지 pull 후 컨테이너실행
@@ -143,7 +143,7 @@ jobs:
             sudo sed -i "s/8081/8082/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
             echo "--------------------- 8081 blue 이미지삭제---------------------"   
-            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
 
           else
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
@@ -157,5 +157,5 @@ jobs:
             sudo sed -i "s/8082/8081/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
             echo "--------------------- 8082 green 이미지삭제--------------------"   
-            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
           fi
