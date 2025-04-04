@@ -45,20 +45,21 @@ jobs:
 
           IS_BLUE=$(sudo docker ps -a -f 'name=blue')
           IS_GREEN=$(sudo docker ps -a -f 'name=green')
-          echo "--------------------- 이미지빌드전 IS_BLUE 값 확인 -> $IS_BLUE"
-          echo "--------------------- 이미지빌드전 IS_GREEN 값 확인 -> $IS_GREEN"
+          echo "--------------------- 이미지빌드전 IS_BLUE 값 확인 ------------------------"
+          echo "$IS_BLUE"
 
-          if [ -z $IS_BLUE_RUN ] && [ -z $IS_GREEN_RUN ];then
-            echo "---------------------  blue와 green 컨테이너 모두 동작하지 않기에 blue 컨테이너 8081포트로 이미지생성"
-            cp /home/ubuntu/node8081/.env ./
-          elif [ $IS_BLUE_RUN ];then
-            echo "--------------------- blue 컨테이너 동작하기에 green 8082 포트로 이미지생성"
+          echo "--------------------- 이미지빌드전 IS_GREEN 값 확인 -----------------------"
+          echo "$IS_GREEN"
+
+          PRESENT_PORT_BEFORE=$(awk '{print $3}' /etc/nginx/conf.d/service-url.inc | cut -c 18-21) 
+          echo "--------------------- 엔진엑스의 포트확인 -> $PRESENT_PORT_BEFORE "   
+          if [ $PRESENT_PORT_BEFORE = "8081" ];then
+            echo "--------------------- 엔진엑스 포트 8081이기에 8082로 지정"
             cp /home/ubuntu/node8082/.env ./
-          else 
-            echo "--------------------- green 컨테이너 동작하기에 blue 8081 포트로 이미지생성"
+          else  
+            echo "--------------------- 엔진엑스 포트 8082이기에 8081로 지정"
             cp /home/ubuntu/node8081/.env ./
           fi
-
           echo "--------------------현재위치확인과 파일확인----------------"
           pwd
           ls -al
@@ -167,7 +168,7 @@ jobs:
             IS_UP_GREEN=$(docker ps -af "name=green" | tail -n +2 | awk '{print $2}')
             echo "--------------------- 결과 -> $IS_UP_GREEN --------------------"   
             
-            
+
             if [ $IS_UP_GREEN ];then
               echo "--------------------- 8082 green 종료하고 사용된 이미지삭제--------------------"   
               docker stop green
