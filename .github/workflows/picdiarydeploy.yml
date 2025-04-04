@@ -167,6 +167,7 @@ jobs:
             IS_UP_GREEN=$(docker ps -af "name=green" | tail -n +2 | awk '{print $2}')
             echo "--------------------- 결과 -> $IS_UP_GREEN --------------------"   
             
+            
             if [ $IS_UP_GREEN ];then
               echo "--------------------- 8082 green 종료하고 사용된 이미지삭제--------------------"   
               docker stop green
