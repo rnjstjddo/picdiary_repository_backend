@@ -132,11 +132,21 @@ jobs:
           PRESENT_PORT=$(awk '{print $3}' /etc/nginx/conf.d/service-url.inc | cut -c 18-21) 
           echo "--------------------- 엔진엑스의 포트확인 -> $PRESENT_PORT "   
           if [ $PRESENT_PORT = "8081" ];then
+            echo "--------------------- 엔진엑스 8081포트 현재동작중인데 8082 컨테이너 동작중이면 중지하고 이미지삭제하고 이미지 pull하기 ----------"
+            IS_UP_GREEN_BEFORE=$(sudo docker ps -a -f status=up name=green -q)
+            echo "--------------------- 결과 -> $IS_UP_GREEN_BEFORE --------------------"   
+            
+            if [ -n $IS_UP_GREEN_BEFORE ];then
+              echo "--------------------- 8082 green 종료하고 이미지삭제--------------------"   
+              docker stop green
+              docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            fi
+
             echo "--------------------- 엔진엑스 8081포트 현재동작중 도커이미지 8082가져오기"
-            PS_GREEN_IF=$(sudo docker ps -a -f name=green -q)
-            echo "--------------------- $PS_GREEN_IF ---------------------"   
-           
             docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
+            echo "--------------------- 8082 green 컨테이너실행 전 green동작중인지 확인 ---------------------"   
+            
+
             echo "--------------------- 8082 green 컨테이너실행 ---------------------"   
             docker run -d --name green -p 8082:8082 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8082
             echo "--------------------- 8082 green 엔진엑스 포트변경 후 재실행---------------------"   
@@ -152,16 +162,27 @@ jobs:
               docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
             fi
           else
+            
+            echo "--------------------- 엔진엑스 8082포트 현재동작중인데 blue 동작중이면 중지하고 이미지삭제하고 이미지 pull하기" 
+             IS_UP_BLUE_BEFORE=$(sudo docker ps -a -f status=up name=blue -q)
+            echo "--------------------- 결과 -> $IS_UP_BLUE_BEFORE --------------------"   
+            
+            if [ -n $IS_UP_BLUE_BEFORE ];then
+              echo "--------------------- 8081 blue 종료하고 이미지삭제--------------------"   
+              docker stop blue
+              docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+            fi
+
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
-            PS_BLUE_IF=$(sudo docker ps -a -f name=blue -q)
-            echo "--------------------- $PS_BLUE_IF ---------------------"   
-           
             docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+
             echo "--------------------- 8081 blue 컨테이너실행 ---------------------"   
             docker run -d --name blue -p 8081:8081 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:8081
+
             echo "--------------------- 8081 blue 엔진엑스 포트변경 후 재실행---------------------"   
             sudo sed -i "s/8082/8081/g" /etc/nginx/conf.d/service-url.inc  
             sudo nginx -s reload
+
             echo "--------------------- 8082 green 상태가 up인지 확인--------------------"   
             IS_UP_GREEN=$(sudo docker ps -a -f status=up name=green -q)
             echo "--------------------- 결과 -> $IS_UP_GREEN --------------------"   
