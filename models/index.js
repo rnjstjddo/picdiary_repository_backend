@@ -15,6 +15,10 @@ const Dietdetail = require("./dietdetail");
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/config.json")[env];
 
+console.log("시퀄라이저 index.js파일에서 NODE_ENV-> ", env);
+
+console.log("시퀄라이저 index.js파일에서 config -> ", config);
+
 const db = {};
 const sequelize = new Sequelize(
   config.database,
