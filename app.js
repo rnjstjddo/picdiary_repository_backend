@@ -4,16 +4,18 @@ const passport = require("passport");
 const passportConfig = require("./passport");
 //const nunjucks = require("nunjucks");
 const session = require("express-session");
-const { sequelize } = require("./models");
+
 const dotenv = require("dotenv");
 const path = require("path");
 //cors설정
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+dotenv.config();
+
 //소켓
 //const { Server } = require("socket.io");
 //const { createServer } = require("http");
-
+const { sequelize } = require("./models");
 const AWS = require("aws-sdk");
 AWS.config.update({
   accessKeyId: process.env.ACCESS_KEY_ID,
@@ -22,7 +24,7 @@ AWS.config.update({
 });
 
 const Socket = require("./socket");
-dotenv.config();
+
 //세션저장소 mysql
 // const MySQLStoreSession = require("express-mysql-session")(session);
 // var options = {
