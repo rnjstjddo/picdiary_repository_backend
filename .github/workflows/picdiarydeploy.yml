@@ -51,7 +51,7 @@ jobs:
           if [ -z $IS_BLUE_RUN ] && [ -z $IS_GREEN_RUN ];then
             echo "---------------------  blue와 green 컨테이너 모두 동작하지 않기에 blue 컨테이너 8081포트로 이미지생성"
             cp /home/ubuntu/node8081/.env ./
-          elif [ -n $IS_BLUE_RUN ];then
+          elif [ $IS_BLUE_RUN ];then
             echo "--------------------- blue 컨테이너 동작하기에 green 8082 포트로 이미지생성"
             cp /home/ubuntu/node8082/.env ./
           else 
@@ -136,7 +136,7 @@ jobs:
             IS_UP_GREEN_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=green" -q)
             echo "--------------------- 결과 -> $IS_UP_GREEN_BEFORE --------------------"   
             
-            if [ -n $IS_UP_GREEN_BEFORE ];then
+            if [ $IS_UP_GREEN_BEFORE ];then
               echo "--------------------- 8082 green 종료-------------------"   
               docker stop green
               docker rm green
@@ -145,7 +145,7 @@ jobs:
             echo "--------------------- 엔진엑스 8082포트 현재동작중인데 green 이미지존재하면 삭제------------" 
             IS_UP_GREEN_BEFORE_IMAGE=$(docker ps -af "name=green" | tail -n +2 | awk '{print $2}')
             echo "--------------------- 결과 -> $IS_UP_GREEN_BEFORE_IMAGE------------" 
-            if [ -n $IS_UP_GREEN_BEFORE_IMAGE ];then
+            if [ $IS_UP_GREEN_BEFORE_IMAGE ];then
               docker image rmi $IS_UP_GREEN_BEFORE_IMAGE
             fi
 
@@ -161,7 +161,7 @@ jobs:
             IS_UP_BLUE=$(docker ps -af "name=blue" | tail -n +2 | awk '{print $2}')
             echo "--------------------- 결과 -> $IS_UP_BLUE --------------------"   
             
-            if [ -n $IS_UP_BLUE ];then
+            if [ $IS_UP_BLUE ];then
               echo "--------------------- 8081 blue 종료하고 이미지삭제--------------------"   
               docker stop blue
               docker rm blue
@@ -173,14 +173,14 @@ jobs:
              IS_UP_BLUE_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=blue" -q)
             echo "--------------------- 결과 -> $IS_UP_BLUE_BEFORE --------------------"   
             
-            if [ -n $IS_UP_BLUE_BEFORE ];then
+            if [ $IS_UP_BLUE_BEFORE ];then
               docker stop blue
               docker rm blue
             fi
             echo "--------------------- 엔진엑스 8082포트 현재동작중인데 blue 이미지존재하면 삭제------------" 
             IS_UP_BLUE_BEFORE_IMAGE=$(docker ps -af "name=blue" | tail -n +2 | awk '{print $2}')
             echo "--------------------- 결과 -> $IS_UP_BLUE_BEFORE_IMAGE------------" 
-            if [ -n $IS_UP_BLUE_BEFORE_IMAGE ];then
+            if [ $IS_UP_BLUE_BEFORE_IMAGE ];then
               docker image rmi $IS_UP_BLUE_BEFORE_IMAGE
             fi
             echo "--------------------- 엔진엑스 8082포트 현재동작중 도커이미지 8081가져오기" 
@@ -197,7 +197,7 @@ jobs:
             IS_UP_GREEN=$(docker ps -af "name=green" | tail -n +2 | awk '{print $2}')
             echo "--------------------- 결과 -> $IS_UP_GREEN --------------------"   
             
-            if [ -n $IS_UP_GREEN ];then
+            if [ $IS_UP_GREEN ];then
               echo "--------------------- 8082 green 종료하고 사용된 이미지삭제--------------------"   
               docker stop green
               docker rm green
