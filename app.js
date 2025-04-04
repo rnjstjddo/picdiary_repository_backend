@@ -59,6 +59,8 @@ sequelize
 //app.set("port", process.env.PORT || 5000);
 app.set("port", process.env.PORT || 8080);
 
+console.log("익스프레스 서버 현재 포트 -> ", process.env.PORT);
+
 // app.set("view engine", "html");
 // nunjucks.configure("views", {
 //   express: app,
