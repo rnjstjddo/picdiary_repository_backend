@@ -133,7 +133,7 @@ jobs:
           echo "--------------------- 엔진엑스의 포트확인 -> $PRESENT_PORT "   
           if [ $PRESENT_PORT = "8081" ];then
             echo "--------------------- 엔진엑스 8081포트 현재동작중인데 8082 컨테이너 동작중이면 중지하기 ----------"
-            IS_UP_GREEN_BEFORE=$(sudo docker ps -a -f status=up name=green -q)
+            IS_UP_GREEN_BEFORE=$(sudo docker ps -a -f status=up -f name=green -q)
             echo "--------------------- 결과 -> $IS_UP_GREEN_BEFORE --------------------"   
             
             if [ -n $IS_UP_GREEN_BEFORE ];then
