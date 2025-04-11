@@ -56,9 +56,10 @@ jobs:
                 docker stop react
                 echo "--------------------- 리액트 react 이미지 삭제------------" 
                 IS_UP_REACT_BEFORE_IMAGE=$(docker ps -af "name=react" | tail -n +2 | awk '{print $2}')
+                docker rm react
                 echo "--------------------- 결과 -> $IS_UP_REACT_BEFORE_IMAGE------------" 
                 docker image rmi $IS_UP_REACT_BEFORE_IMAGE
-                docker rm react
+                
               fi
 
           echo "--------------------- 리액트 도커컨테이너 실행---------------------"   
