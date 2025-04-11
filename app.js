@@ -55,8 +55,7 @@ sequelize
   .then(() => console.log("시퀄라이저연결성공"))
   .catch((err) => console.log("시퀄라이저연결실패", err));
 
-//app.set("port", process.env.PORT || 8001);
-//app.set("port", process.env.PORT || 8080);
+app.set("port", process.env.PORT || 8001);
 
 // app.set("view engine", "html");
 // nunjucks.configure("views", {
