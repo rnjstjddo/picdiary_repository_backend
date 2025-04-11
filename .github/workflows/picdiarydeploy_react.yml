@@ -39,9 +39,7 @@ jobs:
           echo "--------------------리액트 이미지생성 ----------------"
 
           docker build -f Dockerfile_3000 -t ${{ secrets.DOCKERHUB_USERNAME }}/react .
-          echo "--------------------리액트 views 폴더 삭제 ----------------"
 
-          rm -rf views
           echo "--------------------리액트 도커허브로 push ----------------"
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/react
 
@@ -68,6 +66,8 @@ jobs:
 
            
           cd ..
+          echo "--------------------리액트 views 폴더 삭제 ----------------"
+          rm -rf views
 
           echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
           IS_EXITED=$(sudo docker ps -a -f "status=exited" -q)
