@@ -4,9 +4,10 @@ uploads
 .env
 views/node_modules
 views/.vscode
-views/package.json
-views/package-lock.json
-views/public
-views/src
-views/.env
+views/build/uploads
+#views/package.json
+#views/package-lock.json
+#views/public
+#views/src
+#views/.env
 
