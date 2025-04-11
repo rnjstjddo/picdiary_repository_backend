@@ -64,7 +64,7 @@ const BasicMenu = (props) => {
       return;
     }
 
-    const socket = io("http://localhost:8001", {
+    const socket = io("picdiary2025.store", {
       autoConnect: false,
       // query: {
       //   username: loginState, //email

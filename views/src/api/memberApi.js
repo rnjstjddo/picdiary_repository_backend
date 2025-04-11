@@ -6,6 +6,8 @@ import { setCookie } from "../util/cookieUtil";
 export const API_SERVER_HOST = "picdiary2025.store";
 const host = `${API_SERVER_HOST}/api/member`;
 
+console.log("memberApi.js 에서 API_SERVER_HOST->", API_SERVER_HOST);
+
 export const forSession = async () => {
   console.log("memberApi.js 에서 forSession 진입");
 

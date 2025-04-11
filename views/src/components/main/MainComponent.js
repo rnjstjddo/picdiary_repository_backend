@@ -706,8 +706,8 @@ const MainComponent = () => {
               {d.picture ? (
                 <Card.Img
                   variant="top"
-                  src={`http://localhost:8001/img/${d.picture}`}
-                  //src={`https://picdiary-bucket.s3.ap-northeast-2.amazonaws.com/${d.picture}`}
+                  //src={`http://localhost:8001/img/${d.picture}`}
+                  src={`https://picdiary-bucket.s3.ap-northeast-2.amazonaws.com/${d.path}`}
                   style={{
                     display: "block",
                     margin: "0 auto",
