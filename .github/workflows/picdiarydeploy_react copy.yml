@@ -36,38 +36,92 @@ jobs:
           echo "--------------------리액트 의존성(라이브러리) 설치----------------"
           cd views
           npm ci
-          echo "--------------------리액트 이미지생성 ----------------"
+          echo "--------------------리액트 컨테이너 확인 ----------------"
 
-          docker build -f Dockerfile_3000 -t ${{ secrets.DOCKERHUB_USERNAME }}/react .
+          IS_REACT_BLUE=$(sudo docker ps -a -f 'name=react_blue')
+          IS_REACT_GREEN=$(sudo docker ps -a -f 'name=react_green')
+          echo "--------------------- 리액트 이미지빌드전 IS_REACT_BLUE 값 확인 ------------------------"
+          echo "$IS_REACT_BLUE"
 
-          echo "--------------------리액트 도커허브로 push ----------------"
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/react
+          echo "--------------------- 리액트 이미지빌드전 IS_REACT_GREEN 값 확인 -----------------------"
+          echo "$IS_REACT_GREEN"
 
-          echo "--------------------- 리액트 도커이미지 삭제 ---------------------"   
-          docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/react 
-
-          echo "--------------------- 리액트 도커이미지 pull ---------------------"   
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/react
+          PRESENT_REACT_PORT_BEFORE=$(awk '{print $3}' /etc/nginx/conf.d/react_service-url.inc | cut -c 22-25) 
+          echo "--------------------- 리액트 포트확인 -> $PRESENT_REACT_PORT_BEFORE "   
 
 
-          echo "--------------------- 리액트 도커컨테이너 실행여부확인 ---------------------"   
-          IS_UP_REACT_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=react" -q)
+          if [ $PRESENT_REACT_PORT_BEFORE = "3001" ];then
+            echo "--------------------- 리액트 포트 3001이기에 3002로 도커이미지생성"
+            docker build -f Dockerfile_3001 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3002 .
+            echo "--------------------리액트 도커허브로 push ----------------"
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3002
+            echo "--------------------- 리액트 3002 도커이미지 삭제 ---------------------"   
+            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3002 
 
-          echo "--------------------- 결과 -> $IS_UP_REACT_BEFORE --------------------"   
-              if [ $IS_UP_REACT_BEFORE ];then
-                echo "--------------------- 리액트 도커컨테이너 종료-------------------"   
-                docker stop react
-                docker rm react
-                echo "--------------------- 리액트 react 이미지 삭제------------" 
-                IS_UP_REACT_BEFORE_IMAGE=$(docker ps -af "name=react" | tail -n +2 | awk '{print $2}')
-                echo "--------------------- 결과 -> $IS_UP_REACT_BEFORE_IMAGE------------" 
-                docker image rmi $IS_UP_REACT_BEFORE_IMAGE
+            echo "--------------------- 리액트 3002 도커이미지 pull ---------------------"   
+            docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3002
+
+            echo "--------------------- 리액트 3002 react_green 도커컨테이너 실행---------------------"   
+            docker run -d --name react_green -p 3002:3002 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3002
+
+            echo "--------------------- 3002 react_green 엔진엑스 포트변경 후 재실행---------------------"   
+            sudo sed -i "s/3001/3002/g" /etc/nginx/conf.d/react_service-url.inc  
+            sudo nginx -s reload
+
+            echo "--------------------- 리액트 3002 react_blue 도커컨테이너 실행여부확인 ---------------------"   
+            IS_UP_REACT_BLUE_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=react_blue" -q)
+
+            echo "--------------------- 결과 -> $IS_UP_REACT_BLUE_BEFORE --------------------"   
+              if [ $IS_UP_REACT_BLUE_BEFORE ];then
+                echo "--------------------- 3001 react_blue 종료-------------------"   
+                docker stop react_blue
+                docker rm react_blue
               fi
 
-          echo "--------------------- 리액트 도커컨테이너 실행---------------------"   
-          docker run -d --name react -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/react
+            echo "--------------------- 리액트 react_blue 이미지존재하면 삭제------------" 
+            IS_UP_REACT_BLUE_BEFORE_IMAGE=$(docker ps -af "name=react_blue" | tail -n +2 | awk '{print $2}')
+            echo "--------------------- 결과 -> $IS_UP_REACT_BLUE_BEFORE_IMAGE------------" 
+              if [ $IS_UP_REACT_BLUE_BEFORE_IMAGE ];then
+                docker image rmi $IS_UP_REACT_BLUE_BEFORE_IMAGE
+              fi
 
+            
+          else  
+            echo "--------------------- 리액트 포트 3002이기에 3001로 도커이미지생성"
+            docker build -f Dockerfile_3002 -t ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3001 .
+            echo "--------------------리액트 도커허브로 push ----------------"
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3001
+            echo "--------------------- 리액트 3001 도커이미지 삭제 ---------------------"   
+            docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3001 
+
+            echo "--------------------- 리액트 3001 도커이미지 pull ---------------------"   
+            docker pull  ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3001
+
+            echo "--------------------- 리액트 3001 react_blue 도커컨테이너 실행---------------------"   
+            docker run -d --name react_blue -p 3001:3001 ${{ secrets.DOCKERHUB_USERNAME }}/picdiary:3001
            
+            echo "--------------------- 3001 react_blue 엔진엑스 포트변경 후 재실행---------------------"   
+            sudo sed -i "s/3002/3001/g" /etc/nginx/conf.d/react_service-url.inc  
+            sudo nginx -s reload
+
+            echo "--------------------- 리액트 3002 react_green 도커컨테이너 실행여부확인 ---------------------"   
+            IS_UP_REACT_GREEN_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=react_green" -q)
+
+            echo "--------------------- 결과 -> $IS_UP_REACT_GREEN_BEFORE --------------------"   
+              if [ $IS_UP_REACT_GREEN_BEFORE ];then
+                echo "--------------------- 3001 react_green 종료-------------------"   
+                docker stop react_green
+                docker rm react_green
+              fi
+
+            echo "--------------------- 리액트 react_green 이미지존재하면 삭제------------" 
+            IS_UP_REACT_GREEN_BEFORE_IMAGE=$(docker ps -af "name=react_green" | tail -n +2 | awk '{print $2}')
+            echo "--------------------- 결과 -> $IS_UP_REACT_GREEN_BEFORE_IMAGE------------" 
+              if [ $IS_UP_REACT_GREEN_BEFORE_IMAGE ];then
+                docker image rmi $IS_UP_REACT_GREEN_BEFORE_IMAGE
+              fi
+          fi
+
           cd ..
 
           echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
