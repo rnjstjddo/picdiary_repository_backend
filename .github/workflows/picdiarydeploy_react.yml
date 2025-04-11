@@ -39,7 +39,9 @@ jobs:
           echo "--------------------리액트 이미지생성 ----------------"
 
           docker build -f Dockerfile_3000 -t ${{ secrets.DOCKERHUB_USERNAME }}/react .
+          echo "--------------------리액트 views 폴더 삭제 ----------------"
 
+          rm -rf views
           echo "--------------------리액트 도커허브로 push ----------------"
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/react
 

@@ -66,7 +66,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(morgan("dev"));
-app.use(express.static(path.join(__dirname, "views", "build")));
+//app.use(express.static(path.join(__dirname, "views", "build")));
 app.use("/img", express.static(path.join(__dirname, "uploads")));
 // app.use(
 //   "/img",
