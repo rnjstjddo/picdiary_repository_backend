@@ -666,11 +666,11 @@ const MoneyCreateComponent = () => {
           <Form.Text className="text-muted">
             {incomeExist && (
               <span>
-                ${dateobject}일자 수입 가계부는 작성되어있습니다. <br />
+                {dateobject}일자 수입 가계부는 작성되어있습니다. <br />
               </span>
             )}
             {expenseExist && (
-              <span>${dateobject}일자 지출 가계부는 작성되어있습니다.</span>
+              <span>{dateobject}일자 지출 가계부는 작성되어있습니다.</span>
             )}
           </Form.Text>
         </Form.Group>

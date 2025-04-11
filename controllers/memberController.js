@@ -109,6 +109,7 @@ exports.logout = (req, res) => {
   //   "member.js logout 컨트롤러함수에서 req.isAuthenticated() 확인 ",
   //   req.isAuthenticated()
   // );
+  console.log("memberController.js logout() 컨트롤러함수 진입");
   req.logout(() => {
     //res.redirect("/");
     return res.send("success");

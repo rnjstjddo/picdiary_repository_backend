@@ -66,7 +66,7 @@ const DiaryCreateComponent = () => {
             URL.revokeObjectURL(image);
             setImage("");
           }
-          moveToDiaryRead(result.payload.id);
+          moveToDiaryRead(result.id);
         }
         if (result.error) {
           console.log("result.payload.error -> ", result.payload.error);
@@ -86,12 +86,12 @@ const DiaryCreateComponent = () => {
       <br />
       <br />
 
-      <h4>사진일기장작성</h4>
+      <h4>사진일기장 작성</h4>
       <hr />
       <br />
       <Form onSubmit={handleSubmitDiaryMake}>
         <Form.Group className="mb-3">
-          <Form.Label>다이어리일자</Form.Label>
+          <Form.Label>다이어리 일자</Form.Label>
           <Form.Control
             type="text"
             name="dateobject"

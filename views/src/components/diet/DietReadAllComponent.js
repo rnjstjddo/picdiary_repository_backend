@@ -142,32 +142,37 @@ const DietReadAllComponent = () => {
       choose
     );
 
-    deleteDiet({ choose, dateobject })
-      .then((result) => {
-        console.log(
-          "DietReadAllComponent.js deleteOnClick() then() => ",
-          result
-        );
-        if (result.result === "success") {
-          alert(
-            dateobject +
-              "일자의 " +
-              chooseSwitch(choose) +
-              " 식단이 삭제되었습니다."
+    if (window.confirm("해당 식단을 삭제하십니까?")) {
+      deleteDiet({ choose, dateobject })
+        .then((result) => {
+          console.log(
+            "DietReadAllComponent.js deleteOnClick() then() => ",
+            result
           );
+          if (result.result === "success") {
+            alert(
+              dateobject +
+                "일자의 " +
+                chooseSwitch(choose) +
+                " 식단이 삭제되었습니다."
+            );
 
-          moveToDietList();
-        }
-        if (result.error === "error") {
+            moveToDietList();
+          }
+          if (result.error === "error") {
+            alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
+            moveToDietReadAll(dateobject);
+          }
+        })
+        .catch((err) => {
+          console.log(
+            "DietReadAllComponent.js deleteOnClick() catch() => ",
+            err
+          );
           alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
           moveToDietReadAll(dateobject);
-        }
-      })
-      .catch((err) => {
-        console.log("DietReadAllComponent.js deleteOnClick() catch() => ", err);
-        alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
-        moveToDietReadAll(dateobject);
-      });
+        });
+    } //window.confirm
   };
 
   return (
@@ -188,7 +193,7 @@ const DietReadAllComponent = () => {
         addDietParam.map((i) => (
           <>
             &nbsp;&nbsp;
-            <Link href={`../create/${dateobject}?choose=${Number(i)}`}>
+            <Link to={`../create/${dateobject}?choose=${Number(i)}`}>
               <Button
                 variant="outline-success"
                 type="button"
@@ -271,7 +276,7 @@ const DietReadAllComponent = () => {
                 <Card.Body style={{ textAlign: "center" }}>
                   {/* <Card.Link href="#">수정/삭제</Card.Link>
                 <Card.Link href="#">식단달력이동</Card.Link> */}
-                  <Link href={`../modify/${i.dateobject}/${i.choose}`}>
+                  <Link to={`../modify/${i.dateobject}/${i.choose}`}>
                     <Button
                       variant="outline-primary"
                       type="button"

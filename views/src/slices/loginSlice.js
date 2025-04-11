@@ -41,6 +41,7 @@ export const joinPostAsync = createAsyncThunk("joinPostAsync", (param) => {
 
 //비동기 로그아웃
 export const logoutGetAsync = createAsyncThunk("logoutGetAsync", () => {
+  console.log("슬라이스 logoutGetAsync() Thunk()함수진입");
   return logoutGet();
 });
 
@@ -61,14 +62,15 @@ const loginSlice = createSlice({
     //   //return data;
     //   return { email: data };
     // },
-    //  logout: (state, action) => {
-    //removeCookie("member");
-    //  console.log(
-    //  "loginSlice에서 logout 액션함수에서 axios 후 결과 payload담긴값 확인 => ",
-    //action.payload
-    //);
-    //return { ...initState };
-    //},
+    logout: (state, action) => {
+      removeCookie("member");
+      removeCookie("accessToken");
+      console.log(
+        "loginSlice에서 logout 액션함수에서 axios 후 결과 payload담긴값 확인 => ",
+        action.payload
+      );
+      return { ...initState };
+    },
     // join: (state, action) => {
     //   const data = action.payload;
     //   return data;
@@ -77,6 +79,7 @@ const loginSlice = createSlice({
   //비동기
   extraReducers: (builder) => {
     builder
+      .addCase(loginPostAsync.pending, (state, action) => {})
       .addCase(loginPostAsync.fulfilled, (state, action) => {
         const payload = action.payload;
         console.log(
@@ -94,7 +97,6 @@ const loginSlice = createSlice({
         }
         return payload.user.email; //상태변경
       })
-      .addCase(loginPostAsync.pending, (state, action) => {})
       .addCase(loginPostAsync.rejected, (state, action) => {
         console.log(
           "loginSlice에서 loginPostAsync 리듀서함수에서 rejected 진입 payload담긴값 확인 => ",
@@ -123,6 +125,13 @@ const loginSlice = createSlice({
           payload
         );
       })
+
+      .addCase(logoutGetAsync.pending, (state, action) => {
+        console.log(
+          "loginSlice에서 logoutGetAsync 리듀서함수에서 pending 진입 payload담긴값 확인 => ",
+          action
+        );
+      })
       .addCase(logoutGetAsync.fulfilled, (state, action) => {
         const payload = action.payload;
 
@@ -135,7 +144,6 @@ const loginSlice = createSlice({
 
         return { ...initState };
       })
-      .addCase(logoutGetAsync.pending, (state, action) => {})
       .addCase(logoutGetAsync.rejected, (state, action) => {
         const payload = action.payload;
         console.log(
@@ -143,6 +151,7 @@ const loginSlice = createSlice({
           payload
         );
       })
+      .addCase(forSessionAsync.pending, (state, action) => {})
       .addCase(forSessionAsync.fulfilled, (state, action) => {
         const payload = action.payload;
         console.log(
@@ -151,7 +160,6 @@ const loginSlice = createSlice({
         );
         return payload;
       })
-      .addCase(forSessionAsync.pending, (state, action) => {})
       .addCase(forSessionAsync.rejected, (state, action) => {
         const payload = action.payload;
         console.log(
@@ -162,6 +170,6 @@ const loginSlice = createSlice({
   },
 });
 
-export const { login, logout, join } = loginSlice.actions;
+export const { logout } = loginSlice.actions;
 
 export default loginSlice.reducer;

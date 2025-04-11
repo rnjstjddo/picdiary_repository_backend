@@ -165,36 +165,38 @@ const ExerciseReadComponent = () => {
       whenchoose
     );
 
-    //    deleteExerciseC({ whenchoose, dateobject })
-    deleteExercise({ whenchoose, dateobject })
-      .then((result) => {
-        console.log(
-          "ExerciseReadComponent.js deleteOnClick() then() => ",
-          result
-        );
-        if (result.result === "success") {
-          alert(
-            dateobject +
-              "일자의 " +
-              whenchooseSwitch(whenchoose) +
-              " 운동이 삭제되었습니다."
+    if (window.confirm("해당 운동을 삭제하십니까?")) {
+      //    deleteExerciseC({ whenchoose, dateobject })
+      deleteExercise({ whenchoose, dateobject })
+        .then((result) => {
+          console.log(
+            "ExerciseReadComponent.js deleteOnClick() then() => ",
+            result
           );
+          if (result.result === "success") {
+            alert(
+              dateobject +
+                "일자의 " +
+                whenchooseSwitch(whenchoose) +
+                " 운동이 삭제되었습니다."
+            );
 
-          moveToExerciseList();
-        }
-        if (result.error === "error") {
-          alert(dateobject + "일자의 운동 삭제를 실패했습니다.");
-          moveToExerciseRead(dateobject);
-        }
-      })
-      .catch((err) => {
-        console.log(
-          "ExerciseReadComponent.js deleteOnClick() catch() => ",
-          err
-        );
-        alert(exerciseParam.dateobject + "일자의 운동 삭제를 실패했습니다.");
-        moveToExerciseRead(exerciseParam.dateobject);
-      });
+            moveToExerciseList();
+          }
+          if (result.error === "error") {
+            alert(dateobject + "일자의 운동 삭제를 실패했습니다.");
+            moveToExerciseRead(dateobject);
+          }
+        })
+        .catch((err) => {
+          console.log(
+            "ExerciseReadComponent.js deleteOnClick() catch() => ",
+            err
+          );
+          alert(exerciseParam.dateobject + "일자의 운동 삭제를 실패했습니다.");
+          moveToExerciseRead(exerciseParam.dateobject);
+        });
+    } //window.confirm
   };
 
   return (

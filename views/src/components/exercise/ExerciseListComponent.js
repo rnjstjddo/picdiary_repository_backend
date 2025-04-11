@@ -252,7 +252,7 @@ const ExerciseListComponent = () => {
         currentMonth = currentMonth < 10 ? "0" + currentMonth : currentMonth;
         let ichange = i < 10 ? "0" + i : i;
         let dateobject = `${currentYear}-${currentMonth}-${ichange}`;
-
+        console.log("dateobject-> ", dateobject);
         dateItem[j] = {
           dateitem: i,
           dateobject: dateobject,
@@ -357,7 +357,7 @@ const ExerciseListComponent = () => {
       dateitem
     );
     const paramMonth = currentMonth < 10 ? "0" + currentMonth : currentMonth;
-
+    dateitem = dateitem < 10 ? "0" + dateitem : dateitem;
     const paramdate = `${currentYear}-${paramMonth}-${dateitem}`;
     console.log(
       "ExerciseListComponent.js createHandler() paramdate => ",

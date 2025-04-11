@@ -56,10 +56,7 @@ sequelize
   .catch((err) => console.log("시퀄라이저연결실패", err));
 
 //app.set("port", process.env.PORT || 8001);
-//app.set("port", process.env.PORT || 5000);
-app.set("port", process.env.PORT || 8080);
-
-console.log("익스프레스 서버 현재 포트 -> ", process.env.PORT);
+//app.set("port", process.env.PORT || 8080);
 
 // app.set("view engine", "html");
 // nunjucks.configure("views", {

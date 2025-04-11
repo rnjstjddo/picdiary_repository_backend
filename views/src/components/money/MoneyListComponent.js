@@ -11,7 +11,7 @@ import useCustomMove from "../../hooks/useCustomMove";
 import Card from "react-bootstrap/Card";
 import useCustomMoney from "../../hooks/useCustomMoney";
 import useCustomLogin from "../../hooks/useCustomLogin";
-import { getMoneyList } from "../../api/moneyApi";
+import { choosecheck, getMoneyList } from "../../api/moneyApi";
 
 const chooseReturn = (number) => {
   let result = "";
@@ -357,6 +357,26 @@ const MoneyListComponent = () => {
     navigate(`?year=${aftercurrentYear}&month=${afterchangeMonth}`);
   };
 
+  const onClickDate = (dateobject) => {
+    console.log(
+      "MoneyListComponent.js 일자버튼 클릭 onClickDate() 함수진입 -> ",
+      dateobject
+    );
+    choosecheck({ dateobject })
+      .then((result) => {
+        console.log("MoneyListComponent.js then() 결과 ", result);
+        if (
+          Number(result.result?.income) > 0 &&
+          Number(result.result?.expense) > 0
+        ) {
+          alert(dateobject + " 일자에 수입 지출 모두 작성되어 있습니다!");
+        }
+      })
+      .catch((e) => {
+        console.log("MoneyListComponent.js catch() 에러 ", e);
+      });
+  };
+
   return (
     <div className="container">
       {" "}
@@ -398,12 +418,19 @@ const MoneyListComponent = () => {
               <div key={index}>
                 {i.money && i.money.length !== 0 ? (
                   <>
-                    <Link
+                    <button
+                      style={{ all: "unset" }}
+                      type="button"
+                      onClick={() => onClickDate(i.dateobject)}
+                    >
+                      {i.dateitem}
+                    </button>
+                    {/* <Link
                       to={`../create/${i.dateobject}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       {i.dateitem}
-                    </Link>
+                    </Link> */}
                     <br />
                     <CalendarItem key={index} i={i} />
                   </>

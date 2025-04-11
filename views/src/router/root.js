@@ -5,8 +5,25 @@ import dietRouter from "./dietRouter";
 import diaryRouter from "./diaryRouter";
 import exerciseRouter from "./exerciseRouter";
 import moneyRouter from "./moneyRouter";
+import Image from "react-bootstrap/Image";
 
-const Loading = <div>로딩중</div>;
+const Loading = () => {
+  return (
+    <>
+      <br />
+      <br />
+      <Image
+        src="/img/cyclone.png"
+        style={{ width: "30px", height: "30px" }}
+        rounded
+      />
+      <span style={{ fontSize: "20px" }}>잠시만 기다려주세요!</span>
+      <br />
+      <br />
+    </>
+  );
+};
+
 const MainPage = lazy(() => import("../pages/MainPage"));
 //const DietReadPage = lazy(() => import("../pages/DietReadPage"));
 // const DietReadPage = lazy(() => import("../pages/DietReadPage"));
@@ -21,7 +38,7 @@ const root = createBrowserRouter([
   {
     path: "",
     element: (
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <MainPage />
       </Suspense>
     ),
@@ -29,7 +46,7 @@ const root = createBrowserRouter([
   {
     path: "join",
     element: (
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <JoinPage />
       </Suspense>
     ),
@@ -45,7 +62,7 @@ const root = createBrowserRouter([
   {
     path: "logout",
     element: (
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <LogoutPage />
       </Suspense>
     ),
@@ -53,7 +70,7 @@ const root = createBrowserRouter([
   {
     path: "diet",
     // element: (
-    //   <Suspense fallback={Loading}>
+    //   <Suspense fallback={<Loading/>}>
     //     <DietReadPage />
     //   </Suspense>
     // ),
@@ -62,7 +79,7 @@ const root = createBrowserRouter([
   {
     path: "diary",
     // element: (
-    //   <Suspense fallback={Loading}>
+    //   <Suspense fallback={<Loading/>}>
     //     <DietReadPage />
     //   </Suspense>
     // ),
@@ -71,7 +88,7 @@ const root = createBrowserRouter([
   {
     path: "exercise",
     // element: (
-    //   <Suspense fallback={Loading}>
+    //   <Suspense fallback={<Loading/>}>
     //     <DietReadPage />
     //   </Suspense>
     // ),
@@ -80,7 +97,7 @@ const root = createBrowserRouter([
   {
     path: "money",
     // element: (
-    //   <Suspense fallback={Loading}>
+    //   <Suspense fallback={<Loading/>}>
     //     <DietReadPage />
     //   </Suspense>
     // ),
@@ -90,7 +107,7 @@ const root = createBrowserRouter([
     //에러페이지 마지막위치
     path: "/*",
     element: (
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <ErrorPage />
       </Suspense>
     ),

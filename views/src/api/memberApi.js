@@ -2,8 +2,8 @@ import jwtAxios from "../util/jwtUtil";
 import axios from "axios";
 import { setCookie } from "../util/cookieUtil";
 
-//export const API_SERVER_HOST = "http://localhost:8001";
-export const API_SERVER_HOST = "picdiary2025.store";
+export const API_SERVER_HOST = "http://localhost:8001";
+//export const API_SERVER_HOST = "picdiary2025.store";
 const host = `${API_SERVER_HOST}/api/member`;
 
 export const forSession = async () => {
@@ -72,8 +72,17 @@ export const logoutGet = async () => {
   // form.append("email", joinParam.email);
   // form.append("password", joinParam.pw);
   // form.append("nickname", joinParam.nick);
+  console.log("memberApi.js logoutGet() 진입 ");
 
-  const res = await axios.get(`${host}/logout`, { withCredentials: true });
+  //  const res = await jwtAxios.get(`${host}/logout`, { withCredentials: true });
+  const res = await jwtAxios.get(`${host}/logout`);
+
+  console.log("memberApi.js logoutGet() 진입 axios 결과 -> ", res);
+  console.log(
+    "memberApi.js logoutGet() 진입 axios 결과  res.data-> ",
+    res.date
+  );
+
   return res.data;
 };
 

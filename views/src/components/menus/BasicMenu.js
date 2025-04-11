@@ -189,7 +189,7 @@ const BasicMenu = (props) => {
         <Container fluid>
           <Navbar.Brand>
             <Image
-              src="/img/how.png"
+              src="/img/sunglass.png"
               style={{ height: "50px", width: "50px" }}
             />
             하루관리

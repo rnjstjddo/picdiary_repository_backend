@@ -198,6 +198,10 @@ const ExerciseModifyComponent = () => {
     );
 
     e.preventDefault();
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      return;
+    }
 
     if (window.confirm("위와 같이 운동을 수정하시겠습니까?")) {
       patchExercise({ dateobject, exerciseParam, whenchoose })
@@ -253,34 +257,32 @@ const ExerciseModifyComponent = () => {
   const handleRemoveOnClick = () => {
     console.log("ExerciseModifyComponent.js handleRemoveOnClick -> ");
 
-    deleteExercise({ dateobject, whenchoose })
-      .then((result) => {
-        console.log(
-          "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
-          result
-        );
-        if (result.result === "success") {
-          alert(
-            dateobject +
-              " 일자의 " +
-              whenchooseSwitch(whenchoose) +
-              " 운동을 삭제했습니다."
+    if (window.confirm("해당 운동을 삭제하십니까?")) {
+      deleteExercise({ dateobject, whenchoose })
+        .then((result) => {
+          console.log(
+            "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
+            result
           );
-          moveToExerciseList();
-        }
-      })
-      .catch((err) => {
-        console.log(
-          "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
-          err
-        );
-        moveToExerciseRead(dateobject);
-      });
+          if (result.result === "success") {
+            alert(
+              dateobject +
+                " 일자의 " +
+                whenchooseSwitch(whenchoose) +
+                " 운동을 삭제했습니다."
+            );
+            moveToExerciseList();
+          }
+        })
+        .catch((err) => {
+          console.log(
+            "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
+            err
+          );
+          moveToExerciseRead(dateobject);
+        });
+    } //window.confirm
   };
-  console.log(
-    "ExerciseModifyComponent.js chooseCheckArray -> ",
-    chooseCheckArray
-  );
   return (
     <div className="container">
       <br />
@@ -490,7 +492,7 @@ const ExerciseModifyComponent = () => {
               inline
               type="radio"
               label="웨이트"
-              value={exerciseParam.choose}
+              value="2"
               name="choose"
               onChange={handleChange}
             />

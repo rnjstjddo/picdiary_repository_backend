@@ -4,20 +4,27 @@ import { Link } from "react-router-dom";
 
 const ErrorComponent = () => {
   return (
-    <div className="container">
+    <div className="container" style={{ textAlign: "center" }}>
       <br />
       <br />
-      <Image
-        src="/img/smile.png"
-        style={{ width: "30px", height: "30px" }}
-        rounded
-      />
-      <Button variant="warning">
-        <Link to={"../login"} style={{ textDecoration: "none" }}>
-          해당 페이지가 존재하지 않거나 로그인이 필요합니다!
+      <br />
+      <br />
+      <h3 style={{ color: "crimson" }}>
+        <Image
+          src="/img/smile.png"
+          style={{ width: "30px", height: "30px" }}
+          rounded
+        />
+        해당 페이지가 존재하지 않거나 로그인이 필요합니다!
+      </h3>
+      <br />
+      <Button variant="outline-primary">
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          메인으로
         </Link>
       </Button>
       <br />
+      <br /> <br />
       <br />
     </div>
   );

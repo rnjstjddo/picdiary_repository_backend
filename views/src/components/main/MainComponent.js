@@ -175,6 +175,8 @@ const MainComponent = () => {
       today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
     setWeatherDate(() => `${today.getFullYear()}${monthfinal}${datefinal}`);
     setFindDate(() => `${today.getFullYear()}-${monthfinal}-${datefinal}`);
+    setSelectMonth(today.getMonth() + 1);
+    setSelectYear(today.getFullYear());
   }, []);
 
   useEffect(() => {
@@ -375,33 +377,62 @@ const MainComponent = () => {
 
   const handleSelectYear = (e) => {
     setSelectYear(() => Number(e.target.value));
+
+    const getDate = async () => {
+      let getDateResult = [];
+      let firstDay = new Date(selectYear, selectMonth - 1, 1).getDate();
+      let lastDay = new Date(selectYear, selectMonth, 0).getDate();
+      console.log("getDate() firstDay => ", firstDay);
+      console.log("getDate() lastDay=> ", lastDay);
+
+      for (let i = firstDay; i <= lastDay; i++) {
+        getDateResult.push(i);
+      }
+      setDateArray(() => getDateResult);
+    };
+    getDate(); //해당 월에해당하는 일자들 배열로 setState()넣기
   };
 
   const handleSelectMonth = (e) => {
     setSelectMonth(() => Number(e.target.value));
+
+    const getDate = async () => {
+      let getDateResult = [];
+      let firstDay = new Date(selectYear, selectMonth - 1, 1).getDate();
+      let lastDay = new Date(selectYear, selectMonth, 0).getDate();
+      console.log("getDate() firstDay => ", firstDay);
+      console.log("getDate() lastDay=> ", lastDay);
+
+      for (let i = firstDay; i <= lastDay; i++) {
+        getDateResult.push(i);
+      }
+      setDateArray(() => getDateResult);
+    };
+    getDate(); //해당 월에해당하는 일자들 배열로 setState()넣기
   };
 
   //달력일버튼나열
   const handleDateManagement = (d) => {
-    console.log("handleDateManagement()진입");
+    console.log("handleDateManagement()진입 선택한 일자 -> ", d);
     setTodayDate(() => d);
     let selectMonthAdd = selectMonth < 10 ? "0" + selectMonth : selectMonth;
     let dAdd = d < 10 ? "0" + d : d;
 
     setFindDate(() => `${selectYear}-${selectMonthAdd}-${dAdd}`);
-    console.log("findDate -> ", findDate);
+  };
+
+  useEffect(() => {
+    console.log("useEffect()진입 findDate 변경으로 axios 호출위해");
 
     getTodayManagement(findDate)
       .then((result) => {
-        console.log("handleDateManagement()진입 axios 결과 -> ", result);
+        console.log("useEffect()진입 axios 결과 -> ", result);
 
         //다어이리
         setDiaryResultArray(() => result.diary);
 
         //식단
         if (result.diet.length !== 0) {
-          console.log("result.diet 넣기 진입");
-
           setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
 
           result.diet.forEach((v) => {
@@ -421,8 +452,6 @@ const MainComponent = () => {
         }
         //가계부
         if (result.money.length !== 0) {
-          console.log("money 넣기 진입");
-
           result.money?.forEach((v) => {
             v.Moneydetails.forEach((d) => {
               if (d.choose === "1") {
@@ -439,8 +468,6 @@ const MainComponent = () => {
           let sum = {};
 
           if (result.money.length !== 0 && result.sum.length !== 0) {
-            console.log("sum 넣기 진입");
-
             sum["sumincome"] = Number(result.money[0].income).toLocaleString(
               "ko-KR"
             );
@@ -460,8 +487,6 @@ const MainComponent = () => {
         }
         //운동
         if (result.exercise.length !== 0) {
-          console.log("exercise 넣기 진입");
-
           result.exercise.forEach((v) => {
             let objectexercise = {};
             objectexercise["content"] = v.content;
@@ -473,10 +498,9 @@ const MainComponent = () => {
         } //if exericse state만들기
       })
       .catch((err) => {
-        console.log("handleDateManagement()진입 axios 에러-> ", err);
+        console.log("useEffect()진입 axios 에러-> ", err);
       });
-  };
-
+  }, [findDate]);
   return (
     <>
       <Container>
@@ -682,8 +706,8 @@ const MainComponent = () => {
               {d.picture ? (
                 <Card.Img
                   variant="top"
-                  //src={`http://localhost:8001/img/${d.picture}`}
-                  src={`https://picdiary-bucket.s3.ap-northeast-2.amazonaws.com/${d.picture}`}
+                  src={`http://localhost:8001/img/${d.picture}`}
+                  //src={`https://picdiary-bucket.s3.ap-northeast-2.amazonaws.com/${d.picture}`}
                   style={{
                     display: "block",
                     margin: "0 auto",

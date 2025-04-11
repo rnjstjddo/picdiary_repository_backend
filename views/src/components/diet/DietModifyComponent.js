@@ -90,7 +90,7 @@ const initDetailState = {
 //initDetailState -> content, quantity
 
 const DietModifyComponent = () => {
-  const [dietModifyParam, setDietModifyParam] = useState([initDetailState]);
+  const [dietModifyParam, setDietModifyParam] = useState(initDetailState);
   const refQuantity = useRef(null);
 
   const { choose, dateobject } = useParams();
@@ -120,6 +120,7 @@ const DietModifyComponent = () => {
   const handleModifyChange = useCallback(
     (e) => {
       console.log(e.target.value, e.target.name);
+      console.log(dietModifyParam);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -134,8 +135,10 @@ const DietModifyComponent = () => {
           return;
         }
       }
-      dietModifyParam[e.target.name] = dietModifyParam[e.target.value];
-      setDietModifyParam([{ ...dietModifyParam }]);
+      dietModifyParam[e.target.name] = e.target.value;
+      setDietModifyParam((prev) => {
+        return { ...prev, dietModifyParam };
+      });
     },
     [dietModifyParam]
   );
@@ -149,6 +152,8 @@ const DietModifyComponent = () => {
     }
 
     const compound = dietModifyParam.content + dietModifyParam.quantity;
+    console.log("dietModifyParam 입력한 속성값 합침 -> ", compound);
+
     dietModifyFinalArray.forEach((i) =>
       console.log("dietDetailFinalArray -> ", i)
     );
@@ -156,22 +161,33 @@ const DietModifyComponent = () => {
     console.log("handleDetailOnclick sameResult-> ", sameResult);
     if (sameResult.length !== 0) {
       alert("이미 식단에 추가했습니다!");
-      setDietModifyParam({ ...initDetailState });
+      setDietModifyParam(initDetailState);
 
       return;
     }
-    // setFinalObjectArray([
-    //   ...finalObjectArray,
-    //   { content: dietModifyParam.content, quantity: dietModifyParam.quantity },
-    // ]);
 
-    //    console.log("handleDetailOnclick -> ", compound);
-    console.log("typeof -> ", typeof compound);
+    console.log(
+      "★★ dietModifyParam.quantity 타입확인",
+      typeof dietModifyParam.quantity
+    );
+    setFinalObjectArray([
+      ...finalObjectArray,
+      {
+        content: dietModifyParam.content,
+        quantity: Number(dietModifyParam.quantity),
+      },
+    ]);
+
     setDietModifyFinalArray((dietDetailFinalArray) => [
       ...dietDetailFinalArray,
       compound,
     ]);
-    setDietModifyParam({ ...initDetailState });
+
+    dietModifyParam["content"] = "";
+    dietModifyParam["quantity"] = 0;
+    setDietModifyParam((prev) => {
+      return dietModifyParam;
+    });
     setDetailVisible(true);
   };
 
@@ -224,19 +240,22 @@ const DietModifyComponent = () => {
           "DietCreateComponent.js axios patchDietC then() 진입 -> ",
           result
         );
-        if (result.payload.result === "success") {
+        if (result.result === "success") {
           alert(dateobject + " 일자 식단 수정했습니다.!");
           // if (result.payload.image) {
           //   URL.revokeObjectURL(image);
           //   setImage("");
           // }
-          console.log(result.payload.id);
+          console.log(result.id);
+          dietModifyParam["content"] = "";
+          dietModifyParam["quantity"] = 0;
+          setDietModifyParam((prev) => {
+            return dietModifyParam;
+          });
           moveToDietRead({ choose, dateobject });
-
-          //    moveToDietList();
         }
-        if (result.payload.error) {
-          console.log("result.payload.error -> ", result.payload.error);
+        if (result.error) {
+          console.log("result.error -> ", result.error);
           alert(dateobject + " 일자 식단 수정 실패했습니다.");
           moveToDietModify({ choose, dateobject });
         }
@@ -249,54 +268,54 @@ const DietModifyComponent = () => {
   };
 
   const handleDetailRemoveOnClick = (e) => {
-    if (window.confirm("식단 삭제시 복구가 불가능합니다 삭제하십니까")) {
-      console.log(
-        "handleDetailRemoveOnClick() dataset =>",
-        e.target.dataset.finalcontent,
-        "e.target.dataset.finalquantity -> ",
-        e.target.dataset.finalquantity
-      );
-      const finalcontent = e.target.dataset.finalcontent;
-      const finalquantity = e.target.dataset.finalquantity;
+    console.log(
+      "handleDetailRemoveOnClick() dataset =>",
+      e.target.dataset.finalcontent,
+      "e.target.dataset.finalquantity -> ",
+      e.target.dataset.finalquantity
+    );
+    const finalcontent = e.target.dataset.finalcontent;
+    const finalquantity = e.target.dataset.finalquantity;
 
-      // const newProduce = produce(dietDetailFinalArray, (draft) => {
-      //   draft.filter((d) => d !== finalcontent);
-      // });
+    // const newProduce = produce(dietDetailFinalArray, (draft) => {
+    //   draft.filter((d) => d !== finalcontent);
+    // });
 
-      const newProduce = dietModifyFinalArray.filter(
-        (i) => i !== `${finalcontent}${finalquantity}`
-      );
-      console.log("handleDetailRemoveOnClick() newProduce =>", newProduce);
-      setDietModifyFinalArray([...newProduce]);
+    const newProduce = dietModifyFinalArray.filter(
+      (i) => i !== `${finalcontent}${finalquantity}`
+    );
+    console.log("handleDetailRemoveOnClick() newProduce =>", newProduce);
+    setDietModifyFinalArray([...newProduce]);
 
-      const newFinalObject = finalObjectArray.filter(
-        (i) => i.content !== finalcontent && i.quantity !== finalquantity
-      );
-      setFinalObjectArray([...newFinalObject]);
-      return;
-    }
+    const newFinalObject = finalObjectArray.filter(
+      (i) => i.content !== finalcontent && i.quantity !== finalquantity
+    );
+    setFinalObjectArray([...newFinalObject]);
+    return;
   };
 
   //-----------------------------------식단삭제
   const handleDeleteOnClick = () => {
-    deleteDiet({ choose, dateobject })
-      .then((result) => {
-        console.log("DietModifyComponent.js then() 진입 ", result.data);
-        if (result.result === "success") {
-          alert(dateobject + "일자의 식단이 삭제되었습니다.");
+    if (window.confirm("해당 식단을 삭제하십니까?")) {
+      deleteDiet({ choose, dateobject })
+        .then((result) => {
+          console.log("DietModifyComponent.js then() 진입 ", result.data);
+          if (result.result === "success") {
+            alert(dateobject + "일자의 식단이 삭제되었습니다.");
 
-          moveToDietList();
-        }
-        if (result.error === "error") {
-          alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
+            moveToDietList();
+          }
+          if (result.error === "error") {
+            alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
+            moveToDietRead({ dateobject, choose });
+          }
+        })
+        .catch((err) => {
+          console.log("DietModifyComponent.js catch() 진입 ", err);
+          // alert(dietParam.dateobject + "일자의 식단 삭제를 실패했습니다.");
           moveToDietRead({ dateobject, choose });
-        }
-      })
-      .catch((err) => {
-        console.log("DietModifyComponent.js catch() 진입 ", err);
-        // alert(dietParam.dateobject + "일자의 식단 삭제를 실패했습니다.");
-        moveToDietRead({ dateobject, choose });
-      });
+        });
+    } //window.confirm
   };
 
   //받아옴

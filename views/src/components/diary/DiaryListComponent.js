@@ -73,7 +73,7 @@ const CalendarItem = (props) => {
               👌
               <Image
                 //src={`http://localhost:8001/img/${i.picture}`}
-                src={`https://picdiary-bucket.s3.ap-northeast-2.amazonaws.com/${i.picture}`}
+                src={`https://picdiary-bucket.s3.ap-northeast-2.amazonaws.com/${i.path}`}
                 rounded
                 variant="top"
                 style={{

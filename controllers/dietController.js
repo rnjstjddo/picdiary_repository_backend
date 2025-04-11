@@ -44,9 +44,10 @@ exports.getDietList = async (req, res, next) => {
     });
     if (diet.size === 0) {
       return res.json({ error: "작성한 식단이 없습니다." });
+    } else {
+      console.log("dietController.js getDietList() findAll() ", diet);
+      return res.json(diet);
     }
-    console.log("dietController.js getDietList() findAll() ", diet);
-    return res.json(diet);
   } catch (err) {
     console.log("dietController.js getDietList() findAll() catch() ", err);
     return res.status(500).send(err);
@@ -74,8 +75,8 @@ exports.patchDiet = (req, res, next) => {
   const { jwtemail } = res.locals;
 
   try {
-    Diet.findAll({ where: { UserId: jwtemail, choose, dateobject } })
-      .then((result) => {
+    Diet.findAll({ where: { UserId: jwtemail, choose, dateobject } }).then(
+      (result) => {
         if (result[0].dataValues.id > 0) {
           //결과가 배열개수1개일떄
           //Dietdetail quantity choose content dateobject email 5개
@@ -86,30 +87,31 @@ exports.patchDiet = (req, res, next) => {
             where: { choose, dateobject, email: jwtemail, DietId },
           }).then((result) => {
             console.log("patchDiet 수정전 먼저 Dietdetail 삭제성공,", result);
-          });
 
-          finalObjectArray.forEach((v) =>
-            Dietdetail.create({
-              content: v.content,
-              quantity: v.quantity,
-              choose,
-              dateobject,
-              email: jwtemail,
-              DietId,
-            }).then((result) => {
-              console.log(
-                "dietController.js patchDiet Dietdetail create() 결과 -> ",
-                result
-              );
-              return res.json({ result: "success" });
-            })
-          );
+            finalObjectArray.forEach((v) => {
+              let dietDetailCreate = async () => {
+                await Dietdetail.create({
+                  content: v.content,
+                  quantity: v.quantity,
+                  choose,
+                  dateobject,
+                  email: jwtemail,
+                  DietId,
+                }).then((result) => {
+                  console.log(
+                    "dietController.js patchDiet Dietdetail create() 결과 -> ",
+                    result
+                  );
+                }); //then
+              }; //dietDetailCreate
+              dietDetailCreate();
+            }); //forEach
+
+            return res.json({ result: "success" });
+          }); //then() Dietdetail.destroy
         }
-      })
-      .catch((err) => {
-        console.log("dietController.js patchDiet update() 결과 -> ", err);
-        return res.json({ error: "식단 수정시 에러발생" });
-      });
+      }
+    );
   } catch (err) {
     console.log("dietController.js patchDiet update() 결과 -> ", err);
     return res.json({ error: "식단 수정시 에러발생" });

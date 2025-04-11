@@ -212,27 +212,32 @@ const MoneyReadComponent = () => {
       "MoneyReadComponent.js deleteOnClick() 삭제할 가계부 진입 bigchoose -> ",
       bigchoose
     );
-    deleteMoney({ dateobject, bigchoose })
-      .then((result) => {
-        console.log("MoneyReadComponent.js deleteOnClick() then() => ", result);
-        if (result.result === "success") {
-          alert(dateobject + "일자의 가계부가 삭제되었습니다.");
+    if (window.confirm("해당 가계부를 삭제합니까?")) {
+      deleteMoney({ dateobject, bigchoose })
+        .then((result) => {
+          console.log(
+            "MoneyReadComponent.js deleteOnClick() then() => ",
+            result
+          );
+          if (result.result === "success") {
+            alert(dateobject + "일자의 가계부가 삭제되었습니다.");
 
-          moveToMoneyList();
-        }
-        if (result.error === "error") {
+            moveToMoneyList();
+          }
+          if (result.error === "error") {
+            alert(dateobject + "일자의 가계부 삭제를 실패했습니다.");
+            moveToMoneyRead(dateobject);
+          }
+        })
+        .catch((err) => {
+          console.log("MoneyReadComponent.js deleteOnClick() catch() => ", err);
           alert(dateobject + "일자의 가계부 삭제를 실패했습니다.");
-          moveToMoneyRead(dateobject);
-        }
-      })
-      .catch((err) => {
-        console.log("MoneyReadComponent.js deleteOnClick() catch() => ", err);
-        alert(dateobject + "일자의 가계부 삭제를 실패했습니다.");
-        moveToMoneyRead({
-          dateobject: dateobject,
-          id: moneyParam.id,
+          moveToMoneyRead({
+            dateobject: dateobject,
+            id: moneyParam.id,
+          });
         });
-      });
+    } //window.confirm
   };
 
   return (

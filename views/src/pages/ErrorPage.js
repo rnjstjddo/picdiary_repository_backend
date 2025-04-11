@@ -1,7 +1,7 @@
 import LayoutIndex from "../components/layout/LayoutIndex";
 import ErrorComponent from "../components/error/ErrorComponent";
 
-const MainPage = () => {
+const ErrorPage = () => {
   return (
     <>
       <LayoutIndex>
@@ -11,4 +11,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default ErrorPage;

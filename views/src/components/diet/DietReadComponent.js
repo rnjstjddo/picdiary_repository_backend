@@ -87,24 +87,29 @@ const DietReadComponent = () => {
   const deleteOnClick = () => {
     console.log("DietReadComponent.js deleteOnClick() 진입 ");
 
-    deleteDiet({ choose, dateobject })
-      .then((result) => {
-        console.log("DietReadComponent.js deleteOnClick() then() => ", result);
-        if (result.result === "success") {
-          alert(dietParam.dateobject + "일자의 식단이 삭제되었습니다.");
+    if (window.confirm("해당 식단을 삭제하십니까?")) {
+      deleteDiet({ choose, dateobject })
+        .then((result) => {
+          console.log(
+            "DietReadComponent.js deleteOnClick() then() => ",
+            result
+          );
+          if (result.result === "success") {
+            alert(dateobject + "일자의 식단이 삭제되었습니다.");
 
-          moveToDietList();
-        }
-        if (result.error === "error") {
-          alert(dietParam.dateobject + "일자의 식단 삭제를 실패했습니다.");
+            moveToDietList();
+          }
+          if (result.error === "error") {
+            alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
+            moveToDietRead({ dateobject, choose });
+          }
+        })
+        .catch((err) => {
+          console.log("DietReadComponent.js deleteOnClick() catch() => ", err);
+          alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
           moveToDietRead({ dateobject, choose });
-        }
-      })
-      .catch((err) => {
-        console.log("DietReadComponent.js deleteOnClick() catch() => ", err);
-        alert(dietParam.dateobject + "일자의 식단 삭제를 실패했습니다.");
-        moveToDietRead(dietParam.id);
-      });
+        });
+    } //window.confirm
   };
 
   return (

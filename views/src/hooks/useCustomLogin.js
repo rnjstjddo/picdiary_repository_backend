@@ -39,11 +39,18 @@ const useCustomLogin = () => {
       "useCustomLogin커스텀훅의 doJoin() 진입후 axios 비동기 후 액션데이터 => ",
       action.payload
     );
-    return action.payload; //리듀서로이동
+    return action.payload;
   };
   const doLogout = async () => {
-    //    dispatch(logout());
-    dispatch(logoutGetAsync());
+    console.log("useCustomLogin커스텀훅의 doLogout() 진입");
+    dispatch(logout());
+
+    // const action = await dispatch(logoutGetAsync());
+    // console.log(
+    //   "useCustomLogin커스텀훅의 doLogout() 진입후 axios 비동기 후 액션데이터 => ",
+    //   action.payload
+    // );
+    // return action.payload;
   };
 
   const moveToPath = (path) => {

@@ -384,122 +384,136 @@ const MoneyModifyComponent = () => {
       e.preventDefault();
       return;
     }
-    setInputVisible(false);
+    if (window.confirm("위와 같이 수정하십니까?")) {
+      setInputVisible(false);
 
-    console.log("handleSubmitMoney moneyParam 넣기전 먼저 확인-> ", moneyParam);
-    //    moneyParam["email"] = loginState;
+      console.log(
+        "handleSubmitMoney moneyParam 넣기전 먼저 확인-> ",
+        moneyParam
+      );
+      //    moneyParam["email"] = loginState;
 
-    let incomeValue = 0;
-    let expenseValue = 0;
+      let incomeValue = 0;
+      let expenseValue = 0;
 
-    //지출 객체배열로 만듬
-    //if (moneyExpenseFinalArray.length !== 0) {
-    if (finalExpenseObjectArray.length !== 0) {
-      //지출계산
-      finalExpenseObjectArray.forEach((i) => {
-        console.log("amount지출 => ", i.amount);
-        expenseValue += Number(i.amount.replaceAll(",", ""));
-      });
-      moneyParam["dateobject"] = dateobject;
-      moneyParam["expense"] = expenseValue;
-
-      //  console.log("expense -> ", expenseValue);
-      // const moneyExpenseFinalObject = moneyExpenseFinalArray.join(" ");
-      // console.log(
-      //   "MoneyModifyComponent.js moneyExpenseFinalArray 지출 문자열로 만듬 -> ",
-      //   moneyExpenseFinalObject
-      // );
-      // submitcontent += " " + moneyExpenseFinalObject;
-
-      // console.log("지출 submitcontent -> ", submitcontent);
-      setMoneyParam(moneyParam);
-
-      patchMoney({
-        moneyParam,
-        finalIncomeObjectArray,
-        finalExpenseObjectArray,
-        bigchoose, //1,2
-        dateobject,
-      })
-        .then((result) => {
-          console.log(
-            "MoneyModifyComponent.js axios 지출 postMoneyC then() 진입 -> ",
-            result
-          );
-
-          if (result.result === "success") {
-            alert(dateobject + "일자 지출 가계부 수정완료했습니다");
-            moveToMoneyRead(dateobject);
-          }
-
-          if (result.type === "postMoneyAsync/rejected") {
-            alert(dateobject + " 일자 지출 가계부수정을 실패했습니다.");
-            moveToMoneyRead(dateobject);
-          }
-        })
-        .catch((err) => {
-          console.log("MoneyModifyComponent.js axios patchMoneyC catch()", err);
-          alert(dateobject + "일자 지출 가계부수정을 실패했습니다.");
-          moveToMoneyRead(dateobject);
+      //지출 객체배열로 만듬
+      //if (moneyExpenseFinalArray.length !== 0) {
+      if (finalExpenseObjectArray.length !== 0) {
+        //지출계산
+        finalExpenseObjectArray.forEach((i) => {
+          console.log("amount지출 => ", i.amount);
+          expenseValue += Number(i.amount.replaceAll(",", ""));
         });
-    } //지출 patchMoneyC
+        moneyParam["dateobject"] = dateobject;
+        moneyParam["expense"] = expenseValue;
 
-    //수입 객체배열로 만듬
-    //if (moneyIncomeFinalArray.length !== 0) {
-    if (finalIncomeObjectArray.length !== 0) {
-      //수입계산
-      finalIncomeObjectArray.forEach((i) => {
-        console.log("amount수입 => ", i.amount);
-        incomeValue += Number(i.amount.replaceAll(",", ""));
-      });
+        //  console.log("expense -> ", expenseValue);
+        // const moneyExpenseFinalObject = moneyExpenseFinalArray.join(" ");
+        // console.log(
+        //   "MoneyModifyComponent.js moneyExpenseFinalArray 지출 문자열로 만듬 -> ",
+        //   moneyExpenseFinalObject
+        // );
+        // submitcontent += " " + moneyExpenseFinalObject;
 
-      moneyParam["dateobject"] = dateobject;
+        // console.log("지출 submitcontent -> ", submitcontent);
+        setMoneyParam(moneyParam);
 
-      //   const moneyIncomeFinalObject = moneyIncomeFinalArray.join(" ");
-      //   console.log(
-      //     "MoneyModifyComponent.js moneyIncomeFinalArray 문자열로 만듬 -> ",
-      //     moneyIncomeFinalObject
-      //   );
-      //   // moneyParam["content"] = moneyIncomeFinalObject;
-
-      //   submitcontent += " " + moneyIncomeFinalObject;
-      //   //console.log("수입 submitcontent -> ", submitcontent);
-      // }
-      moneyParam["income"] = incomeValue;
-
-      setMoneyParam((prev) => {
-        return { ...prev, moneyParam };
-      });
-      console.log("MoneyModifyComponent.js handleSubmitMoney -> ", moneyParam);
-
-      patchMoney({
-        moneyParam,
-        finalIncomeObjectArray,
-        finalExpenseObjectArray,
-        dateobject,
-        bigchoose,
-      })
-        .then((result) => {
-          console.log(
-            "MoneyModifyComponent.js axios postMoneyC 수입 then() 진입 -> ",
-            result
-          );
-          if (result.result === "success") {
-            alert(dateobject + "일자 수입가계부 수정완료했습니다");
-            moveToMoneyRead(dateobject);
-          }
-
-          if (result.type === "postMoneyAsync/rejected") {
-            alert(dateobject + " 일자 수입 가계부수정을 실패했습니다.");
-            moveToMoneyRead(dateobject);
-          }
+        patchMoney({
+          moneyParam,
+          finalIncomeObjectArray,
+          finalExpenseObjectArray,
+          bigchoose, //1,2
+          dateobject,
         })
-        .catch((err) => {
-          console.log("MoneyModifyComponent.js axios patchMoneyC catch()", err);
-          alert(dateobject + "일자 수입 가계부수정을 실패했습니다.");
-          moveToMoneyRead(dateobject);
+          .then((result) => {
+            console.log(
+              "MoneyModifyComponent.js axios 지출 postMoneyC then() 진입 -> ",
+              result
+            );
+
+            if (result.result === "success") {
+              alert(dateobject + "일자 지출 가계부 수정완료했습니다");
+              moveToMoneyRead(dateobject);
+            }
+
+            if (result.type === "postMoneyAsync/rejected") {
+              alert(dateobject + " 일자 지출 가계부수정을 실패했습니다.");
+              moveToMoneyRead(dateobject);
+            }
+          })
+          .catch((err) => {
+            console.log(
+              "MoneyModifyComponent.js axios patchMoneyC catch()",
+              err
+            );
+            alert(dateobject + "일자 지출 가계부수정을 실패했습니다.");
+            moveToMoneyRead(dateobject);
+          });
+      } //지출 patchMoneyC
+
+      //수입 객체배열로 만듬
+      //if (moneyIncomeFinalArray.length !== 0) {
+      if (finalIncomeObjectArray.length !== 0) {
+        //수입계산
+        finalIncomeObjectArray.forEach((i) => {
+          console.log("amount수입 => ", i.amount);
+          incomeValue += Number(i.amount.replaceAll(",", ""));
         });
-    } //수입 patchMoney
+
+        moneyParam["dateobject"] = dateobject;
+
+        //   const moneyIncomeFinalObject = moneyIncomeFinalArray.join(" ");
+        //   console.log(
+        //     "MoneyModifyComponent.js moneyIncomeFinalArray 문자열로 만듬 -> ",
+        //     moneyIncomeFinalObject
+        //   );
+        //   // moneyParam["content"] = moneyIncomeFinalObject;
+
+        //   submitcontent += " " + moneyIncomeFinalObject;
+        //   //console.log("수입 submitcontent -> ", submitcontent);
+        // }
+        moneyParam["income"] = incomeValue;
+
+        setMoneyParam((prev) => {
+          return { ...prev, moneyParam };
+        });
+        console.log(
+          "MoneyModifyComponent.js handleSubmitMoney -> ",
+          moneyParam
+        );
+
+        patchMoney({
+          moneyParam,
+          finalIncomeObjectArray,
+          finalExpenseObjectArray,
+          dateobject,
+          bigchoose,
+        })
+          .then((result) => {
+            console.log(
+              "MoneyModifyComponent.js axios postMoneyC 수입 then() 진입 -> ",
+              result
+            );
+            if (result.result === "success") {
+              alert(dateobject + "일자 수입가계부 수정완료했습니다");
+              moveToMoneyRead(dateobject);
+            }
+
+            if (result.type === "postMoneyAsync/rejected") {
+              alert(dateobject + " 일자 수입 가계부수정을 실패했습니다.");
+              moveToMoneyRead(dateobject);
+            }
+          })
+          .catch((err) => {
+            console.log(
+              "MoneyModifyComponent.js axios patchMoneyC catch()",
+              err
+            );
+            alert(dateobject + "일자 수입 가계부수정을 실패했습니다.");
+            moveToMoneyRead(dateobject);
+          });
+      } //수입 patchMoney
+    }
   }; //handleSubmitMoney
 
   const navigate = useNavigate();
@@ -710,24 +724,26 @@ const MoneyModifyComponent = () => {
   const handleRemoveOnClick = () => {
     console.log("MoneyModifyComponent.js handleRemoveOnClick 진입 ");
 
-    deleteMoney({ dateobject, bigchoose })
-      .then((result) => {
-        console.log(
-          "MoneyModifyComponent.js handleRemoveOnClick then -> ",
-          result
-        );
-        if (result.result) {
-          alert(dateobject + " 일자의 가계부를 삭제했습니다.");
-          moveToMoneyList();
-        }
-      })
-      .catch((err) => {
-        console.log(
-          "MoneyModifyComponent.js handleRemoveOnClick then -> ",
-          err
-        );
-        moveToMoneyRead(dateobject);
-      });
+    if (window.confirm("삭제하시면 복구가 불가능합니다 그래도 삭제하십니까?")) {
+      deleteMoney({ dateobject, bigchoose })
+        .then((result) => {
+          console.log(
+            "MoneyModifyComponent.js handleRemoveOnClick then -> ",
+            result
+          );
+          if (result.result) {
+            alert(dateobject + " 일자의 가계부를 삭제했습니다.");
+            moveToMoneyList();
+          }
+        })
+        .catch((err) => {
+          console.log(
+            "MoneyModifyComponent.js handleRemoveOnClick then -> ",
+            err
+          );
+          moveToMoneyRead(dateobject);
+        });
+    }
   };
 
   // console.log("moneyIncomeFinalArray -> ", moneyIncomeFinalArray);
