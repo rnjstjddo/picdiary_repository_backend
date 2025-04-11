@@ -47,12 +47,21 @@ jobs:
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/react
 
 
+          echo "--------------------- 리액트 종료된 컨테이너 확인 ---------------------"   
+          IS_UP_REACT_EXITED_BEFORE=$(sudo docker ps -a -f "status=exited" -f "name=react" -q)
+
+          echo "--------------------- 결과 -> $IS_UP_REACT_EXITED_BEFORE --------------------"   
+
+             if [ $IS_UP_REACT_EXITED_BEFORE ];then
+                docker rm react
+             fi
+
           echo "--------------------- 리액트 도커컨테이너 실행여부확인 ---------------------"   
           IS_UP_REACT_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=react" -q)
 
           echo "--------------------- 결과 -> $IS_UP_REACT_BEFORE --------------------"   
               if [ $IS_UP_REACT_BEFORE ];then
-                echo "--------------------- 리액트 도커컨테이너 종료-------------------"   
+                echo "--------------------- 리액트 실행중 도커컨테이너 종료-------------------"   
                 docker stop react
                 echo "--------------------- 리액트 react 이미지 삭제------------" 
                 IS_UP_REACT_BEFORE_IMAGE=$(docker ps -af "name=react" | tail -n +2 | awk '{print $2}')
