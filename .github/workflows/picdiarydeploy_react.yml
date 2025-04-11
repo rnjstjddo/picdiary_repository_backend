@@ -45,9 +45,6 @@ jobs:
           echo "--------------------리액트 도커허브로 push ----------------"
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/react
 
-          echo "--------------------- 리액트 도커이미지 삭제 ---------------------"   
-          docker image rmi ${{ secrets.DOCKERHUB_USERNAME }}/react 
-
           echo "--------------------- 리액트 도커이미지 pull ---------------------"   
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/react
 
