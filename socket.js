@@ -3,7 +3,7 @@ const { chatRemove, chatAdd, chatGetPost } = require("./services/chatService");
 
 module.exports = (server) => {
   const io = new Server(server, {
-    cors: { origin: "http://localhost:3000" },
+    cors: { origin: "picdiary2025.store" },
   });
 
   let clientArray = new Array();
