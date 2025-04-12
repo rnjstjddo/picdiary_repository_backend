@@ -79,7 +79,7 @@ jobs:
           echo "--------------------리액트 views 폴더 삭제 ----------------"
           rm -rf views
 
-          echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해----------------"
+          echo "--------------------도커이미지 생성전에 도커컨테이너 실행확인 .env파일에 포트지정위해 ----------------"
           IS_EXITED=$(sudo docker ps -a -f "status=exited" -q)
 
           echo "---------------------이미지빌드전 IS_EXITED 값 확인 -> $IS_EXITED"
@@ -90,6 +90,8 @@ jobs:
 
           IS_BLUE=$(sudo docker ps -a -f 'name=blue')
           IS_GREEN=$(sudo docker ps -a -f 'name=green')
+
+
           echo "--------------------- 이미지빌드전 IS_BLUE 값 확인 ------------------------"
           echo "$IS_BLUE"
 
