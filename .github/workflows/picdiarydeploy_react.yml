@@ -23,7 +23,7 @@ jobs:
           echo "--------------------이미 존재하는 깃폴더 삭제----------------"
           rm -rf picdiary_repository_backend
 
-          echo "--------------------git clone으로 코드가져오기----------------"
+          echo "--------------------git clone으로 코드 가져오기----------------"
           git clone https://github.com/rnjstjddo/picdiary_repository_backend.git
 
           echo "--------------------picdiary_repository_backend 폴더이동 ----------------"
