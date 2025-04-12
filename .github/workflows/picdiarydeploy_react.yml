@@ -35,6 +35,7 @@ jobs:
 
           echo "-------------------- views 폴더이동 ----------------"
           cd views
+
           echo "-------------------- 폴더파일목록확인 ----------------"
           ls
 
@@ -54,13 +55,13 @@ jobs:
           echo "--------------------- 리액트 종료된 컨테이너 확인 ---------------------"   
           IS_UP_REACT_EXITED_BEFORE=$(sudo docker ps -a -f "status=exited" -f "name=react" -q)
 
-          echo "--------------------- 결과 -> $IS_UP_REACT_EXITED_BEFORE --------------------"   
+          echo "--------------------- 결과  -> $IS_UP_REACT_EXITED_BEFORE --------------------"   
 
              if [ $IS_UP_REACT_EXITED_BEFORE ];then
                 docker rm react
              fi
 
-          echo "--------------------- 리액트 도커컨테이너 실행여부확인 ---------------------"   
+          echo "--------------------- 리액트 도커 컨테이너 실행여부확인 ---------------------"   
           IS_UP_REACT_BEFORE=$(sudo docker ps -a -f "status=running" -f "name=react" -q)
 
           echo "--------------------- 결과 -> $IS_UP_REACT_BEFORE --------------------"   
