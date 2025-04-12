@@ -1,7 +1,8 @@
 import jwtAxios from "../util/jwtUtil";
 import { API_SERVER_HOST } from "./memberApi";
 import axios from "axios";
-const host = `${API_SERVER_HOST}/api/diet`;
+//const host = `${API_SERVER_HOST}/api/diet`;
+const host = `/api/diet`;
 
 //식단목록전체
 export const getDietList = async ({ currentDate }) => {

@@ -2,7 +2,8 @@ import useCustomLogin from "../hooks/useCustomLogin";
 import jwtAxios from "../util/jwtUtil";
 import { API_SERVER_HOST } from "./memberApi";
 import axios from "axios";
-const host = `${API_SERVER_HOST}/api/diary`;
+//const host = `${API_SERVER_HOST}/api/diary`;
+const host = `/api/diary`;
 
 //다이어리 조회전체
 export const getDiaryList = async ({ currentDate }) => {

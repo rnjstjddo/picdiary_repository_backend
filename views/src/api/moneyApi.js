@@ -1,7 +1,9 @@
 import jwtAxios from "../util/jwtUtil";
 import { API_SERVER_HOST } from "./memberApi";
 import axios from "axios";
-const host = `${API_SERVER_HOST}/api/money`;
+
+//const host = `${API_SERVER_HOST}/api/money`;
+const host = `/api/money`;
 
 //가계부조회전체
 export const getMoneyList = async ({ currentDate }) => {

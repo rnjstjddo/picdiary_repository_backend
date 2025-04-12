@@ -1,7 +1,8 @@
 import jwtAxios from "../util/jwtUtil";
 import { API_SERVER_HOST } from "./memberApi";
 import axios from "axios";
-const host = `${API_SERVER_HOST}/api/exercise`;
+//const host = `${API_SERVER_HOST}/api/exercise`;
+const host = `/api/exercise`;
 
 //운동 조회전체
 export const getExerciseList = async ({ currentDate }) => {

@@ -2,7 +2,8 @@ import axios from "axios";
 import { API_SERVER_HOST } from "./todoApi";
 import jwtAxios from "../util/jwtUtil";
 
-const host = `${API_SERVER_HOST}/api/products`;
+//const host = `${API_SERVER_HOST}/api/products`;
+const host = `/api/products`;
 
 export const postAdd = async (product) => {
   const header = { headers: { "content-type": "multipart/form-data" } };

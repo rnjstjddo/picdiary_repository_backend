@@ -1,7 +1,8 @@
 import axios from "axios";
 import jwtAxios from "../util/jwtUtil";
 import { API_SERVER_HOST } from "./memberApi";
-const prefix = `${API_SERVER_HOST}/api/chat`;
+//const prefix = `${API_SERVER_HOST}/api/chat`;
+const prefix = `/api/chat`;
 
 export const chatGetPost = async ({ chatroomname, chatroompassword }) => {
   console.log(
