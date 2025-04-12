@@ -68,19 +68,19 @@ jobs:
               if [ $IS_UP_REACT_BEFORE ];then
                 echo "--------------------- 리액트 실행중 도커컨테이너 종료-------------------"   
                 docker stop react
+
                 echo "--------------------- 리액트 react 이미지 삭제------------" 
                 IS_UP_REACT_BEFORE_IMAGE=$(docker ps -af "name=react" | tail -n +2 | awk '{print $2}')
                 docker rm react
+                
                 echo "--------------------- 결과 -> $IS_UP_REACT_BEFORE_IMAGE------------" 
                 docker image rmi $IS_UP_REACT_BEFORE_IMAGE
-                
               fi
 
           echo "--------------------- 리액트 도커컨테이너 실행---------------------"   
           docker run -d --name react -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/react
-
-           
           cd ..
+
           echo "--------------------리액트 views 폴더 삭제 ----------------"
           rm -rf views
 
@@ -95,7 +95,6 @@ jobs:
 
           IS_BLUE=$(sudo docker ps -a -f 'name=blue')
           IS_GREEN=$(sudo docker ps -a -f 'name=green')
-
 
           echo "--------------------- 이미지빌드전 IS_BLUE 값 확인 ------------------------"
           echo "$IS_BLUE"
