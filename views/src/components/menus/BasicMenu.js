@@ -65,7 +65,12 @@ const BasicMenu = (props) => {
     }
 
     //const socket = io("picdiary2025.store", {
-    const socket = io("52.78.155.180", {
+    //const socket = io("52.78.155.180", {
+
+    //const socket = io("wss://picdiary2025.store:3000/ws", {
+    const socket = io({
+      path: "/my-custom-path/",
+
       autoConnect: false,
       // query: {
       //   username: loginState, //email
