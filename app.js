@@ -64,7 +64,9 @@ app.set("port", process.env.PORT || 8001);
 // });
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+//app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "picdiary2025.store", credentials: true }));
+
 app.use(morgan("dev"));
 //app.use(express.static(path.join(__dirname, "views", "build")));
 app.use("/img", express.static(path.join(__dirname, "uploads")));
@@ -137,9 +139,9 @@ app.get("/img/:imageName", function (req, res) {
 //   });
 // });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "build", "index.html"));
-}); //리액트로 지정
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "views", "build", "index.html"));
+// }); //리액트로 지정
 
 app.use((req, res, next) => {
   const error = new Error(`${req.url} ${req.method} 라우터 없음`);
