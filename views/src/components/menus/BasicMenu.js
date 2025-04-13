@@ -64,7 +64,8 @@ const BasicMenu = (props) => {
       return;
     }
 
-    const socket = io("picdiary2025.store", {
+    //const socket = io("picdiary2025.store", {
+    const socket = io("52.78.155.180", {
       autoConnect: false,
       // query: {
       //   username: loginState, //email
