@@ -108,12 +108,19 @@ app.use(passport.initialize()); //req.passport
 
 //분기라우터
 // app.use("/", indexRouter);
-app.use("/api/member", memberRouter);
-app.use("/api/diary", diaryRouter);
-app.use("/api/diet", dietRouter);
-app.use("/api/exercise", exerciseRouter);
-app.use("/api/money", moneyRouter);
-app.use("/api/main", mainRouter);
+// app.use("/api/member", memberRouter);
+// app.use("/api/diary", diaryRouter);
+// app.use("/api/diet", dietRouter);
+// app.use("/api/exercise", exerciseRouter);
+// app.use("/api/money", moneyRouter);
+// app.use("/api/main", mainRouter);
+
+app.use("/member", memberRouter);
+app.use("/diary", diaryRouter);
+app.use("/diet", dietRouter);
+app.use("/exercise", exerciseRouter);
+app.use("/money", moneyRouter);
+app.use("/main", mainRouter);
 
 //이미지
 app.get("/img/:imageName", function (req, res) {
