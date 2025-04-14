@@ -4,8 +4,9 @@ import { setCookie } from "../util/cookieUtil";
 
 //export const API_SERVER_HOST = "http://localhost:8001";
 export const API_SERVER_HOST = "picdiary2025.store";
-const host = `${API_SERVER_HOST}/api/member`;
-//const host = `/api/member`;
+//const host = `${API_SERVER_HOST}/api/member`; //https://picdiary2025.store/picdiary2025.store/api/member/join 이렇게 요청주소 날라가네
+//아래로 바꿈
+const host = `/api/member`;
 
 console.log("memberApi.js 에서 API_SERVER_HOST->", API_SERVER_HOST);
 

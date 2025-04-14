@@ -65,7 +65,17 @@ app.set("port", process.env.PORT || 8001);
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(cors({ origin: "https://picdiary2025.store", credentials: true }));
+
+//아래로변경
+//app.use(cors({ origin: "https://picdiary2025.store", credentials: true }));
+
+//엔진엑스에 추가시킴
+// app.use(
+//   cors({
+//     origin: true, //자동으로 프론트엔드주소가 들어간다. 와일드카드와 다르다
+//     credentials: true,
+//   })
+// );
 
 //app.use(morgan("dev"));
 

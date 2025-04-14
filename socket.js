@@ -2,11 +2,14 @@ const { Server } = require("socket.io");
 const { chatRemove, chatAdd, chatGetPost } = require("./services/chatService");
 
 module.exports = (server) => {
-  const io = new Server(server, {
-    cors: { origin: "picdiary2025.store" },
-    //path: "/my-custom-path/",
-    //cors: { origin: "http://localhost:3000" },
-  });
+  // const io = new Server(server, {
+  //   cors: { origin: "picdiary2025.store" },
+  //   //path: "/my-custom-path/",
+  //   //cors: { origin: "http://localhost:3000" },
+  // });
+
+  //엔진엑스설정추가
+  const io = new Server(server);
 
   let clientArray = new Array();
 

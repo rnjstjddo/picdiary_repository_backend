@@ -64,7 +64,8 @@ const BasicMenu = (props) => {
       return;
     }
 
-    const socket = io("https://picdiary2025.store", {
+    const socket = io("/", {
+      //    const socket = io("https://picdiary2025.store", {
       //const socket = io("52.78.155.180", {
 
       //const socket = io("wss://picdiary2025.store:3000/ws", {
