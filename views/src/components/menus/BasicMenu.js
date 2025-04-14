@@ -64,11 +64,11 @@ const BasicMenu = (props) => {
       return;
     }
 
-    //const socket = io("picdiary2025.store", {
-    //const socket = io("52.78.155.180", {
+    const socket = io("http://picdiary2025.store", {
+      //const socket = io("52.78.155.180", {
 
-    //const socket = io("wss://picdiary2025.store:3000/ws", {
-    const socket = io("http://52.78.155.180:8081", {
+      //const socket = io("wss://picdiary2025.store:3000/ws", {
+      //const socket = io("http://52.78.155.180:8081", {
       //path: "/my-custom-path/",
 
       autoConnect: false,
