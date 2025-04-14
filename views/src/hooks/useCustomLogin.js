@@ -35,6 +35,8 @@ const useCustomLogin = () => {
   };
 
   const doJoin = async (joinParam) => {
+    console.log("useCustomLogin커스텀훅의 doJoin() 진입");
+
     const action = await dispatch(joinPostAsync(joinParam));
     console.log(
       "useCustomLogin커스텀훅의 doJoin() 진입후 axios 비동기 후 액션데이터 => ",
@@ -42,6 +44,7 @@ const useCustomLogin = () => {
     );
     return action.payload;
   };
+
   const doLogout = async () => {
     console.log("useCustomLogin커스텀훅의 doLogout() 진입");
     dispatch(logout());
