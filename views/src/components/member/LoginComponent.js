@@ -53,7 +53,7 @@ const LoginComponent = () => {
         );
 
         if (data.error) {
-          alert("일치하는 정보가 없거나 회원가입을 해주세요!");
+          alert("일치하는 정보가 없습니다 회원가입을 해주세요!");
           console.log("data.error => ", data.error);
           moveToPath("/login");
         } else {
@@ -62,7 +62,7 @@ const LoginComponent = () => {
       })
       .catch((err) => {
         console.log("LoginComponent.js thunk함수 실행결과 catch() 진입 ", err);
-        alert("다시 로그인 해주세요!");
+        alert("일치하는 정보가 없습니다 회원가입을 해주세요!");
         moveToPath("/login");
       });
   };

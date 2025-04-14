@@ -25,6 +25,7 @@ const useCustomLogin = () => {
   };
 
   const doLogin = async (loginParam) => {
+    console.log("useCustomLogin커스텀훅의 doLogin() 진입");
     const action = await dispatch(loginPostAsync(loginParam));
     console.log(
       "useCustomLogin커스텀훅의 doLogin() 진입후 axios 비동기 후 액션데이터 => ",
