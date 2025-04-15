@@ -9,7 +9,10 @@ module.exports = (server) => {
   // });
 
   //엔진엑스설정추가
-  const io = new Server(server, { path: "/ws" });
+  //const io = new Server(server, { path: "/ws" });
+  const ioo = new Server(server);
+
+  const io = ioo.of("/pic");
 
   let clientArray = new Array();
 
