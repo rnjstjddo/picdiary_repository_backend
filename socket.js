@@ -9,7 +9,7 @@ module.exports = (server) => {
   // });
 
   //엔진엑스설정추가
-  const io = new Server(server);
+  const io = new Server(server, { path: "/ws" });
 
   let clientArray = new Array();
 
@@ -25,6 +25,11 @@ module.exports = (server) => {
     const socketId = socket.id;
     //console.log("새로운 클라이언트 접속 req.headers -> ", ip); //::1
     console.log("클라이언트 접속 socket.id -> ", socket.id);
+
+    //서버에러시
+    socket.on("connect_error", (error) => {
+      console.log("socket connection error:", error.message);
+    });
 
     socket.on("roomcreate", (data) => {
       const { username, chatroomname, chatroompassword } = data;
