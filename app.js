@@ -124,6 +124,11 @@ app.use(passport.initialize()); //req.passport
 //   console.log(`${req.url} ${req.method} 라우터로들어옴`);
 // })
 
+app.use((req, res, next) => {
+  console.log(`${req.url} ${req.method} 라우터로들어옴`);
+  next();
+});
+
 app.use("/api/member", memberRouter);
 app.use("/api/diary", diaryRouter);
 app.use("/api/diet", dietRouter);
@@ -167,7 +172,6 @@ app.get("/img/:imageName", function (req, res) {
 // }); //리액트로 지정
 
 app.use((req, res, next) => {
-  console.log(`${req.url} ${req.method} 라우터로들어옴`);
   const error = new Error(`${req.url} ${req.method} 라우터 없음`);
   error.status = 404;
   next(error);
