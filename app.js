@@ -3,8 +3,10 @@ const morgan = require("morgan");
 const passport = require("passport");
 const passportConfig = require("./passport");
 //const nunjucks = require("nunjucks");
+const ip = require("ip");
 const session = require("express-session");
 
+const requestIp = require("request-ip");
 const dotenv = require("dotenv");
 const path = require("path");
 //cors설정
@@ -126,6 +128,9 @@ app.use(passport.initialize()); //req.passport
 
 app.use((req, res, next) => {
   console.log(`${req.url} ${req.method} 라우터로들어옴`);
+  console.log("request.ip", req.ip);
+  console.log("request.socket.remoteAddress", req.socket.remoteAddress);
+  console.log("client IP: " + requestIp.getClientIp(req));
   next();
 });
 

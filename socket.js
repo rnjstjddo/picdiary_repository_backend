@@ -8,11 +8,14 @@ module.exports = (server) => {
   //   //cors: { origin: "http://localhost:3000" },
   // });
 
-  //엔진엑스설정추가
+  //path 추가
   //const io = new Server(server, { path: "/ws" });
-  const ioo = new Server(server);
 
-  const io = ioo.of("/pic");
+  //const ioo = new Server(server);
+
+  //const io = ioo.of("/pic");
+
+  const io = new Server(server);
 
   let clientArray = new Array();
 
