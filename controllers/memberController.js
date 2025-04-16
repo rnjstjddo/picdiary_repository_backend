@@ -29,7 +29,7 @@ exports.join = async (req, res, next) => {
     const createResult = await User.create({
       email,
       nickname: nick,
-      password: hash,
+      password,
     });
     console.log("컨트롤러 join() 진입 User모델 create결과 -> ", createResult);
 
