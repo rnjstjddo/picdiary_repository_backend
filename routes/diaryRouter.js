@@ -22,6 +22,7 @@ try {
 
 //AWS S3
 const AWS = require("aws-sdk");
+
 AWS.config.update({
   accessKeyId: process.env.ACCESS_KEY_ID, //ACCESS_KEY_ID SECRET_ACCESS_KEY
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
@@ -35,6 +36,8 @@ const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: "picdiary-bucket",
+    //acl: "public-read",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
       cb(null, `${Date.now()}${path.basename(file.originalname)}`);
     },
