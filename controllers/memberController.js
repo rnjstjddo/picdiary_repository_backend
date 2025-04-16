@@ -23,8 +23,8 @@ exports.join = async (req, res, next) => {
     // }
 
     // if (exUser === null) {
-    const hash = await bcrypt.hash(password, 12);
-    console.log("컨트롤러 join() 진입 User모델 비밀번호암호화 결과 -> ", hash);
+    //const hash = bcrypt.hash(password, 12);
+    //console.log("컨트롤러 join() 진입 User모델 비밀번호암호화 결과 -> ", hash);
 
     const createResult = await User.create({
       email,
