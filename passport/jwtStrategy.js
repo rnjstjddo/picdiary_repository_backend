@@ -1,6 +1,6 @@
 const passport = require("passport");
 const JwtStrategy = require("passport-jwt").Strategy;
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const { createToken } = require("../controllers/memberController");
 const ExtractJwt = require("passport-jwt").ExtractJwt;
