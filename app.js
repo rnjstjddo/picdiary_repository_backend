@@ -18,7 +18,6 @@ dotenv.config();
 //const { Server } = require("socket.io");
 //const { createServer } = require("http");
 const { sequelize } = require("./models");
-
 const Socket = require("./socket");
 
 //세션저장소 mysql
@@ -52,6 +51,8 @@ sequelize
   .catch((err) => console.log("시퀄라이저연결실패", err));
 
 app.set("port", process.env.PORT || 8001);
+console.log("ACCESS_KEY_ID", process.env.ACCESS_KEY_ID);
+console.log("SECRET_ACCESS_KEY", process.env.SECRET_ACCESS_KEY);
 
 // app.set("view engine", "html");
 // nunjucks.configure("views", {
