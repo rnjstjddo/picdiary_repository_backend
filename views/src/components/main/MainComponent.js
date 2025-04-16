@@ -537,6 +537,7 @@ const MainComponent = () => {
           </span>
         )}
         {weatherVisible &&
+          weatherResult.length !== 0 &&
           weatherResult?.map((w, i) => (
             <>
               {w.category === "비/눈" &&
@@ -701,6 +702,7 @@ const MainComponent = () => {
             </Card>
           </>
         ) : (
+          diaryResultArray.length !== 0 &&
           diaryResultArray.map((d, i) => (
             <Card style={{ width: "18rem", display: "inline-block" }} key={i}>
               {d.picture ? (

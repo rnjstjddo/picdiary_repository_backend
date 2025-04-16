@@ -20,7 +20,9 @@ exports.join = async (req, res, next) => {
 
     if (exUser) {
       return res.json({ error: "이미 가입된 이메일입니다." });
-    } else {
+    }
+
+    if (exUser === null) {
       const hash = await bcrypt.hash(password, 12);
       console.log(
         "컨트롤러 join() 진입 User모델 비밀번호암호화 결과 -> ",

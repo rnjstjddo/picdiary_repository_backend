@@ -25,8 +25,14 @@ exports.getTodayManagementController = async (req, res, next) => {
   const monthlast =
     newdate.getFullYear() + "-" + monthfinal + "-" + lastday.getDate();
 
-  console.log("컨트롤러함수 mainController.js monthfirst => ", monthfirst);
-  console.log("컨트롤러함수 mainController.js monthlast => ", monthlast);
+  console.log(
+    "컨트롤러함수 mainController.js getTodayManagementController monthfirst => ",
+    monthfirst
+  );
+  console.log(
+    "컨트롤러함수 mainController.js getTodayManagementController monthlast => ",
+    monthlast
+  );
 
   try {
     let accessToken = req.headers.authorization;
@@ -34,17 +40,18 @@ exports.getTodayManagementController = async (req, res, next) => {
     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
 
     console.log(
-      "컨트롤러함수 mainController.js verifyToken() 진입 verify결과-> ",
+      "컨트롤러함수 mainController.js getTodayManagementController 진입 jwt추출한 email -> ",
       decoded.email
     );
 
     res.locals.jwtemail = decoded.email;
   } catch (e) {
     console.log(
-      "컨트롤러함수 mainController.js verifyToken() 진입 verify 과정 중 에러발생-> ",
+      "컨트롤러함수 mainController.js getTodayManagementController 진입 jwt없는경우 진입-> ",
       e
     );
-  }
+  } //try-catch
+
   const { jwtemail } = res.locals;
 
   if (jwtemail) {
