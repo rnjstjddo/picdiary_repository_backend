@@ -93,6 +93,9 @@ const loginSlice = createSlice({
 
         //쿠키담기
         if (!payload.error) {
+          console.log(
+            "loginSlice에서 loginPostAsync 리듀서함수에서 fulfilled 진입 브라우저에 쿠키 member 생성하기 "
+          );
           setCookie("member", JSON.stringify(payload), 1);
         }
         return payload.user.email; //상태변경
