@@ -18,12 +18,6 @@ dotenv.config();
 //const { Server } = require("socket.io");
 //const { createServer } = require("http");
 const { sequelize } = require("./models");
-const AWS = require("aws-sdk");
-AWS.config.update({
-  accessKeyId: process.env.ACCESS_KEY_ID,
-  secretAccessKey: process.env.SECRET_ACCESS_KEY,
-  region: "ap-northeast-2",
-});
 
 const Socket = require("./socket");
 
