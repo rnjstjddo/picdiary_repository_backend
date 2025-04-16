@@ -9,20 +9,25 @@ exports.forSession = async (req, res, next) => {
 
 //----------------회원가입---------------------------------------------------------------
 exports.join = async (req, res, next) => {
-  console.log(req);
   const { email, nick, password } = req.body;
   console.log("컨트롤러 join() 진입 req.body확인 => ", email, nick, password);
   try {
     const exUser = await User.findOne({ where: { email } });
+    console.log(
+      "컨트롤러 join() 진입 email통해 User모델에서 찾기결과 -> ",
+      exUser
+    );
+
     if (exUser) {
       return res.json({ error: "이미 가입된 이메일입니다." });
     }
     const hash = await bcrypt.hash(password, 12);
-    await User.create({
+    const createResult = await User.create({
       email,
       nickname: nick,
       password: hash,
     });
+    console.log("컨트롤러 join() 진입 User모델 create결과 -> ", createResult);
 
     return res.status(200).json("회원가입성공");
   } catch (e) {
