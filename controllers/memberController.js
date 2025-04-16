@@ -20,16 +20,22 @@ exports.join = async (req, res, next) => {
 
     if (exUser) {
       return res.json({ error: "이미 가입된 이메일입니다." });
-    }
-    const hash = await bcrypt.hash(password, 12);
-    const createResult = await User.create({
-      email,
-      nickname: nick,
-      password: hash,
-    });
-    console.log("컨트롤러 join() 진입 User모델 create결과 -> ", createResult);
+    } else {
+      const hash = await bcrypt.hash(password, 12);
+      console.log(
+        "컨트롤러 join() 진입 User모델 비밀번호암호화 결과 -> ",
+        hash
+      );
 
-    return res.status(200).json("회원가입성공");
+      const createResult = await User.create({
+        email,
+        nickname: nick,
+        password: hash,
+      });
+      console.log("컨트롤러 join() 진입 User모델 create결과 -> ", createResult);
+
+      return res.status(200).json("회원가입성공");
+    }
   } catch (e) {
     console.log("member.js join 컨트롤러함수 catch진입", e);
     return res.json({ error: e });
