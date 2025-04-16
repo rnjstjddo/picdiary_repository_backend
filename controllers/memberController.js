@@ -12,32 +12,29 @@ exports.join = async (req, res, next) => {
   const { email, nick, password } = req.body;
   console.log("컨트롤러 join() 진입 req.body확인 => ", email, nick, password);
   try {
-    const exUser = await User.findOne({ where: { email } });
-    console.log(
-      "컨트롤러 join() 진입 email통해 User모델에서 찾기결과 -> ",
-      exUser
-    );
+    // const exUser = await User.findOne({ where: { email } });
+    // console.log(
+    //   "컨트롤러 join() 진입 email통해 User모델에서 찾기결과 -> ",
+    //   exUser
+    // );
 
-    if (exUser) {
-      return res.json({ error: "이미 가입된 이메일입니다." });
-    }
+    // if (exUser) {
+    //   return res.json({ error: "이미 가입된 이메일입니다." });
+    // }
 
-    if (exUser === null) {
-      const hash = await bcrypt.hash(password, 12);
-      console.log(
-        "컨트롤러 join() 진입 User모델 비밀번호암호화 결과 -> ",
-        hash
-      );
+    // if (exUser === null) {
+    const hash = await bcrypt.hash(password, 12);
+    console.log("컨트롤러 join() 진입 User모델 비밀번호암호화 결과 -> ", hash);
 
-      const createResult = await User.create({
-        email,
-        nickname: nick,
-        password: hash,
-      });
-      console.log("컨트롤러 join() 진입 User모델 create결과 -> ", createResult);
+    const createResult = await User.create({
+      email,
+      nickname: nick,
+      password: hash,
+    });
+    console.log("컨트롤러 join() 진입 User모델 create결과 -> ", createResult);
 
-      return res.status(200).json("회원가입성공");
-    }
+    return res.status(200).json("회원가입성공");
+    //}
   } catch (e) {
     console.log("member.js join 컨트롤러함수 catch진입", e);
     return res.json({ error: e });

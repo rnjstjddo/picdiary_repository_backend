@@ -537,7 +537,7 @@ const MainComponent = () => {
           </span>
         )}
         {weatherVisible &&
-          weatherResult.length !== 0 &&
+          //weatherResult.length !== 0 &&
           weatherResult?.map((w, i) => (
             <>
               {w.category === "비/눈" &&
