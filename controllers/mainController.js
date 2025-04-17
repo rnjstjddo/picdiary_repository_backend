@@ -164,11 +164,12 @@ exports.openapiController = async (req, res, next) => {
     const result = await axios.get(url, {
       params: params,
     });
+    const apiresult = result?.data?.response?.body?.items?.item;
     console.log(
       "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 -> ",
-      result
+      apiresult
     );
-    return res.json(result);
+    return res.json(apiresult);
   } catch (e) {
     console.log(
       "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청시 에러발생 -> ",

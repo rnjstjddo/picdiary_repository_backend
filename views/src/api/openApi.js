@@ -4,7 +4,7 @@ import { dfs_xy_conv } from "../utils/xy";
 //const URL = "http://apis.data.go.kr/B551182/";
 //http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0
 const URL =
-  "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst";
+  "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst";
 //http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst
 //?serviceKey=인증키&numOfRows=10&pageNo=1
 //&base_date=20210628&base_time=0600&nx=55&ny=127
@@ -105,7 +105,7 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
       });
 
     console.log("openAPI 공공 api axios 결과 result", result);
-    weatherapiresult = result?.data?.response?.body?.items?.item;
+    weatherapiresult = result?.data;
 
     return weatherapiresult;
   } catch (e) {

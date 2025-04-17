@@ -603,7 +603,7 @@ const MainComponent = () => {
           </span>
         )}
         {weatherVisible &&
-          //weatherResult.length !== 0 &&
+          weatherResult.length !== 0 &&
           weatherResult?.map((w, i) => (
             <>
               {w.category === "비/눈" &&
@@ -785,7 +785,7 @@ const MainComponent = () => {
                   }}
                 />
               ) : (
-                <>업로드하지 않음😅</>
+                <React.Fragment key={i}>업로드하지 않음😅</React.Fragment>
               )}
 
               <Card.Body>
