@@ -7,6 +7,7 @@ const Diary = require("../models/diary");
 const { Op, fn, col } = require("sequelize");
 const { raw } = require("mysql2");
 const jwt = require("jsonwebtoken");
+const axios = require("axios");
 
 exports.getTodayManagementController = async (req, res, next) => {
   const dateparams = req.params;
@@ -154,13 +155,14 @@ exports.openapiController = async (req, res, next) => {
     "컨트롤러함수 mainController.js openapiController() 진입 req.body에 담긴 url값 -> ",
     url
   );
+
   console.log(
     "컨트롤러함수 mainController.js openapiController() 진입 req.body에 담긴 params -> ",
     params
   );
   try {
     const result = await axios.get(url, {
-      params,
+      params: params,
     });
     console.log(
       "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 -> ",
