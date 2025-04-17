@@ -48,23 +48,25 @@ exports.getDiaryList = async (req, res, next) => {
 exports.patchDiary = async (req, res, next) => {
   const { content } = req.body;
   console.log(
-    "컨트롤러함수 diaryController.js postDiary() content -> ",
+    "컨트롤러함수 diaryController.js patchDiary() content -> ",
     content
   );
-  console.log(
-    "컨트롤러함수 diaryController.js postDiary() req.file?.filename-> ",
-    req.file?.filename
-  );
+  if (req.file) {
+    console.log(
+      "컨트롤러함수 diaryController.js patchDiary() req.file 존재할경우-> ",
+      req.file
+    );
+  }
   const { id } = req.params;
 
-  console.log("컨트롤러함수 diaryController.js postDiary() id 경로값 -> ", id);
+  console.log("컨트롤러함수 diaryController.js patchDiary() id 경로값 -> ", id);
   try {
     const diaryFind = await Diary.findOne({ where: { id: id } });
     console.log("diaryController.js patchDiary findOne() 결과 -> ", diaryFind);
 
     if (
       diaryFind.dataValues.picture !== "" &&
-      req.file.filename !== diaryFind.dataValues.picture
+      req.file.key !== diaryFind.dataValues.path
     ) {
       console.log(
         "diaryController.js patchDiary 새로운 사진을 올렸을경우 이전 사진 uploads폴더에서 삭제"
@@ -87,7 +89,11 @@ exports.patchDiary = async (req, res, next) => {
     }
 
     const diary = await Diary.update(
-      { content: content, picture: req.file?.filename, path: req.file?.path },
+      {
+        content: content,
+        picture: req.file?.originalname,
+        path: req.file?.key,
+      },
       { where: { id: id } }
     );
     console.log("diaryController.js patchDiary update() 결과 -> ", diary);
@@ -114,17 +120,17 @@ exports.postDiary = async (req, res, next) => {
   try {
     const diary = await Diary.create({
       content,
-      picture: req.file?.filename,
+      picture: req.file?.originalname, //개발용  picture: req.file?.filename,
       dateobject,
       UserId: email,
-      path: req.file?.path,
+      path: req.file?.key, //개발용  picture: req.file?.path,
     });
     // diary.UserId(email);
-    console.log("diaryController.js postDiary create() 결과 -> ", diary); //diary.dataValues.picture
+    console.log("diaryController.js postDiary create() 결과 -> ", diary); //개발용 diary.dataValues.picture
     return res.json({
       result: "success",
       id: diary.id,
-      image: req.file?.filename ? "true" : "true",
+      image: req.file?.originalname ? "true" : "true",
     });
   } catch (err) {
     console.log("diaryController.js postDiary create() 실패 -> ", err);
@@ -145,16 +151,20 @@ exports.deleteDiary = async (req, res, next) => {
     );
 
     if (findFilename.dataValues.picture !== "") {
-      //uploads 폴더에서 삭제
-      fs.unlinkSync("./uploads/" + findFilename.dataValues.path);
+      //uploads 폴더에서 삭제 개발용
+      //fs.unlinkSync("./uploads/" + findFilename.dataValues.path);
 
-      // s3.deleteObject({
-      //   Bucket: 'picdiary-bucket', // 삭제하고 싶은 이미지가 있는 버킷 이름 ap-northeast-2
-      //   Key: findFilename.dataValues.picture, // 삭제하고 싶은 이미지의 key
-      // }, (err, data) => {
-      //      if (err) console.log("diaryController.js s3삭제 실패"); // 실패 시 에러 메시지
-      //      else console.log("diaryController.js s3삭제 성공",data); // 성공 시 데이터 출력
-      // });
+      s3.deleteObject(
+        {
+          Bucket: "picdiary-bucket", // 삭제하고 싶은 이미지가 있는 버킷 이름 ap-northeast-2
+          Key: findFilename.dataValues.key, // 삭제하고 싶은 이미지의 key
+        },
+        (err, data) => {
+          if (err) console.log("diaryController.js s3삭제 실패");
+          // 실패 시 에러 메시지
+          else console.log("diaryController.js s3삭제 성공", data); // 성공 시 데이터 출력
+        }
+      );
     }
     const result = await Diary.destroy({ where: { id: id } });
     console.log(

@@ -186,12 +186,15 @@ const MainComponent = () => {
   }, []);
 
   useEffect(() => {
-    console.log(
-      "MainComponent.js useLayoutEffect() 위치기반 날씨 axios 요청 진입"
-    );
+    console.log("MainComponent.js useEffect() 위치기반 날씨 axios 요청 진입");
 
     const weatherapiEI = async () => {
       const result = await weatherapi({ weatherDate, weatherTime });
+      console.log(
+        "MainComponent.js useEffect() 위치기반 날씨 axios 요청 후 결과 -> ",
+        result
+      );
+
       if (Array.isArray(result) && result.length !== 0) {
         let newObj = [];
 
@@ -261,37 +264,90 @@ const MainComponent = () => {
             if (result.diet.length !== 0) {
               console.log("result.diet 넣기 진입");
 
-              setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+              //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+
+              //아래로 수정
+              //setDietId(result.diet[0].id);
               result.diet?.forEach((v) => {
+                console.log(
+                  "result.diet 넣기 진입 result.diet forEach 진입 => ",
+                  v
+                );
+
                 v.Dietdetails.forEach((d) => {
+                  console.log(
+                    "result.diet 넣기 진입 result.diet.Dietdetails forEach 진입 => ",
+                    d
+                  );
+
                   if (d.choose === "1") {
+                    console.log(
+                      "result.diet 넣기 진입 result.diet.Dietdetails choose 1 진입"
+                    );
+
                     setDietMorning((prev) => [...prev, d]);
                   } else if (d.choose === "2") {
+                    console.log(
+                      "result.diet 넣기 진입 result.diet.Dietdetails choose 2 진입"
+                    );
+
                     setDietLunch((prev) => [...prev, d]);
                   } else if (d.choose === "3") {
+                    console.log(
+                      "result.diet 넣기 진입 result.diet.Dietdetails choose 3 진입"
+                    );
+
                     setDietEvening((prev) => [...prev, d]);
                   } else {
+                    console.log(
+                      "result.diet 넣기 진입 result.diet.Dietdetails choose 4 진입"
+                    );
+
                     setDietSnack((prev) => [...prev, d]);
                   }
                 });
               });
             }
 
+            console.log("diet dietMorning-> ", dietMorning);
+            console.log("diet dietLunch-> ", dietLunch);
+            console.log("diet dietEvening-> ", dietEvening);
+            console.log("diet dietSnack-> ", dietSnack);
+
             if (result.money.length !== 0) {
               console.log("money 넣기 진입");
 
               result.money?.forEach((v) => {
+                console.log(
+                  "result.money 넣기 진입 result.money forEach 진입 => ",
+                  v
+                );
+
                 v.Moneydetails.forEach((d) => {
+                  console.log(
+                    "result.money 넣기 진입 result.money.Moneydetails forEach 진입 => ",
+                    d
+                  );
+
                   if (d.choose === "1") {
+                    console.log(
+                      "result.money 넣기 진입 result.money.Moneydetails choose 1 진입"
+                    );
                     d.amount = Number(d.amount).toLocaleString("ko-KR");
                     setMoneyIncome((prev) => [...prev, d]);
                   } else if (d.choose === "2") {
+                    console.log(
+                      "result.money 넣기 진입 result.money.Moneydetails choose 2 진입"
+                    );
                     d.amount = Number(d.amount).toLocaleString("ko-KR");
 
                     setMoneyExpense((prev) => [...prev, d]);
                   }
                 });
               });
+
+              console.log("money moneyIncome-> ", moneyIncome);
+              console.log("money moneyExpense-> ", moneyExpense);
 
               let sum = {};
 
@@ -433,7 +489,10 @@ const MainComponent = () => {
 
         //식단
         if (result.diet.length !== 0) {
-          setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+          //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+
+          //아래수정
+          //setDietId(result.diet[0].id);
 
           result.diet.forEach((v) => {
             v.Dietdetails.forEach((d) => {
@@ -448,7 +507,7 @@ const MainComponent = () => {
               }
             });
           });
-          setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+          //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
         }
         //가계부
         if (result.money.length !== 0) {

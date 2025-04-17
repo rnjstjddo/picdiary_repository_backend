@@ -86,9 +86,11 @@ const loginSlice = createSlice({
           "loginSlice에서 loginPostAsync 리듀서함수에서 fulfilled 진입 payload담긴값 확인 => ",
           payload
         );
+
+        const jsonstringify = payload.user;
         console.log(
-          "loginSlice에서 loginPostAsync 리듀서함수에서 fulfilled 진입 리듀서의 state => ",
-          state
+          "loginSlice에서 loginPostAsync 리듀서함수에서 fulfilled 진입 JSON변경 payload.user => ",
+          jsonstringify
         );
 
         //쿠키담기
@@ -96,7 +98,7 @@ const loginSlice = createSlice({
           console.log(
             "loginSlice에서 loginPostAsync 리듀서함수에서 fulfilled 진입 브라우저에 쿠키 member 생성하기 "
           );
-          setCookie("member", JSON.stringify(payload), 1);
+          setCookie("member", jsonstringify, 1);
         }
         return payload.user.email; //상태변경
       })
