@@ -145,3 +145,32 @@ exports.getTodayManagementController = async (req, res, next) => {
     return res.json({ message: "" });
   }
 };
+
+exports.openapiController = async (req, res, next) => {
+  console.log("컨트롤러함수 mainController.js openapiController() 진입");
+
+  const { url, params } = req.body;
+  console.log(
+    "컨트롤러함수 mainController.js openapiController() 진입 req.body에 담긴 url값 -> ",
+    url
+  );
+  console.log(
+    "컨트롤러함수 mainController.js openapiController() 진입 req.body에 담긴 params -> ",
+    params
+  );
+  try {
+    const result = await axios.get(url, {
+      params,
+    });
+    console.log(
+      "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 -> ",
+      result
+    );
+    return res.json(result);
+  } catch (e) {
+    console.log(
+      "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청시 에러발생 -> ",
+      e
+    );
+  }
+};

@@ -68,20 +68,45 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
   console.log("weatherapi() 내 weatherDate 확인 ->  ", weatherDate);
   console.log("weatherapi() 내 weatherTime 확인 ->  : ", weatherTime);
   try {
-    const result = await axios.get(URL, {
-      params: {
-        serviceKey: apiKey,
-        numOfRows: 10,
-        pageNo: 1,
-        dataType: "JSON",
-        base_date: weatherDate,
-        base_time: weatherTime,
-        nx: xyresult.x,
-        ny: xyresult.y,
-      },
-    });
+    //로컬시
+    // const result = await axios.get(URL, {
+    //   params: {
+    //     serviceKey: apiKey,
+    //     numOfRows: 10,
+    //     pageNo: 1,
+    //     dataType: "JSON",
+    //     base_date: weatherDate,
+    //     base_time: weatherTime,
+    //     nx: xyresult.x,
+    //     ny: xyresult.y,
+    //   },
+    // });
+    //weatherapiresult = result?.data?.response?.body?.items?.item;
+    //console.log("openAPI 공공 api axios 결과 ", weatherapiresult);
+
+    const params = {
+      serviceKey: apiKey,
+      numOfRows: 10,
+      pageNo: 1,
+      dataType: "JSON",
+      base_date: weatherDate,
+      base_time: weatherTime,
+      nx: xyresult.x,
+      ny: xyresult.y,
+    };
+
+    const result = await axios
+      .post("/api/main/openapi", { url: URL, params })
+      .then((result) => {
+        console.log("openApi.js axios.post(/api/openapi) 결과 -> ", result);
+      })
+      .catch((e) => {
+        console.log("openApi.js axios.post(/api/openapi) 에러발생 -> ", e);
+      });
+
+    console.log("openAPI 공공 api axios 결과 result", result);
     weatherapiresult = result?.data?.response?.body?.items?.item;
-    console.log("openAPI 공공 api axios 결과 ", weatherapiresult);
+
     return weatherapiresult;
   } catch (e) {
     console.log("openAPI axios 에러발생", e);

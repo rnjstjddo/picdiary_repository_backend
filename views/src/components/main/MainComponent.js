@@ -116,7 +116,7 @@ const MainComponent = () => {
   const [todayDate, setTodayDate] = useState("");
   //const [selectDate, setSelectDate] = useState("");
   //diet
-  const [dietId, setDietId] = useState("");
+  //const [dietId, setDietId] = useState("");
   const { moveToLogin } = useCustomMove();
   const [dietMorning, setDietMorning] = useState([]);
   const [dietLunch, setDietLunch] = useState([]);
@@ -125,7 +125,7 @@ const MainComponent = () => {
   //money
   const [moneyIncome, setMoneyIncome] = useState([]);
   const [moneyExpense, setMoneyExpense] = useState([]);
-  const [moneyId, setMoneyId] = useState("");
+  //const [moneyId, setMoneyId] = useState("");
   const [moneySum, setMoneySum] = useState({});
   //moneySum  sumincome sumexpense monthsumincome monthsumexpense
 
@@ -369,7 +369,7 @@ const MainComponent = () => {
                 setMoneySum(() => sum);
               }
               //sum  sumincome sumexpense monthsumincome monthsumexpense
-              setMoneyId(result.money[0]?.Moneydetails[0]?.MoneyId);
+              //setMoneyId(result.money[0]?.Moneydetails[0]?.MoneyId);
             } //money배열존재할 경우
 
             if (result.exercise.length !== 0) {
@@ -477,89 +477,96 @@ const MainComponent = () => {
     setFindDate(() => `${selectYear}-${selectMonthAdd}-${dAdd}`);
   };
 
-  useEffect(() => {
-    console.log("useEffect()진입 findDate 변경으로 axios 호출위해");
+  // useEffect(() => {
+  //   console.log("useEffect()진입 findDate 변경으로 axios 호출위해");
 
-    getTodayManagement(findDate)
-      .then((result) => {
-        console.log("useEffect()진입 axios 결과 -> ", result);
+  //   const getTodayManagementUE = async () => {
+  //     await getTodayManagement(findDate)
+  //       .then((result) => {
+  //         console.log("useEffect()진입 axios 결과 -> ", result);
 
-        //다어이리
-        setDiaryResultArray(() => result.diary);
+  //         //다어이리
+  //         setDiaryResultArray(() => result.diary);
 
-        //식단
-        if (result.diet.length !== 0) {
-          //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+  //         //식단
+  //         if (result.diet.length !== 0) {
+  //           //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
 
-          //아래수정
-          //setDietId(result.diet[0].id);
+  //           //아래수정
+  //           //setDietId(result.diet[0].id);
 
-          result.diet.forEach((v) => {
-            v.Dietdetails.forEach((d) => {
-              if (d.choose === "1") {
-                setDietMorning((prev) => [...prev, d]);
-              } else if (d.choose === "2") {
-                setDietLunch((prev) => [...prev, d]);
-              } else if (d.choose === "3") {
-                setDietEvening((prev) => [...prev, d]);
-              } else {
-                setDietSnack((prev) => [...prev, d]);
-              }
-            });
-          });
-          //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
-        }
-        //가계부
-        if (result.money.length !== 0) {
-          result.money?.forEach((v) => {
-            v.Moneydetails.forEach((d) => {
-              if (d.choose === "1") {
-                d.amount = Number(d.amount).toLocaleString("ko-KR");
-                setMoneyIncome((prev) => [...prev, d]);
-              } else if (d.choose === "2") {
-                d.amount = Number(d.amount).toLocaleString("ko-KR");
+  //           result.diet.forEach((v) => {
+  //             v.Dietdetails.forEach((d) => {
+  //               if (d.choose === "1") {
+  //                 setDietMorning((prev) => [...prev, d]);
+  //               } else if (d.choose === "2") {
+  //                 setDietLunch((prev) => [...prev, d]);
+  //               } else if (d.choose === "3") {
+  //                 setDietEvening((prev) => [...prev, d]);
+  //               } else {
+  //                 setDietSnack((prev) => [...prev, d]);
+  //               }
+  //             });
+  //           });
+  //           //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
+  //         }
+  //         //가계부
+  //         if (result.money.length !== 0) {
+  //           result.money?.forEach((v) => {
+  //             v.Moneydetails.forEach((d) => {
+  //               if (d.choose === "1") {
+  //                 d.amount = Number(d.amount).toLocaleString("ko-KR");
+  //                 setMoneyIncome((prev) => [...prev, d]);
+  //               } else if (d.choose === "2") {
+  //                 d.amount = Number(d.amount).toLocaleString("ko-KR");
 
-                setMoneyExpense((prev) => [...prev, d]);
-              }
-            });
-          });
+  //                 setMoneyExpense((prev) => [...prev, d]);
+  //               }
+  //             });
+  //           });
 
-          let sum = {};
+  //           let sum = {};
 
-          if (result.money.length !== 0 && result.sum.length !== 0) {
-            sum["sumincome"] = Number(result.money[0].income).toLocaleString(
-              "ko-KR"
-            );
-            sum["sumexpense"] = Number(result.money[0].expense).toLocaleString(
-              "ko-KR"
-            );
-            sum["monthsumincome"] = Number(
-              result.sum[0].sumincome
-            ).toLocaleString("ko-KR");
-            sum["monthsumexpense"] = Number(
-              result.sum[0].sumexpense
-            ).toLocaleString("ko-KR");
-            setMoneySum(() => sum);
-          }
-          //sum  sumincome sumexpense monthsumincome monthsumexpense
-          setMoneyId(result.money[0]?.Moneydetails[0]?.MoneyId);
-        }
-        //운동
-        if (result.exercise.length !== 0) {
-          result.exercise.forEach((v) => {
-            let objectexercise = {};
-            objectexercise["content"] = v.content;
-            objectexercise["choose"] = v.choose;
-            objectexercise["whenchoose"] = v.whenchoose;
-            objectexercise["minute"] = v.minute;
-            setExerciseResultArray((prev) => [...prev, objectexercise]);
-          });
-        } //if exericse state만들기
-      })
-      .catch((err) => {
-        console.log("useEffect()진입 axios 에러-> ", err);
-      });
-  }, [findDate]);
+  //           if (result.money.length !== 0 && result.sum.length !== 0) {
+  //             sum["sumincome"] = Number(result.money[0].income).toLocaleString(
+  //               "ko-KR"
+  //             );
+  //             sum["sumexpense"] = Number(
+  //               result.money[0].expense
+  //             ).toLocaleString("ko-KR");
+  //             sum["monthsumincome"] = Number(
+  //               result.sum[0].sumincome
+  //             ).toLocaleString("ko-KR");
+  //             sum["monthsumexpense"] = Number(
+  //               result.sum[0].sumexpense
+  //             ).toLocaleString("ko-KR");
+  //             setMoneySum(() => sum);
+  //           }
+  //           //sum  sumincome sumexpense monthsumincome monthsumexpense
+  //           //setMoneyId(result.money[0]?.Moneydetails[0]?.MoneyId);
+  //         }
+  //         //운동
+  //         if (result.exercise.length !== 0) {
+  //           result.exercise.forEach((v) => {
+  //             let objectexercise = {};
+  //             objectexercise["content"] = v.content;
+  //             objectexercise["choose"] = v.choose;
+  //             objectexercise["whenchoose"] = v.whenchoose;
+  //             objectexercise["minute"] = v.minute;
+  //             setExerciseResultArray((prev) => [...prev, objectexercise]);
+  //           });
+  //         } //if exericse state만들기
+  //       })
+  //       .catch((err) => {
+  //         console.log("useEffect()진입 axios 에러-> ", err);
+  //       });
+  //   };
+
+  //   if (findDate !== "") {
+  //     getTodayManagementUE();
+  //   }
+  // }, [findDate]);
+
   return (
     <>
       <Container>

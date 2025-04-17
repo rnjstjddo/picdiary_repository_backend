@@ -131,6 +131,8 @@ module.exports = (server) => {
       const matchResult = roomArray.filter((n) => n.roomname === chatroomname);
 
       socket.leave(chatroomname); //방나가기
+      //추가
+      socket.disconnect(true);
       const chatcount = io.of("/").adapter.rooms.get(chatroomname)?.size || 0;
       console.log("서버 out 이벤트받음 현재 인원수-> ", chatcount);
 
