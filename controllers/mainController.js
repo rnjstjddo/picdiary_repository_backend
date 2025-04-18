@@ -164,6 +164,11 @@ exports.openapiController = async (req, res, next) => {
     const result = await axios.get(url, {
       params: params,
     });
+
+    console.log(
+      "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 result 전체 -> ",
+      result
+    );
     const apiresult = result?.data?.response?.body?.items?.item;
     console.log(
       "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 -> ",

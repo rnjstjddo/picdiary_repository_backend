@@ -95,6 +95,11 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
       ny: xyresult.y,
     };
 
+    console.log(
+      "openApi.js axios.post(/api/openapi) 보내기전 요청본문 내용확인 -> ",
+      params
+    );
+
     const result = await axios
       .post("/api/main/openapi", { url: URL, params })
       .then((result) => {

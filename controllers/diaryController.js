@@ -78,7 +78,7 @@ exports.patchDiary = async (req, res, next) => {
       s3.deleteObject(
         {
           Bucket: "picdiary-bucket", // 삭제하고 싶은 이미지가 있는 버킷 이름 ap-northeast-2
-          Key: findFilename.dataValues.path, // 삭제하고 싶은 이미지의 key
+          Key: diaryFind.dataValues.path, // 삭제하고 싶은 이미지의 key
         },
         (err, data) => {
           if (err) console.log("diaryController.js s3삭제 실패");
@@ -157,7 +157,7 @@ exports.deleteDiary = async (req, res, next) => {
       s3.deleteObject(
         {
           Bucket: "picdiary-bucket", // 삭제하고 싶은 이미지가 있는 버킷 이름 ap-northeast-2
-          Key: findFilename.dataValues.key, // 삭제하고 싶은 이미지의 key
+          Key: findFilename.dataValues.path, // 삭제하고 싶은 이미지의 key
         },
         (err, data) => {
           if (err) console.log("diaryController.js s3삭제 실패");

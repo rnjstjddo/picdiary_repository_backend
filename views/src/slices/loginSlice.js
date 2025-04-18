@@ -15,11 +15,12 @@ const loadMemberCookie = () => {
   );
   const accessToken = getCookie("accessToken");
 
-  if (memberInfo && memberInfo.user) {
+  //if (memberInfo && memberInfo.user) { 서버에서 전달받은 엑세스코드와 유저정보중에 유저정보만 쿠키에 담았기에 변경 아래와같이
+  if (memberInfo && memberInfo.email) {
     // if (memberInfo && memberInfo.nickname) {
     //   memberInfo.nickname = decodeURIComponent(memberInfo.nickname);
     // }
-    return memberInfo.user.email;
+    return memberInfo.email;
   }
   return { ...initState };
 };
