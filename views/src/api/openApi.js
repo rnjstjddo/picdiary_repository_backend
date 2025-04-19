@@ -9,8 +9,8 @@ const URL =
 //?serviceKey=인증키&numOfRows=10&pageNo=1
 //&base_date=20210628&base_time=0600&nx=55&ny=127
 
-const apiKey = process.env.REACT_APP_API_KEY;
-console.log(apiKey);
+const apiKey =
+  "G1zKspcc/ZudD4n/spBIwniRMfSdVJJtOxngQ2Zym02R3+gVNkCHR2yPbBgoFMrciEDEzYmvTvrFA2KS4xSIgw==";
 
 const navigatorFn = () => {
   if (navigator.geolocation) {

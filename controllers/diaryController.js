@@ -4,6 +4,12 @@ const Diary = require("../models/diary");
 const { Op } = require("sequelize");
 const AWS = require("aws-sdk");
 const fs = require("fs");
+
+AWS.config.update({
+  accessKeyId: process.env.ACCESS_KEY_ID, //ACCESS_KEY_ID SECRET_ACCESS_KEY
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  region: "ap-northeast-2",
+});
 const s3 = new AWS.S3();
 
 //다이어리 컨트롤러 함수

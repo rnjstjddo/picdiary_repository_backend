@@ -9,5 +9,5 @@ views/build/uploads
 #views/package-lock.json
 #views/public
 #views/src
-views/.env
+#views/.env
 
