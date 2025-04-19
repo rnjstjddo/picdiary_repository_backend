@@ -100,22 +100,22 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
       params
     );
 
-    const result = await axios.post("/api/main/openapi", { url: URL, params });
+    await axios
+      .post("/api/main/openapi", { url: URL, params })
+      .then((result) => {
+        console.log(
+          "openApi.js axios.post(/api/main/openapi) 결과 result-> ",
+          result
+        );
 
-    result.then((result) => {
-      console.log(
-        "openApi.js axios.post(/api/main/openapi) 결과 result-> ",
-        result
-      );
+        console.log(
+          "openApi.js axios.post(/api/main/openapi) 결과 result.result-> ",
+          result.result
+        );
+        weatherapiresult = result.result;
 
-      console.log(
-        "openApi.js axios.post(/api/main/openapi) 결과 result.result-> ",
-        result.result
-      );
-      weatherapiresult = result.result;
-
-      return weatherapiresult;
-    });
+        return weatherapiresult;
+      });
   } catch (e) {
     console.log("openApi.js axios.post(/api/main/openapi) 에러발생", e);
   }
