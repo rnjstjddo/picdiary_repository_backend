@@ -165,12 +165,14 @@ exports.openapiController = async (req, res, next) => {
       params: params,
     });
 
-    const apiresult = result?.data?.response?.body?.items?.item;
-    console.log(
-      "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 -> ",
-      apiresult
-    );
-    return res.json(apiresult);
+    result.then((result) => {
+      const apiresult = result?.data?.response?.body?.items?.item;
+      console.log(
+        "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청결과 -> ",
+        apiresult
+      );
+      return res.json({ result: apiresult });
+    });
   } catch (e) {
     console.log(
       "컨트롤러함수 mainController.js openapiController() 진입 공공api 요청시 에러발생 -> ",
