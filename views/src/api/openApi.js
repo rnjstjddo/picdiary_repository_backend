@@ -100,8 +100,9 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
       params
     );
 
-    const result = await axios
-      .post("/api/main/openapi", { url: URL, params })
+    const result = await axios.post("/api/main/openapi", { url: URL, params });
+
+    result
       .then((result) => {
         console.log("openApi.js axios.post(/api/openapi) 결과 -> ", result);
       })
