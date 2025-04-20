@@ -14,7 +14,7 @@ import useCustomLogin from "../../hooks/useCustomLogin";
 import { getDiaryList } from "../../api/diaryApi";
 
 const makeCalendar = (d) => {
-  console.log("makeCalendar() 진입");
+  //console.log("makeCalendar() 진입");
 
   let date = new Date(d);
   const currentYear = new Date(date).getFullYear(); //예)Mon Apr 01 2024 10:27:04 GMT+0900 (한국 표준시)
@@ -60,7 +60,7 @@ const makeCalendar = (d) => {
 
 const CalendarItem = (props) => {
   //UserId, content ,createdAt ,id , picture4
-  console.log("CalendarItem() 진입");
+  //console.log("CalendarItem() 진입");
 
   const { diary, dateobject } = props.i; //api서버후 db에서 받은값
   // console.log("props.i ", props.i.diary[0]);
@@ -121,13 +121,13 @@ const DiaryListComponent = () => {
   const [check, setCheck] = useState(0);
   const [make, setMake] = useState(false);
 
-  console.log("컴포넌트 시작");
+  //console.log("컴포넌트 시작");
 
   let searchParamsYear = searchParams.get("year");
   let searchParamsMonth = searchParams.get("month");
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect()  진입");
+    //console.log("useLayoutEffect()  진입");
     setDateItem(() => []);
     setMake(() => false);
     let date = new Date();
@@ -138,21 +138,21 @@ const DiaryListComponent = () => {
     date = `${basicYear}-${basicMonth}-01`;
 
     if (searchParamsYear !== null && searchParamsMonth !== null) {
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsYear
-      );
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsMonth
-      );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsYear
+      // );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsMonth
+      // );
       setSearchMonth(() => Number(searchParamsMonth));
       setSearchYear(() => searchParamsYear);
 
       date = new Date(`${searchParamsYear}-${searchParamsMonth}-01`);
-      console.log("date-> ", date);
+      //console.log("date-> ", date);
     }
-    console.log("useLayoutEffect()  setCurrentDate() 넣기전-> ", date);
+    //console.log("useLayoutEffect()  setCurrentDate() 넣기전-> ", date);
 
     setCurrentDate(() => date);
     const longdate = new Date(date);
@@ -163,10 +163,10 @@ const DiaryListComponent = () => {
 
   useEffect(() => {
     if (fullcurrentDate !== "") {
-      console.log(
-        "useEffect() fullcurrentDate 존재할경우 =>  ",
-        fullcurrentDate
-      );
+      //console.log(
+      //  "useEffect() fullcurrentDate 존재할경우 =>  ",
+      //  fullcurrentDate
+      //);
 
       const { firstDay, nextDay, limitDay, lastDay } =
         makeCalendar(fullcurrentDate);
@@ -178,7 +178,7 @@ const DiaryListComponent = () => {
     } //if
 
     return () => {
-      console.log("useEffect() makeCalendar() 반환변수들 초기화");
+      //console.log("useEffect() makeCalendar() 반환변수들 초기화");
 
       setLastDay(() => "");
       setFirstDay(() => "");
@@ -189,15 +189,15 @@ const DiaryListComponent = () => {
 
   //달력에서 이전빈칸
   useEffect(() => {
-    console.log("useEffect() 달력 데이터넣기 진입");
+    //console.log("useEffect() 달력 데이터넣기 진입");
 
     if (make === true) {
-      console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
+      //console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
 
       let dateItem = [];
 
       for (let i = 1, j = 0; i <= lastDay; i++, j++) {
-        console.log("useEffect() 달력 데이터넣기 for문 진입");
+        //console.log("useEffect() 달력 데이터넣기 for문 진입");
 
         let currentYear = new Date(fullcurrentDate).getFullYear();
         let currentMonth = new Date(fullcurrentDate).getMonth() + 1;
@@ -237,28 +237,28 @@ const DiaryListComponent = () => {
   }, [make]);
 
   useEffect(() => {
-    console.log("useEffect() 진입");
+    //console.log("useEffect() 진입");
 
     if (currentDate !== "") {
-      console.log(
-        "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
-        currentDate
-      );
+      // console.log(
+      //   "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
+      //   currentDate
+      // );
 
       const getDiaryListEI = async () => {};
       getDiaryList({ currentDate })
         .then((result) => {
-          console.log(
-            "DiaryListComponet.js  useEffect axios 후 then()진입 ",
-            result
-          );
+          // console.log(
+          //   "DiaryListComponet.js  useEffect axios 후 then()진입 ",
+          //   result
+          // );
           if (result) {
             setDiary(() => result);
           }
           setMake(true);
         })
         .catch((err) => {
-          console.log("DiaryListComponet.js catch()진입 ", err);
+          //console.log("DiaryListComponet.js catch()진입 ", err);
           exceptionHandle(err);
         });
       getDiaryListEI();
@@ -267,41 +267,41 @@ const DiaryListComponent = () => {
 
   // 이전달 이동
   const BeforeMonthMove = (currentDate) => {
-    console.log("BeforeMonthMove() 진입  => ", currentDate);
+    //console.log("BeforeMonthMove() 진입  => ", currentDate);
     const tempdate = new Date(currentDate);
     let beforechangeDate = new Date(tempdate.setMonth(tempdate.getMonth() - 1));
     let beforecurrentYear = new Date(beforechangeDate).getFullYear();
-    console.log(
-      "BeforeMonthMove() 진입 beforecurrentYear => ",
-      beforecurrentYear
-    );
+    //console.log(
+    //  "BeforeMonthMove() 진입 beforecurrentYear => ",
+    // beforecurrentYear
+    //);
 
     let beforechangeMonth = new Date(beforechangeDate).getMonth() + 1;
     beforechangeMonth =
       beforechangeMonth < 10 ? "0" + beforechangeMonth : beforechangeMonth;
-    console.log(
-      "BeforeMonthMove() 진입 beforechangeMonth => ",
-      beforechangeMonth
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforechangeMonth => ",
+    //   beforechangeMonth
+    // );
 
     navigate(`?year=${beforecurrentYear}&month=${beforechangeMonth}`);
   };
 
   //다음달이동
   const NextMonthMove = (currentDate) => {
-    console.log("NextMonthMove() 진입 currentDate ->", currentDate);
+    //console.log("NextMonthMove() 진입 currentDate ->", currentDate);
     const tempdate = new Date(currentDate);
 
     let afterchangeDate = new Date(tempdate.setMonth(tempdate.getMonth()));
-    console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
+    //console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
 
     let aftercurrentYear = new Date(afterchangeDate).getFullYear();
-    console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
+    //console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
 
     let afterchangeMonth = new Date(afterchangeDate).getMonth() + 2;
     afterchangeMonth =
       afterchangeMonth < 10 ? "0" + afterchangeMonth : afterchangeMonth;
-    console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
+    //console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
 
     navigate(`?year=${aftercurrentYear}&month=${afterchangeMonth}`);
   };

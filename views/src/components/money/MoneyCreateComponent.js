@@ -41,18 +41,18 @@ const chooseReturn = (number) => {
 };
 
 const chooseSectorExpenseReturn = (number) => {
-  console.log(
-    "MoneyCreateComponent.js chooseReturn() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "MoneyCreateComponent.js chooseReturn() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log("MoneyCreateComponent.js chooseReturn() 진입 배열변경 => ", arr);
+  //console.log("MoneyCreateComponent.js chooseReturn() 진입 배열변경 => ", arr);
   let result = "";
   for (let n of arr) {
     switch (n) {
@@ -83,14 +83,14 @@ const chooseSectorExpenseReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const chooseSectorIncomeReturn = (chooseincome) => {
   if (!chooseincome) {
     return;
   }
-  console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
+  //console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
   switch (chooseincome) {
     case "21":
       return "급여";
@@ -104,21 +104,21 @@ const chooseSectorIncomeReturn = (chooseincome) => {
 };
 
 const chooseCheckbox = (number) => {
-  console.log(
-    "MoneyCreateComponent.js chooseCheckbox() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "MoneyCreateComponent.js chooseCheckbox() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log(
-    "MoneyCreateComponent.js chooseCheckbox() 진입 배열변경 => ",
-    arr
-  );
+  // console.log(
+  //   "MoneyCreateComponent.js chooseCheckbox() 진입 배열변경 => ",
+  //   arr
+  // );
   return arr;
 };
 const initDetailState = {
@@ -170,12 +170,12 @@ const MoneyCreateComponent = () => {
   useLayoutEffect(() => {
     const choose = searchParams.get("choose");
     if (choose === "2" || choose === "1") {
-      console.log(
-        "MoneyCreateComponent.js 파라미터 choose 존재할경우 -> ",
-        choose,
-        " typeof -> ",
-        typeof choose
-      );
+      // console.log(
+      //   "MoneyCreateComponent.js 파라미터 choose 존재할경우 -> ",
+      //   choose,
+      //   " typeof -> ",
+      //   typeof choose
+      // );
       setParamChoose(choose);
     } //if
   }, []);
@@ -215,11 +215,11 @@ const MoneyCreateComponent = () => {
   //---------------------- 추가시 입력받는 state
   const handleDetailChange = useCallback(
     (e) => {
-      console.log(
-        "handleDetailChange() 진입 => ",
-        e.target.value,
-        e.target.name
-      );
+      // console.log(
+      //   "handleDetailChange() 진입 => ",
+      //   e.target.value,
+      //   e.target.name
+      // );
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -243,7 +243,7 @@ const MoneyCreateComponent = () => {
   );
 
   const handleDetailOnClick = () => {
-    console.log("handleDetailOnClick 진입");
+    //console.log("handleDetailOnClick 진입");
     if (moneyDetailParam.content === "" || moneyDetailParam.amount === 0) {
       alert("내용을 모두 입력해주세요!");
       return;
@@ -254,10 +254,10 @@ const MoneyCreateComponent = () => {
     // );
 
     if (!paramChoose) {
-      console.log(
-        "handleDetailOnclick  moneyParam.choose-> ",
-        moneyParam.choose
-      );
+      // console.log(
+      //   "handleDetailOnclick  moneyParam.choose-> ",
+      //   moneyParam.choose
+      // );
 
       if (
         moneyParam.choose === null ||
@@ -382,7 +382,7 @@ const MoneyCreateComponent = () => {
 
   //------------------------------- 가계부등록
   const handleSubmitMoney = (e) => {
-    console.log("handleSubmitMoney() 진입");
+    //console.log("handleSubmitMoney() 진입");
     e.preventDefault();
     setInputVisible(false);
 
@@ -473,35 +473,35 @@ const MoneyCreateComponent = () => {
       dateobject,
     })
       .then((result) => {
-        console.log(
-          "MoneyCreateComponent.js axios postMoney then() 진입 -> ",
-          result
-        );
+        // console.log(
+        //   "MoneyCreateComponent.js axios postMoney then() 진입 -> ",
+        //   result
+        // );
         if (result.result === "success") {
           alert(dateobject + " 일자 가계부를 등록했습니다.!");
           // if (result.payload.image) {
           //   URL.revokeObjectURL(image);
           //   setImage("");
           // }
-          console.log(result.id);
+          //console.log(result.id);
           moveToMoneyList();
         }
 
         if (result.error) {
-          console.log("result.error -> ", result.error);
+          //console.log("result.error -> ", result.error);
           alert(dateobject + " 일자 가계부 등록 실패했습니다.");
           moveToMoneyCreate(dateobject);
         }
       })
       .catch((err) => {
-        console.log("MoneyCreateComponent.js axios postMoneyC catch()", err);
+        //console.log("MoneyCreateComponent.js axios postMoneyC catch()", err);
         alert(dateobject + "일자 가계부 등록 실패했습니다.");
         moveToMoneyCreate(dateobject);
       });
   };
 
   const handleDetailRemoveOnClick = (e) => {
-    console.log("handleDetailRemoveOnClick() 진입");
+    //console.log("handleDetailRemoveOnClick() 진입");
 
     // console.log(
     //   "handleDetailRemoveOnClick() dataset =>",
@@ -594,7 +594,7 @@ const MoneyCreateComponent = () => {
   };
 
   const handleOnKeyDown = (e) => {
-    console.log("handleOnKeyDown() 진입");
+    //console.log("handleOnKeyDown() 진입");
     if (e.keyCode === 13) {
       e.preventDefault();
       return;
@@ -603,7 +603,7 @@ const MoneyCreateComponent = () => {
 
   //버튼초기화
   const handleRadioReset = (e) => {
-    console.log("handleRadioReset() 진입");
+    //console.log("handleRadioReset() 진입");
     if (e.target.value === "true") {
       //  console.log("진입");
       refIncomeReset.current.checked = false;
@@ -619,7 +619,7 @@ const MoneyCreateComponent = () => {
   useEffect(() => {
     choosecheck({ dateobject })
       .then((result) => {
-        console.log("MoneyCreateComponent.js then() 결과 ", result);
+        //console.log("MoneyCreateComponent.js then() 결과 ", result);
 
         if (Number(result.result?.expense) > 0) {
           setIncomeExist(true);
@@ -632,7 +632,7 @@ const MoneyCreateComponent = () => {
         }
       })
       .catch((e) => {
-        console.log("MoneyCreateComponent.js catch() 에러 ", e);
+        //console.log("MoneyCreateComponent.js catch() 에러 ", e);
       });
   });
 

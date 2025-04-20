@@ -15,12 +15,12 @@ const whenchooseSwitch = (whenchoose) => {
   if (!whenchoose) {
     return;
   }
-  console.log(
-    "whenchooseSwitch 매개변수 -> ",
-    whenchoose,
-    " typeof -> ",
-    typeof whenchoose
-  );
+  // console.log(
+  //   "whenchooseSwitch 매개변수 -> ",
+  //   whenchoose,
+  //   " typeof -> ",
+  //   typeof whenchoose
+  // );
   switch (whenchoose) {
     case "1":
       return "아침";
@@ -35,12 +35,12 @@ const whenchooseSwitch = (whenchoose) => {
 
 const chooseReturn = (number) => {
   //1234 이렇게 들어온다.
-  console.log(
-    "ExerciseReadComponent.js chooseReturn() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "ExerciseReadComponent.js chooseReturn() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
@@ -76,21 +76,21 @@ const initState = {
 const addExercise = (param) => {
   const earray = ["1", "2", "3"];
 
-  console.log("addExercise() 매개변수", param);
+  //console.log("addExercise() 매개변수", param);
 
   const spliceall = [];
   for (let d of earray) {
-    console.log("addExercise() 배열 ", earray);
+    //console.log("addExercise() 배열 ", earray);
 
     let iof = earray.indexOf(d);
 
-    console.log("addExercise() 내 배열인덱스", iof);
+    //console.log("addExercise() 내 배열인덱스", iof);
     param.filter((i) => {
-      console.log("addExercise() 내 whenchoose ", i.whenchoose);
-      console.log("addExercise() 내 배열값 ", d);
+      //console.log("addExercise() 내 whenchoose ", i.whenchoose);
+      //console.log("addExercise() 내 배열값 ", d);
 
       if (i.whenchoose === d) {
-        console.log("addExercise() 내 일치");
+        //console.log("addExercise() 내 일치");
         spliceall.push(d);
       }
     });
@@ -101,7 +101,7 @@ const addExercise = (param) => {
     earray.splice(indexearray, 1);
   });
 
-  console.log("addExercise 결과 => ", earray);
+  //console.log("addExercise 결과 => ", earray);
   return earray;
 };
 
@@ -111,68 +111,68 @@ const addExerciseMap = (param) => {
   for (let d of earray) {
     let iof = earray.indexOf(d);
 
-    console.log("d 인덱스", d);
+    //console.log("d 인덱스", d);
     param.filter((i) => {
       if (i === d) earray.splice(iof);
     });
   }
-  console.log("earray 결과 => ", earray);
+  //console.log("earray 결과 => ", earray);
 };
 
 const ExerciseReadComponent = () => {
   const [exerciseParam, setExerciseParam] = useState([]);
 
-  console.log("exerciseParam -> ", exerciseParam);
+  //console.log("exerciseParam -> ", exerciseParam);
   const { dateobject } = useParams();
   const { moveToExerciseRead, moveToExerciseList, deleteExerciseC } =
     useCustomExercise();
   const [addExerciseParam, setAddExerciseParam] = useState([]);
 
-  console.log("addExerciseParam -> ", addExerciseParam);
+  //console.log("addExerciseParam -> ", addExerciseParam);
 
   useEffect(() => {
-    console.log(
-      "ExerciseReadComponent.js useEffect() 진입 objectdate=> ",
-      dateobject
-    );
+    // console.log(
+    //   "ExerciseReadComponent.js useEffect() 진입 objectdate=> ",
+    //   dateobject
+    // );
 
     //let dietData=[]
     //api
     const getExerciseEI = async () =>
       await getExerciseAll(dateobject)
         .then((result) => {
-          console.log(
-            "ExerciseReadComponent.js useEffect 내 getExerciseAll axios 호출후 then() => ",
-            result
-          ); //acton.payload 받기에 data 없음
+          // console.log(
+          //   "ExerciseReadComponent.js useEffect 내 getExerciseAll axios 호출후 then() => ",
+          //   result
+          // ); //acton.payload 받기에 data 없음
           setExerciseParam(result);
 
           setAddExerciseParam(addExercise(result));
         })
         .catch((err) => {
-          console.log(
-            "ExerciseReadComponent.js useEffect 내 getExerciseAll axios 호출후 catch() => ",
-            err
-          );
+          // console.log(
+          //   "ExerciseReadComponent.js useEffect 내 getExerciseAll axios 호출후 catch() => ",
+          //   err
+          // );
         });
 
     getExerciseEI();
   }, []);
 
   const deleteOnClick = (whenchoose) => {
-    console.log(
-      "ExerciseReadComponent.js deleteOnClick() 삭제할 운동 whenchoose => ",
-      whenchoose
-    );
+    // console.log(
+    //   "ExerciseReadComponent.js deleteOnClick() 삭제할 운동 whenchoose => ",
+    //   whenchoose
+    // );
 
     if (window.confirm("해당 운동을 삭제하십니까?")) {
       //    deleteExerciseC({ whenchoose, dateobject })
       deleteExercise({ whenchoose, dateobject })
         .then((result) => {
-          console.log(
-            "ExerciseReadComponent.js deleteOnClick() then() => ",
-            result
-          );
+          // console.log(
+          //   "ExerciseReadComponent.js deleteOnClick() then() => ",
+          //   result
+          // );
           if (result.result === "success") {
             alert(
               dateobject +
@@ -189,10 +189,10 @@ const ExerciseReadComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "ExerciseReadComponent.js deleteOnClick() catch() => ",
-            err
-          );
+          // console.log(
+          //   "ExerciseReadComponent.js deleteOnClick() catch() => ",
+          //   err
+          // );
           alert(exerciseParam.dateobject + "일자의 운동 삭제를 실패했습니다.");
           moveToExerciseRead(exerciseParam.dateobject);
         });

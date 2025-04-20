@@ -41,11 +41,11 @@ const DiaryModifyComponent = () => {
 
   const handleChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
-      console.log("e.target.file 값확인 -> ", e.target.file);
+      //console.log(e.target.value, e.target.name);
+      //console.log("e.target.file 값확인 -> ", e.target.file);
 
       if (e.target.file) {
-        console.log("e.target.file if문 들어옴");
+        //console.log("e.target.file if문 들어옴");
         setVisible(false);
         setNewvisible(true);
       }
@@ -57,17 +57,17 @@ const DiaryModifyComponent = () => {
   );
 
   const handleImageChange = (e) => {
-    console.log("DiaryReadComponent.js handleImageChange()진입");
+    //console.log("DiaryReadComponent.js handleImageChange()진입");
     if (!e.target.files) return;
     const file = e.target.files[0];
-    console.log(
-      "DiaryReadComponent.js handleImageChange()진입 e.target.files[0] -> ",
-      file
-    );
-    console.log(
-      "DiaryReadComponent.js handleImageChange()진입 e.target -> ",
-      e.target
-    );
+    // console.log(
+    //   "DiaryReadComponent.js handleImageChange()진입 e.target.files[0] -> ",
+    //   file
+    // );
+    // console.log(
+    //   "DiaryReadComponent.js handleImageChange()진입 e.target -> ",
+    //   e.target
+    // );
 
     if (file.name !== null) {
       let image = window.URL.createObjectURL(file);
@@ -78,23 +78,23 @@ const DiaryModifyComponent = () => {
   };
 
   useEffect(() => {
-    console.log("DiaryReadComponent.js useEffect() 진입 id=> ", id);
+    //console.log("DiaryReadComponent.js useEffect() 진입 id=> ", id);
 
     //api
     const getDiaryEI = async () =>
       await getDiary(id)
         .then((result) => {
-          console.log(
-            "DiaryReadComponent.js useEffect 내 getDiary axios 호출후 then() => ",
-            result.data
-          );
+          // console.log(
+          //   "DiaryReadComponent.js useEffect 내 getDiary axios 호출후 then() => ",
+          //   result.data
+          // );
           setDiaryParam({ ...result.data });
         })
         .catch((err) => {
-          console.log(
-            "DiaryReadComponent.js useEffect 내 getDiary axios 호출후 catch() 진입 ",
-            err
-          );
+          // console.log(
+          //   "DiaryReadComponent.js useEffect 내 getDiary axios 호출후 catch() 진입 ",
+          //   err
+          // );
           effectException(err);
         });
 
@@ -115,10 +115,10 @@ const DiaryModifyComponent = () => {
       const { picture } = e.target;
       patchDiaryC({ diaryParam, picture })
         .then((result) => {
-          console.log(
-            "DiaryModifyComponent.js axios patchDiaryC then() 진입 -> ",
-            result
-          );
+          // console.log(
+          //   "DiaryModifyComponent.js axios patchDiaryC then() 진입 -> ",
+          //   result
+          // );
           if (result.payload.result === "success") {
             alert(diaryParam.dateobject + " 일자 다이어리 수정했습니다.!");
             if (result.payload.image) {
@@ -130,13 +130,13 @@ const DiaryModifyComponent = () => {
             moveToDiaryRead(diaryParam.id);
           }
           if (result.payload.error) {
-            console.log("result.payload.error -> ", result.payload.error);
+            //console.log("result.payload.error -> ", result.payload.error);
             alert(diaryParam.dateobject + " 일자 다이어리 수정 실패했습니다.");
             moveToDiaryModify(diaryParam.id);
           }
         })
         .catch((err) => {
-          console.log("DiaryCreateComponent.js axios postDiary catch()", err);
+          //console.log("DiaryCreateComponent.js axios postDiary catch()", err);
           alert(diaryParam.dateobject + "일자 다이어리 수정 실패했습니다.");
           moveToDiaryModify(diaryParam.id);
         });
@@ -145,13 +145,13 @@ const DiaryModifyComponent = () => {
 
   const resetOnClick = () => {
     setReset((reset) => !reset);
-    console.log(image); //blob
+    //console.log(image); //blob
     if (image) {
       setImage("");
       URL.revokeObjectURL(image);
       setNewvisible(false);
     }
-    console.log(diaryParam.picture); //null
+    //console.log(diaryParam.picture); //null
     if (diaryParam.picture) {
       setVisible(true);
     }
@@ -162,10 +162,10 @@ const DiaryModifyComponent = () => {
     if (window.confirm("해당 다이어리를 삭제하십니까?")) {
       deleteDiaryC(diaryParam.id)
         .then((result) => {
-          console.log(
-            "DiaryModifyComponent.js deleteOnClick() then() => ",
-            result
-          );
+          // console.log(
+          //   "DiaryModifyComponent.js deleteOnClick() then() => ",
+          //   result
+          // );
           if (result.payload.result === "success") {
             alert(diaryParam.dateobject + "일자의 다이어리가 삭제되었습니다.");
             URL.revokeObjectURL(image);
@@ -180,10 +180,10 @@ const DiaryModifyComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "DiaryModifyComponent.js deleteOnClick() catch() => ",
-            err
-          );
+          //console.log(
+          //  "DiaryModifyComponent.js deleteOnClick() catch() => ",
+          //  err
+          //);
           alert(diaryParam.dateobject + "일자의 다이어리 삭제를 실패했습니다.");
           moveToDiaryModify(diaryParam.id);
         });

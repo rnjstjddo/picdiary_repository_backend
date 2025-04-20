@@ -6,7 +6,7 @@ const host = `/api/diet`;
 
 //식단목록전체
 export const getDietList = async ({ currentDate }) => {
-  console.log("dietApi.js getDietList 매개변수확인 ->", currentDate);
+  //console.log("dietApi.js getDietList 매개변수확인 ->", currentDate);
   //const res = await axios.get(`${host}`);
   const res = await jwtAxios.get(`${host}/${currentDate}`);
 
@@ -29,7 +29,7 @@ export const getDietEach = async ({ choose, dateobject }) => {
 
 //식단 수정
 export const patchDiet = async ({ finalObjectArray, dateobject, choose }) => {
-  console.log("patchDiet 매개변수확인 finalObjectArray-> ", finalObjectArray);
+  //console.log("patchDiet 매개변수확인 finalObjectArray-> ", finalObjectArray);
   const res = await jwtAxios.patch(`${host}/modify/${choose}/${dateobject}`, {
     finalObjectArray,
   });
@@ -40,11 +40,11 @@ export const patchDiet = async ({ finalObjectArray, dateobject, choose }) => {
 //식단 등록
 export const postDiet = async ({ dietParam, finalObjectArray }) => {
   //const res = await axios.post(`${host}/create`);
-  console.log("dietApi.js postDiet() 매개변수 dietParam -> ", dietParam);
-  console.log(
-    "dietApi.js postDiet() 매개변수 finalObjectArray-> ",
-    finalObjectArray
-  );
+  //console.log("dietApi.js postDiet() 매개변수 dietParam -> ", dietParam);
+  //console.log(
+  //  "dietApi.js postDiet() 매개변수 finalObjectArray-> ",
+  //  finalObjectArray
+  //);
 
   //content, quantity, dateobject,
   const res = await jwtAxios.post(`${host}/create`, {

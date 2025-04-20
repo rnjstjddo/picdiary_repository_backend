@@ -9,17 +9,17 @@ const LogoutComponent = () => {
   const handleClickLogout = () => {
     //    dispatch(logout());
     //커스텀훅사용
-    console.log("LogoutComponent.js handleClickLogout() 진입");
+    //console.log("LogoutComponent.js handleClickLogout() 진입");
 
     doLogout()
       .then((result) => {
-        console.log("LogoutComponent.js 로그아웃 결과 -> ", result);
+        //console.log("LogoutComponent.js 로그아웃 결과 -> ", result);
 
         alert("로그아웃성공");
         moveToPath("/");
       })
       .catch((err) => {
-        console.log("LogoutComponent.js 로그아웃 에러 발생 ", err);
+        //console.log("LogoutComponent.js 로그아웃 에러 발생 ", err);
         moveToPath("/");
       });
 

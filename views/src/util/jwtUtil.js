@@ -8,7 +8,7 @@ const jwtAxios = axios.create();
 const refreshJWT = async (refreshToken, accessToken) => {
   const host = API_SERVER_HOST;
 
-  console.log("jwtUtil.js refreshJWT진입 ");
+  //console.log("jwtUtil.js refreshJWT진입 ");
 
   const header = { headers: { Authorization: `Bearer ${accessToken}` } };
 
@@ -17,10 +17,10 @@ const refreshJWT = async (refreshToken, accessToken) => {
       `${host}/api/member/refreshToken?refreshToken=${refreshToken}`,
       header
     );
-    console.log("jwtUtil.js refreshJWT진입 axios 결과 -> ", res);
+    //console.log("jwtUtil.js refreshJWT진입 axios 결과 -> ", res);
     return res.data;
   } catch (err) {
-    console.log("jwtUtil.js refreshJWT진입 catch() -> ", err);
+    //console.log("jwtUtil.js refreshJWT진입 catch() -> ", err);
     //    if (err.response.data.name === "TokenExpiredError") {
     if (err.response.data.error === "ERROR_REFRESH_TOKEN") {
       return Promise.reject({ response: { data: { error: "REQUIRE_LOGIN" } } });
@@ -36,17 +36,17 @@ const beforeReq = (config) => {
   // }
   // const { accessToken } = memberInfo;
 
-  console.log("jwtUtil.js beforeReq() 매개변수config.url=> ", config.url);
+  //console.log("jwtUtil.js beforeReq() 매개변수config.url=> ", config.url);
   //const result =
   //config.url === "http://localhost:8001/api/diary" ? true : false;
 
   // console.log("jwtUtil.js beforeReq() 결과", result);
   //if (result) {
   const accessToken = getCookie("accessToken");
-  console.log(
-    "jwtUtil.js beforeReq() 내 쿠키에 저장된 accessToken 꺼냄 => ",
-    accessToken
-  );
+  // console.log(
+  //   "jwtUtil.js beforeReq() 내 쿠키에 저장된 accessToken 꺼냄 => ",
+  //   accessToken
+  // );
   config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
@@ -61,13 +61,13 @@ const beforeReq = (config) => {
 };
 
 const requestFail = (err) => {
-  console.log("jwtUtil.js requestFail() 진입 err->  ", err);
+  //console.log("jwtUtil.js requestFail() 진입 err->  ", err);
 
   return Promise.reject(err);
 };
 
 const beforeRes = async (res) => {
-  console.log("jwtUtil.js beforeRes() 진입 res ->  ", res);
+  //console.log("jwtUtil.js beforeRes() 진입 res ->  ", res);
 
   //  const data = res.data;
   //const accessToken = res.headers.Authorization.accessToken;
@@ -100,7 +100,7 @@ const beforeRes = async (res) => {
 };
 
 const responseFail = async (err) => {
-  console.log("jwtUtil.js responseFail() 진입 err->  ", err);
+  //console.log("jwtUtil.js responseFail() 진입 err->  ", err);
 
   if (
     err.status === 419 ||
@@ -108,26 +108,26 @@ const responseFail = async (err) => {
     err.response.data.error === "ERROR_ACCESS_TOKEN" ||
     err.response.data.error === "EXPIRED_ACCESS_TOKEN"
   ) {
-    console.log("jwtUtil.js responseFail() 진입 엑세스토큰 재발급진입");
+    //console.log("jwtUtil.js responseFail() 진입 엑세스토큰 재발급진입");
 
     const memberCookieValue = getCookie("member");
-    console.log(
-      "jwtUtil.js responseFail() 진입 member쿠키가져오기-> ",
-      memberCookieValue
-    );
+    // console.log(
+    //   "jwtUtil.js responseFail() 진입 member쿠키가져오기-> ",
+    //   memberCookieValue
+    // );
 
     if (memberCookieValue && memberCookieValue.user.refreshtoken) {
       const refreshtoken = memberCookieValue.user.refreshtoken;
       //member쿠키있다면
-      console.log(
-        "jwtUtil.js responseFail() 진입 member쿠키에서 refreshtoken 가져오기-> ",
-        refreshtoken
-      );
+      // console.log(
+      //   "jwtUtil.js responseFail() 진입 member쿠키에서 refreshtoken 가져오기-> ",
+      //   refreshtoken
+      // );
       const accessToken = getCookie("accessToken");
 
       const result = await refreshJWT(refreshtoken, accessToken); //새로발급
 
-      console.log("jwtUtil.js responseFail() 진입 refreshJWT() ->  ", result);
+      //console.log("jwtUtil.js responseFail() 진입 refreshJWT() ->  ", result);
 
       setCookie("member", JSON.stringify(result), 1);
 
@@ -137,7 +137,7 @@ const responseFail = async (err) => {
       return await axios(originalRequest);
     } else {
       //member쿠키없다면
-      console.log("jwtUtil.js responseFail() 진입 err ->  ", err);
+      //console.log("jwtUtil.js responseFail() 진입 err ->  ", err);
 
       return Promise.reject(err);
     }

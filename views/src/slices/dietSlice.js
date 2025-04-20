@@ -44,58 +44,57 @@ const dietSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getDietListAsync.fulfilled, (state, action) => {
-        console.log(
-          "dietSlice.js getDietListAsync() fulfilled 진입 action ->",
-          action
-        );
-        console.log(
-          "dietSlice.js getDietListAsync() fulfilled 진입 action.payload ->",
-          action.payload
-        );
-
+        // console.log(
+        //   "dietSlice.js getDietListAsync() fulfilled 진입 action ->",
+        //   action
+        // );
+        // console.log(
+        //   "dietSlice.js getDietListAsync() fulfilled 진입 action.payload ->",
+        //   action.payload
+        // );
         // return action.payload;
       })
       .addCase(getDietListAsync.rejected, (state, action) => {
-        console.log(
-          "dietSlice.js getDietListAsync() rejected 진입 action ->  ",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js getDietListAsync() rejected 진입 action ->  ",
+        //   action
+        // );
       })
       .addCase(postDietAsync.fulfilled, (state, action) => {
-        console.log(
-          "dietSlice.js postDietAsync() fulfilled 진입 action ->",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js postDietAsync() fulfilled 진입 action ->",
+        //   action
+        // );
       })
       .addCase(postDietAsync.rejected, (state, action) => {
-        console.log(
-          "dietSlice.js postDietAsync() rejected 진입 action ->",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js postDietAsync() rejected 진입 action ->",
+        //   action
+        // );
       })
       .addCase(patchDietAsync.fulfilled, (state, action) => {
-        console.log(
-          "dietSlice.js patchDietAsync() fulfilled 진입 action ->",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js patchDietAsync() fulfilled 진입 action ->",
+        //   action
+        // );
       })
       .addCase(patchDietAsync.rejected, (state, action) => {
-        console.log(
-          "dietSlice.js patchDietAsync() rejected 진입 action ->",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js patchDietAsync() rejected 진입 action ->",
+        //   action
+        // );
       })
       .addCase(deleteDietAsync.fulfilled, (state, action) => {
-        console.log(
-          "dietSlice.js deleteDietAsync() fulfilled 진입 action ->",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js deleteDietAsync() fulfilled 진입 action ->",
+        //   action
+        // );
       })
       .addCase(deleteDietAsync.rejected, (state, action) => {
-        console.log(
-          "dietSlice.js deleteDietAsync() rejected 진입 action ->",
-          action
-        );
+        // console.log(
+        //   "dietSlice.js deleteDietAsync() rejected 진입 action ->",
+        //   action
+        // );
       });
   },
 });

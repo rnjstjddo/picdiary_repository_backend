@@ -19,7 +19,7 @@ const DiaryCreateComponent = () => {
   const [image, setImage] = useState("");
   const handleChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       diaryParam[e.target.name] = e.target.value;
       setDiaryParam({ ...diaryParam });
@@ -33,7 +33,7 @@ const DiaryCreateComponent = () => {
   var { dateobject } = useParams();
 
   const handleImageChange = (e) => {
-    console.log("DiaryCreateComponent.js handleImageChange()진입");
+    //console.log("DiaryCreateComponent.js handleImageChange()진입");
     if (!e.target.files) return;
     const file = e.target.files[0];
     if (file) {
@@ -56,10 +56,10 @@ const DiaryCreateComponent = () => {
     const { picture } = e.target;
     postDiary({ diaryParam, picture })
       .then((result) => {
-        console.log(
-          "DiaryCreateComponent.js axios postDiary then() 진입 -> ",
-          result
-        );
+        //console.log(
+        //  "DiaryCreateComponent.js axios postDiary then() 진입 -> ",
+        //  result
+        //);
         if (result.result === "success") {
           alert(dateobject + " 일자 다이어리 등록했습니다.!");
           if (result.image) {
@@ -69,13 +69,13 @@ const DiaryCreateComponent = () => {
           moveToDiaryRead(result.id);
         }
         if (result.error) {
-          console.log("result.payload.error -> ", result.payload.error);
+          //console.log("result.payload.error -> ", result.payload.error);
           alert(dateobject + " 일자 다이어리 등록 실패했습니다.");
           moveToDiaryCreate(dateobject);
         }
       })
       .catch((err) => {
-        console.log("DiaryCreateComponent.js axios postDiary catch()", err);
+        //console.log("DiaryCreateComponent.js axios postDiary catch()", err);
         alert(dateobject + "일자 다이어리 등록 실패했습니다.");
         moveToDiaryCreate(dateobject);
       });

@@ -68,16 +68,16 @@ const moneySlice = createSlice({
         return action.payload;
       })
       .addCase(patchMoneyAsync.fulfilled, (state, action) => {
-        console.log(
-          "moneySlice.js patchMoneyAsync.fulfilled 진입 결과 action객체 -> ",
-          action
-        );
+        // console.log(
+        //   "moneySlice.js patchMoneyAsync.fulfilled 진입 결과 action객체 -> ",
+        //   action
+        // );
       })
       .addCase(patchMoneyAsync.rejected, (state, action) => {
-        console.log(
-          "moneySlice.js patchMoneyAsync.rejected 진입 결과 action 객체 -> ",
-          action
-        );
+        // console.log(
+        //   "moneySlice.js patchMoneyAsync.rejected 진입 결과 action 객체 -> ",
+        //   action
+        // );
       })
       .addCase(deleteMoneyAsync.fulfilled, (state, action) => {
         return action.payload;

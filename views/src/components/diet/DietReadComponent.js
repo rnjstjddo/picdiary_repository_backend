@@ -51,7 +51,7 @@ const DietReadComponent = () => {
   } = useCustomDiet();
 
   useEffect(() => {
-    console.log("useEffect isLogin -> ", isLogin);
+    //console.log("useEffect isLogin -> ", isLogin);
     if (!isLogin) {
       alert("로그인이 필요합니다.");
 
@@ -61,39 +61,39 @@ const DietReadComponent = () => {
     const getDietEI = async () =>
       await getDietEach({ choose, dateobject })
         .then((result) => {
-          console.log(
-            "DietReadComponent.js useEffect 내 getDietEach axios 호출후 then() => ",
-            result
-          );
+          // console.log(
+          //   "DietReadComponent.js useEffect 내 getDietEach axios 호출후 then() => ",
+          //   result
+          // );
 
           setDietParam(() => result);
           setDietId(() => result[0].DietId);
           setDietChoose(() => result[0].choose);
-          console.log(
-            "DietReadComponent.js useEffect 내 getDietEach axios 호출후 dietParam => ",
-            dietParam
-          );
+          // console.log(
+          //   "DietReadComponent.js useEffect 내 getDietEach axios 호출후 dietParam => ",
+          //   dietParam
+          // );
         })
         .catch((err) => {
-          console.log(
-            "DietReadComponent.js useEffect 내 getDietEach axios 호출후 catch() => ",
-            err
-          );
+          // console.log(
+          //   "DietReadComponent.js useEffect 내 getDietEach axios 호출후 catch() => ",
+          //   err
+          // );
         });
 
     getDietEI();
   }, []);
 
   const deleteOnClick = () => {
-    console.log("DietReadComponent.js deleteOnClick() 진입 ");
+    //console.log("DietReadComponent.js deleteOnClick() 진입 ");
 
     if (window.confirm("해당 식단을 삭제하십니까?")) {
       deleteDiet({ choose, dateobject })
         .then((result) => {
-          console.log(
-            "DietReadComponent.js deleteOnClick() then() => ",
-            result
-          );
+          // console.log(
+          //   "DietReadComponent.js deleteOnClick() then() => ",
+          //   result
+          // );
           if (result.result === "success") {
             alert(dateobject + "일자의 식단이 삭제되었습니다.");
 
@@ -105,7 +105,7 @@ const DietReadComponent = () => {
           }
         })
         .catch((err) => {
-          console.log("DietReadComponent.js deleteOnClick() catch() => ", err);
+          //console.log("DietReadComponent.js deleteOnClick() catch() => ", err);
           alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
           moveToDietRead({ dateobject, choose });
         });

@@ -28,12 +28,12 @@ const whenchooseSwitch = (whenchoose) => {
   if (!whenchoose) {
     return;
   }
-  console.log(
-    "whenchooseSwitch 매개변수 -> ",
-    whenchoose,
-    " typeof -> ",
-    typeof whenchoose
-  );
+  // console.log(
+  //   "whenchooseSwitch 매개변수 -> ",
+  //   whenchoose,
+  //   " typeof -> ",
+  //   typeof whenchoose
+  // );
   switch (whenchoose) {
     case "1":
       return "아침";
@@ -70,24 +70,24 @@ const ExerciseModifyComponent = () => {
     const getExerciseEachEI = () =>
       getExerciseEach({ dateobject, whenchoose })
         .then((result) => {
-          console.log(
-            "ExerciseModifyComponent.js useEffect getExerciseEach() then() ",
-            result
-          );
+          // console.log(
+          //   "ExerciseModifyComponent.js useEffect getExerciseEach() then() ",
+          //   result
+          // );
           setExerciseParam(result);
         })
         .catch((err) => {
-          console.log(
-            "ExerciseModifyComponent.js useEffect getExerciseEach() then() ",
-            err
-          );
+          // console.log(
+          //   "ExerciseModifyComponent.js useEffect getExerciseEach() then() ",
+          //   err
+          // );
           moveToExerciseRead(dateobject);
         });
     getExerciseEachEI();
   }, []);
 
   const handleChange = useCallback((e) => {
-    console.log(e.target.name, e.target.value);
+    //console.log(e.target.name, e.target.value);
 
     const regex = new RegExp(/^[0-9]+$/);
 
@@ -95,7 +95,7 @@ const ExerciseModifyComponent = () => {
       let value = Number(e.target.value);
 
       const result = regex.test(value);
-      console.log("regex결과 ", result);
+      //console.log("regex결과 ", result);
       if (!regex.test(value) || value === "NaN") {
         alert("운동시간은 숫자만 입력가능합니다.");
         refQuantity.current.value = 0;
@@ -109,7 +109,7 @@ const ExerciseModifyComponent = () => {
   //운동시간에 여러 운동등록할경우 필요
   const handleDetailChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -117,7 +117,7 @@ const ExerciseModifyComponent = () => {
         let value = Number(e.target.value);
 
         const result = regex.test(value);
-        console.log("regex결과 ", result);
+        //console.log("regex결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("운동시간은 숫자만 입력가능합니다.");
           refQuantity.current.value = 0;
@@ -131,21 +131,21 @@ const ExerciseModifyComponent = () => {
   );
 
   const chooseCheckbox = (number) => {
-    console.log(
-      "DietCreateComponent.js chooseCheckbox() 진입 매개변수 => ",
-      number,
-      "typeof -> ",
-      typeof number
-    );
+    // console.log(
+    //   "DietCreateComponent.js chooseCheckbox() 진입 매개변수 => ",
+    //   number,
+    //   "typeof -> ",
+    //   typeof number
+    // );
     if (!number) {
       return;
     }
     const str = number;
     const arr = str.split("");
-    console.log(
-      "DietCreateComponent.js chooseCheckbox() 진입 배열변경 => ",
-      arr
-    );
+    // console.log(
+    //   "DietCreateComponent.js chooseCheckbox() 진입 배열변경 => ",
+    //   arr
+    // );
     return arr;
   };
 
@@ -161,11 +161,11 @@ const ExerciseModifyComponent = () => {
     }
 
     const compound = exerciseDetailParam.content + exerciseDetailParam.minute;
-    exerciseDetailFinalArray.forEach((i) =>
-      console.log("dietDetailFinalArray -> ", i)
-    );
+    //exerciseDetailFinalArray.forEach((i) =>
+    //console.log("dietDetailFinalArray -> ", i)
+    //);
     const sameResult = exerciseDetailFinalArray.filter((i) => i === compound);
-    console.log("handleDetailOnclick sameResult-> ", sameResult);
+    //console.log("handleDetailOnclick sameResult-> ", sameResult);
     if (sameResult.length !== 0) {
       alert("이미 운동에 추가했습니다!");
       setExerciseDetailParam({ ...initDetailState });
@@ -182,7 +182,7 @@ const ExerciseModifyComponent = () => {
     ]);
 
     //    console.log("handleDetailOnclick -> ", compound);
-    console.log("typeof -> ", typeof compound);
+    //console.log("typeof -> ", typeof compound);
     setExerciseDetailFinalArray((dietDetailFinalArray) => [
       ...dietDetailFinalArray,
       compound,
@@ -192,10 +192,10 @@ const ExerciseModifyComponent = () => {
   };
 
   const handleSubmitExercise = (e) => {
-    console.log(
-      "ExerciseModifyComponent.js 수정전 확인 exerciseParam -> ",
-      exerciseParam
-    );
+    //console.log(
+    //   "ExerciseModifyComponent.js 수정전 확인 exerciseParam -> ",
+    //   exerciseParam
+    // );
 
     e.preventDefault();
     if (e.keyCode === 13) {
@@ -206,10 +206,10 @@ const ExerciseModifyComponent = () => {
     if (window.confirm("위와 같이 운동을 수정하시겠습니까?")) {
       patchExercise({ dateobject, exerciseParam, whenchoose })
         .then((result) => {
-          console.log(
-            "ExerciseModifyComponent.js handleSubmitExercise() axios then() ",
-            result
-          );
+          // console.log(
+          //   "ExerciseModifyComponent.js handleSubmitExercise() axios then() ",
+          //   result
+          // );
           if (result) {
             alert(dateobject + "일자 운동이 수정되었습니다.");
             moveToExerciseRead(dateobject);
@@ -219,21 +219,21 @@ const ExerciseModifyComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "ExerciseModifyComponent.js handleSubmitExercise() axios catch() ",
-            err
-          );
+          // console.log(
+          //   "ExerciseModifyComponent.js handleSubmitExercise() axios catch() ",
+          //   err
+          // );
         });
     }
   };
 
   const handleDetailRemoveOnClick = (e) => {
-    console.log(
-      "handleDetailRemoveOnClick() dataset =>",
-      e.target.dataset.finalcontent,
-      "e.target.dataset.finalminute -> ",
-      e.target.dataset.finalminute
-    );
+    // console.log(
+    //   "handleDetailRemoveOnClick() dataset =>",
+    //   e.target.dataset.finalcontent,
+    //   "e.target.dataset.finalminute -> ",
+    //   e.target.dataset.finalminute
+    // );
     const finalcontent = e.target.dataset.finalcontent;
     const finalminute = e.target.dataset.finalminute;
 
@@ -244,7 +244,7 @@ const ExerciseModifyComponent = () => {
     const newProduce = exerciseDetailFinalArray.filter(
       (i) => i !== `${finalcontent}${finalminute}`
     );
-    console.log("handleDetailRemoveOnClick() newProduce =>", newProduce);
+    //console.log("handleDetailRemoveOnClick() newProduce =>", newProduce);
     setExerciseDetailFinalArray([...newProduce]);
 
     const newFinalObject = finalObjectArray.filter(
@@ -255,15 +255,15 @@ const ExerciseModifyComponent = () => {
   };
 
   const handleRemoveOnClick = () => {
-    console.log("ExerciseModifyComponent.js handleRemoveOnClick -> ");
+    //console.log("ExerciseModifyComponent.js handleRemoveOnClick -> ");
 
     if (window.confirm("해당 운동을 삭제하십니까?")) {
       deleteExercise({ dateobject, whenchoose })
         .then((result) => {
-          console.log(
-            "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
-            result
-          );
+          // console.log(
+          //   "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
+          //   result
+          // );
           if (result.result === "success") {
             alert(
               dateobject +
@@ -275,10 +275,10 @@ const ExerciseModifyComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
-            err
-          );
+          // console.log(
+          //   "ExerciseModifyComponent.js handleRemoveOnClick then -> ",
+          //   err
+          // );
           moveToExerciseRead(dateobject);
         });
     } //window.confirm

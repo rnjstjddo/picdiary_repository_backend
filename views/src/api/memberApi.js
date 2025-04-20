@@ -8,10 +8,10 @@ export const API_SERVER_HOST = "picdiary2025.store";
 //아래로 바꿈
 const host = `/api/member`;
 
-console.log("memberApi.js 에서 API_SERVER_HOST->", API_SERVER_HOST);
+//console.log("memberApi.js 에서 API_SERVER_HOST->", API_SERVER_HOST);
 
 export const forSession = async () => {
-  console.log("memberApi.js 에서 forSession 진입");
+  //console.log("memberApi.js 에서 forSession 진입");
 
   const res = await axios.post(`${host}/forSession`);
   return res.data; //이값은 리듀서함수로 이동
@@ -19,7 +19,7 @@ export const forSession = async () => {
 
 export const loginPost = async (loginParam) => {
   //const header = { headers: { "content-type": "x-www-form-urlencoded" } };
-  console.log("memberApi.js 에서 loginPost 매개변수 확인 => ", loginParam);
+  //console.log("memberApi.js 에서 loginPost 매개변수 확인 => ", loginParam);
   const form = new FormData();
   form.append("email", loginParam.email);
   form.append("password", loginParam.pw);
@@ -65,7 +65,7 @@ export const joinPost = async (joinParam) => {
     },
     { headers: { "content-type": "application/x-www-form-urlencoded" } }
   );
-  console.log("memberApi.js joinPost() 진입 axios후 결과 -> ", res);
+  //console.log("memberApi.js joinPost() 진입 axios후 결과 -> ", res);
 
   return res.data;
 };
@@ -76,16 +76,16 @@ export const logoutGet = async () => {
   // form.append("email", joinParam.email);
   // form.append("password", joinParam.pw);
   // form.append("nickname", joinParam.nick);
-  console.log("memberApi.js logoutGet() 진입 ");
+  //console.log("memberApi.js logoutGet() 진입 ");
 
   //  const res = await jwtAxios.get(`${host}/logout`, { withCredentials: true });
   const res = await jwtAxios.get(`${host}/logout`);
 
-  console.log("memberApi.js logoutGet() 진입 axios 결과 -> ", res);
-  console.log(
-    "memberApi.js logoutGet() 진입 axios 결과  res.data-> ",
-    res.date
-  );
+  //console.log("memberApi.js logoutGet() 진입 axios 결과 -> ", res);
+  //console.log(
+  //  "memberApi.js logoutGet() 진입 axios 결과  res.data-> ",
+  //  res.date
+  //);
 
   return res.data;
 };

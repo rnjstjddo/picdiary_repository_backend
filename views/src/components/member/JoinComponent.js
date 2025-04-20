@@ -21,7 +21,7 @@ const JoinComponent = () => {
 
   const handleChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       joinParam[e.target.name] = e.target.value;
       setJoinParam({ ...joinParam });
@@ -31,8 +31,8 @@ const JoinComponent = () => {
 
   const handleSubmitJoin = (e) => {
     e.preventDefault();
-    console.log("handleSubmitJoin진입!!");
-    console.log(e);
+    //console.log("handleSubmitJoin진입!!");
+    //console.log(e);
     if (joinParam.pw !== joinParam.pwConfirm) {
       alert("비밀번호가 일치하지 않습니다 확인해주세요!");
       return;
@@ -51,10 +51,10 @@ const JoinComponent = () => {
 
     doJoin(joinParam)
       .then((data) => {
-        console.log(
-          "JoinComponent.js handleSubmitJoin() joinPostAsync 결과 ",
-          data
-        );
+        // console.log(
+        //   "JoinComponent.js handleSubmitJoin() joinPostAsync 결과 ",
+        //   data
+        // );
         if (data.error) {
           alert("이미 가입된 회원입니다. 다른 이메일주소를 입력해주세요!");
         } else {
@@ -63,10 +63,10 @@ const JoinComponent = () => {
         }
       })
       .catch((err) => {
-        console.log(
-          "JoinComponent.js handleSubmitJoin() joinPostAsync 결과 err",
-          err
-        );
+        // console.log(
+        //   "JoinComponent.js handleSubmitJoin() joinPostAsync 결과 err",
+        //   err
+        // );
       });
   };
 

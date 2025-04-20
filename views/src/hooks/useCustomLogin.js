@@ -25,28 +25,28 @@ const useCustomLogin = () => {
   };
 
   const doLogin = async (loginParam) => {
-    console.log("useCustomLogin커스텀훅의 doLogin() 진입");
+    //console.log("useCustomLogin커스텀훅의 doLogin() 진입");
     const action = await dispatch(loginPostAsync(loginParam));
-    console.log(
-      "useCustomLogin커스텀훅의 doLogin() 진입후 axios 비동기 후 액션데이터 => ",
-      action.payload
-    );
+    // console.log(
+    //   "useCustomLogin커스텀훅의 doLogin() 진입후 axios 비동기 후 액션데이터 => ",
+    //   action.payload
+    // );
     return action.payload;
   };
 
   const doJoin = async (joinParam) => {
-    console.log("useCustomLogin커스텀훅의 doJoin() 진입");
+    //console.log("useCustomLogin커스텀훅의 doJoin() 진입");
 
     const action = await dispatch(joinPostAsync(joinParam));
-    console.log(
-      "useCustomLogin커스텀훅의 doJoin() 진입후 axios 비동기 후 액션데이터 => ",
-      action.payload
-    );
+    // console.log(
+    //   "useCustomLogin커스텀훅의 doJoin() 진입후 axios 비동기 후 액션데이터 => ",
+    //   action.payload
+    // );
     return action.payload;
   };
 
   const doLogout = async () => {
-    console.log("useCustomLogin커스텀훅의 doLogout() 진입");
+    //console.log("useCustomLogin커스텀훅의 doLogout() 진입");
     dispatch(logout());
 
     // const action = await dispatch(logoutGetAsync());
@@ -75,12 +75,12 @@ const useCustomLogin = () => {
 
   //useEffect에서 로그인하지 않아서 에러시
   const effectException = (ex) => {
-    console.log("useCustomLogin.js effectException 함수 진입 ", ex);
+    //console.log("useCustomLogin.js effectException 함수 진입 ", ex);
   };
 
   //추가
   const exceptionHandle = (ex) => {
-    console.log("exceptionHandle() ", ex);
+    //console.log("exceptionHandle() ", ex);
 
     if (!isLogin) {
       removeCookie("member");

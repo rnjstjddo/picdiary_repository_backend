@@ -34,18 +34,18 @@ const chooseReturn = (number) => {
 };
 
 const chooseSectorExpenseReturn = (number) => {
-  console.log(
-    "MoneyModifyComponent.js chooseReturn() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "MoneyModifyComponent.js chooseReturn() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log("MoneyModifyComponent.js chooseReturn() 진입 배열변경 => ", arr);
+  //console.log("MoneyModifyComponent.js chooseReturn() 진입 배열변경 => ", arr);
   let result = "";
   for (let n of arr) {
     switch (n) {
@@ -76,14 +76,14 @@ const chooseSectorExpenseReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const chooseSectorIncomeReturn = (chooseincome) => {
   if (!chooseincome) {
     return;
   }
-  console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
+  //console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
   switch (chooseincome) {
     case "21":
       return "급여";
@@ -97,21 +97,21 @@ const chooseSectorIncomeReturn = (chooseincome) => {
 };
 
 const chooseCheckbox = (number) => {
-  console.log(
-    "MoneyModifyComponent.js chooseCheckbox() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "MoneyModifyComponent.js chooseCheckbox() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log(
-    "MoneyModifyComponent.js chooseCheckbox() 진입 배열변경 => ",
-    arr
-  );
+  // console.log(
+  //   "MoneyModifyComponent.js chooseCheckbox() 진입 배열변경 => ",
+  //   arr
+  // );
   return arr;
 };
 const initDetailState = {
@@ -181,19 +181,19 @@ const MoneyModifyComponent = () => {
   const [bigchoose, setBigchoose] = useState("");
   const { dateobject, choose } = useParams();
 
-  console.log("MoneyModifyComponent.js dateobject=> ", dateobject);
-  console.log("MoneyModifyComponent.js choose=> ", choose);
+  //console.log("MoneyModifyComponent.js dateobject=> ", dateobject);
+  //console.log("MoneyModifyComponent.js choose=> ", choose);
 
   useLayoutEffect(() => {
     if (choose !== "" && choose !== undefined && choose !== null) {
-      console.log("useLayoutEffect() if 진입");
+      //console.log("useLayoutEffect() if 진입");
       setBigchoose(choose);
     }
   }, []);
 
   const handleChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       // if (e.target.name === "choose" && e.target.value === "1") {
       //   setIncomeVisible(true);
@@ -207,12 +207,12 @@ const MoneyModifyComponent = () => {
 
       const regex = new RegExp(/^[0-9]+$/);
 
-      console.log("handleChange moneyParam id살아있는지확인 => ", moneyParam);
+      //console.log("handleChange moneyParam id살아있는지확인 => ", moneyParam);
       if (e.target.name === "amount") {
         let value = Number(e.target.value);
 
         const result = regex.test(value);
-        console.log("결과 ", result);
+        //console.log("결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("금액은 숫자만 입력가능합니다.");
           refAmount.current.value = 0;
@@ -232,7 +232,7 @@ const MoneyModifyComponent = () => {
   //---------------------- 추가시 입력받는 state
   const handleDetailChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -240,7 +240,7 @@ const MoneyModifyComponent = () => {
         let value = Number(e.target.value.replaceAll(",", ""));
 
         const result = regex.test(value);
-        console.log("regex결과 ", result);
+        //console.log("regex결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("금액은 숫자만 입력가능합니다.");
           refAmount.current.value = 0;
@@ -262,8 +262,8 @@ const MoneyModifyComponent = () => {
       alert("내용을 모두 입력해주세요!");
       return;
     }
-    console.log("handleDetailOnclick sameResult-> bigchoose ", bigchoose);
-    console.log("handleDetailOnclick sameResult-> ", moneyParam.choosesector);
+    //console.log("handleDetailOnclick sameResult-> bigchoose ", bigchoose);
+    //console.log("handleDetailOnclick sameResult-> ", moneyParam.choosesector);
 
     if (
       moneyParam.choosesector === null ||
@@ -387,10 +387,10 @@ const MoneyModifyComponent = () => {
     if (window.confirm("위와 같이 수정하십니까?")) {
       setInputVisible(false);
 
-      console.log(
-        "handleSubmitMoney moneyParam 넣기전 먼저 확인-> ",
-        moneyParam
-      );
+      // console.log(
+      //   "handleSubmitMoney moneyParam 넣기전 먼저 확인-> ",
+      //   moneyParam
+      // );
       //    moneyParam["email"] = loginState;
 
       let incomeValue = 0;
@@ -401,7 +401,7 @@ const MoneyModifyComponent = () => {
       if (finalExpenseObjectArray.length !== 0) {
         //지출계산
         finalExpenseObjectArray.forEach((i) => {
-          console.log("amount지출 => ", i.amount);
+          //console.log("amount지출 => ", i.amount);
           expenseValue += Number(i.amount.replaceAll(",", ""));
         });
         moneyParam["dateobject"] = dateobject;
@@ -426,10 +426,10 @@ const MoneyModifyComponent = () => {
           dateobject,
         })
           .then((result) => {
-            console.log(
-              "MoneyModifyComponent.js axios 지출 postMoneyC then() 진입 -> ",
-              result
-            );
+            // console.log(
+            //   "MoneyModifyComponent.js axios 지출 postMoneyC then() 진입 -> ",
+            //   result
+            // );
 
             if (result.result === "success") {
               alert(dateobject + "일자 지출 가계부 수정완료했습니다");
@@ -442,10 +442,10 @@ const MoneyModifyComponent = () => {
             }
           })
           .catch((err) => {
-            console.log(
-              "MoneyModifyComponent.js axios patchMoneyC catch()",
-              err
-            );
+            // console.log(
+            //   "MoneyModifyComponent.js axios patchMoneyC catch()",
+            //   err
+            // );
             alert(dateobject + "일자 지출 가계부수정을 실패했습니다.");
             moveToMoneyRead(dateobject);
           });
@@ -456,7 +456,7 @@ const MoneyModifyComponent = () => {
       if (finalIncomeObjectArray.length !== 0) {
         //수입계산
         finalIncomeObjectArray.forEach((i) => {
-          console.log("amount수입 => ", i.amount);
+          //console.log("amount수입 => ", i.amount);
           incomeValue += Number(i.amount.replaceAll(",", ""));
         });
 
@@ -470,17 +470,17 @@ const MoneyModifyComponent = () => {
         //   // moneyParam["content"] = moneyIncomeFinalObject;
 
         //   submitcontent += " " + moneyIncomeFinalObject;
-        //   //console.log("수입 submitcontent -> ", submitcontent);
+        //   console.log("수입 submitcontent -> ", submitcontent);
         // }
         moneyParam["income"] = incomeValue;
 
         setMoneyParam((prev) => {
           return { ...prev, moneyParam };
         });
-        console.log(
-          "MoneyModifyComponent.js handleSubmitMoney -> ",
-          moneyParam
-        );
+        // console.log(
+        //   "MoneyModifyComponent.js handleSubmitMoney -> ",
+        //   moneyParam
+        // );
 
         patchMoney({
           moneyParam,
@@ -490,10 +490,10 @@ const MoneyModifyComponent = () => {
           bigchoose,
         })
           .then((result) => {
-            console.log(
-              "MoneyModifyComponent.js axios postMoneyC 수입 then() 진입 -> ",
-              result
-            );
+            // console.log(
+            //   "MoneyModifyComponent.js axios postMoneyC 수입 then() 진입 -> ",
+            //   result
+            // );
             if (result.result === "success") {
               alert(dateobject + "일자 수입가계부 수정완료했습니다");
               moveToMoneyRead(dateobject);
@@ -505,10 +505,10 @@ const MoneyModifyComponent = () => {
             }
           })
           .catch((err) => {
-            console.log(
-              "MoneyModifyComponent.js axios patchMoneyC catch()",
-              err
-            );
+            // console.log(
+            //   "MoneyModifyComponent.js axios patchMoneyC catch()",
+            //   err
+            // );
             alert(dateobject + "일자 수입 가계부수정을 실패했습니다.");
             moveToMoneyRead(dateobject);
           });
@@ -523,14 +523,14 @@ const MoneyModifyComponent = () => {
       if (bigchoose !== "") {
         await getChooseMoney({ dateobject, bigchoose })
           .then((result) => {
-            console.log(
-              "MoneyModifyComponent.js useEffect() axios 결과 then() -> ",
-              result
-            );
-            console.log(
-              "MoneyModifyComponent.js useEffect() axios 결과 then() -> ",
-              result.result
-            );
+            // console.log(
+            //   "MoneyModifyComponent.js useEffect() axios 결과 then() -> ",
+            //   result
+            // );
+            // console.log(
+            //   "MoneyModifyComponent.js useEffect() axios 결과 then() -> ",
+            //   result.result
+            // );
             if (result.result !== null || result.result !== "") {
               if (bigchoose === "1") {
                 let moneydetails = result.result.Moneydetails;
@@ -544,10 +544,10 @@ const MoneyModifyComponent = () => {
 
                 setMoneyParam(moneyParam);
                 moneydetails.forEach((i) => {
-                  console.log(
-                    "bigchoose 1일경우 moneydetails forEach 진입 => ",
-                    i
-                  );
+                  // console.log(
+                  //   "bigchoose 1일경우 moneydetails forEach 진입 => ",
+                  //   i
+                  // );
                   let objectIncome = {
                     content: i.content,
                     choose: i.choose,
@@ -573,18 +573,18 @@ const MoneyModifyComponent = () => {
                 // let finalchoosesector = moneydetails.choosesector;
 
                 let id = result.result.id;
-                console.log(
-                  "MoneyModifyComponent.js useEffect() axios 결과 then() id만 값가져오기-> ",
-                  id
-                );
+                // console.log(
+                //   "MoneyModifyComponent.js useEffect() axios 결과 then() id만 값가져오기-> ",
+                //   id
+                // );
                 moneyParam["id"] = id;
                 setMoneyParam(moneyParam);
 
                 moneydetails.forEach((i) => {
-                  console.log(
-                    "bigchoose 2일경우 moneydetails forEach 진입 => ",
-                    i
-                  );
+                  // console.log(
+                  //   "bigchoose 2일경우 moneydetails forEach 진입 => ",
+                  //   i
+                  // );
 
                   let objectExpense = {
                     content: i.content,
@@ -608,10 +608,10 @@ const MoneyModifyComponent = () => {
             }
           })
           .catch((err) => {
-            console.log(
-              "MoneyModifyComponent.js useEffect() axios 결과 catch() -> ",
-              err
-            );
+            // console.log(
+            //   "MoneyModifyComponent.js useEffect() axios 결과 catch() -> ",
+            //   err
+            // );
             exceptionHandle(err);
           });
       } //EI
@@ -626,20 +626,20 @@ const MoneyModifyComponent = () => {
 
   //개별항목삭제시
   const handleDetailRemoveOnClick = (e) => {
-    console.log(
-      "handleDetailRemoveOnClick() dataset =>",
-      e.target.dataset.finalcontent,
-      "e.target.dataset.finalamount -> ",
-      e.target.dataset.finalamount,
-      "e.target.dataset.finalchoose -> ",
-      e.target.dataset.finalchoose,
-      "e.target.dataset.finalchoosesector -> ",
-      e.target.dataset.finalchoosesector
-    );
-    console.log(
-      "입력값 타입  e.target.dataset.finalamount => ",
-      typeof e.target.dataset.finalamount
-    ); //string 자리수표시된상태
+    // console.log(
+    //   "handleDetailRemoveOnClick() dataset =>",
+    //   e.target.dataset.finalcontent,
+    //   "e.target.dataset.finalamount -> ",
+    //   e.target.dataset.finalamount,
+    //   "e.target.dataset.finalchoose -> ",
+    //   e.target.dataset.finalchoose,
+    //   "e.target.dataset.finalchoosesector -> ",
+    //   e.target.dataset.finalchoosesector
+    // );
+    // console.log(
+    //   "입력값 타입  e.target.dataset.finalamount => ",
+    //   typeof e.target.dataset.finalamount
+    // ); //string 자리수표시된상태
     const finalcontent = e.target.dataset.finalcontent;
     const finalamount = e.target.dataset.finalamount;
     const finalchoose = e.target.dataset.finalchoose;
@@ -654,7 +654,7 @@ const MoneyModifyComponent = () => {
       // console.log("handleDetailRemoveOnClick() 지출 newProduce =>", newProduce);
       // setmoneyExpenseFinalArray([...newProduce]);
 
-      console.log("finalchoose 지출일경우진입");
+      //console.log("finalchoose 지출일경우진입");
       const indexNumber = finalExpenseObjectArray.findIndex(
         (i) =>
           i.content === finalcontent &&
@@ -682,7 +682,7 @@ const MoneyModifyComponent = () => {
     } //if finalchoose===2
 
     if (finalchoose === "1") {
-      console.log("finalchoose 수입일경우진입");
+      //console.log("finalchoose 수입일경우진입");
 
       // const newProduce = moneyIncomeFinalArray.filter(
       //   (i) =>
@@ -722,25 +722,25 @@ const MoneyModifyComponent = () => {
 
   //수입/지출 전체삭제하기버튼 클릭시
   const handleRemoveOnClick = () => {
-    console.log("MoneyModifyComponent.js handleRemoveOnClick 진입 ");
+    //console.log("MoneyModifyComponent.js handleRemoveOnClick 진입 ");
 
     if (window.confirm("삭제하시면 복구가 불가능합니다 그래도 삭제하십니까?")) {
       deleteMoney({ dateobject, bigchoose })
         .then((result) => {
-          console.log(
-            "MoneyModifyComponent.js handleRemoveOnClick then -> ",
-            result
-          );
+          // console.log(
+          //   "MoneyModifyComponent.js handleRemoveOnClick then -> ",
+          //   result
+          // );
           if (result.result) {
             alert(dateobject + " 일자의 가계부를 삭제했습니다.");
             moveToMoneyList();
           }
         })
         .catch((err) => {
-          console.log(
-            "MoneyModifyComponent.js handleRemoveOnClick then -> ",
-            err
-          );
+          // console.log(
+          //   "MoneyModifyComponent.js handleRemoveOnClick then -> ",
+          //   err
+          // );
           moveToMoneyRead(dateobject);
         });
     }

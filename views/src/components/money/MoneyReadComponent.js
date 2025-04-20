@@ -26,18 +26,18 @@ const chooseReturn = (number) => {
 };
 
 const chooseSectorExpenseReturn = (number) => {
-  console.log(
-    "MoneyCreateComponent.js chooseReturn() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "MoneyCreateComponent.js chooseReturn() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log("MoneyCreateComponent.js chooseReturn() 진입 배열변경 => ", arr);
+  //console.log("MoneyCreateComponent.js chooseReturn() 진입 배열변경 => ", arr);
   let result = "";
   for (let n of arr) {
     switch (n) {
@@ -68,14 +68,14 @@ const chooseSectorExpenseReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const chooseSectorIncomeReturn = (chooseincome) => {
   if (!chooseincome) {
     return;
   }
-  console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
+  //console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
   switch (chooseincome) {
     case "21":
       return "급여";
@@ -100,21 +100,21 @@ const initState = {
 const addMoney = (param) => {
   const earray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
 
-  console.log("addMoney() 매개변수", param);
+  //console.log("addMoney() 매개변수", param);
 
   const spliceall = [];
   for (let d of earray) {
-    console.log("addMoney() 배열 ", earray);
+    //console.log("addMoney() 배열 ", earray);
 
     let iof = earray.indexOf(d);
 
-    console.log("addMoney() 내 배열인덱스", iof);
+    //console.log("addMoney() 내 배열인덱스", iof);
     param.filter((i) => {
-      console.log("addMoney() 내 whenchoose ", i.whenchoose);
-      console.log("addMoney() 내 배열값 ", d);
+      //console.log("addMoney() 내 whenchoose ", i.whenchoose);
+      //console.log("addMoney() 내 배열값 ", d);
 
       if (i.whenchoose === d) {
-        console.log("addMoney() 내 일치");
+        //console.log("addMoney() 내 일치");
         spliceall.push(d);
       }
     });
@@ -125,7 +125,7 @@ const addMoney = (param) => {
     earray.splice(indexearray, 1);
   });
 
-  console.log("addMoney 결과 => ", earray);
+  //console.log("addMoney 결과 => ", earray);
   return earray;
 };
 
@@ -135,12 +135,12 @@ const addExerciseMap = (param) => {
   for (let d of earray) {
     let iof = earray.indexOf(d);
 
-    console.log("d 인덱스", d);
+    //console.log("d 인덱스", d);
     param.filter((i) => {
       if (i === d) earray.splice(iof);
     });
   }
-  console.log("earray 결과 => ", earray);
+  //console.log("earray 결과 => ", earray);
 };
 
 const convertDigit = (amount) => {
@@ -150,17 +150,17 @@ const convertDigit = (amount) => {
 const MoneyReadComponent = () => {
   const [moneyParam, setMoneyParam] = useState({});
 
-  console.log("moneyParam -> ", moneyParam);
+  //console.log("moneyParam -> ", moneyParam);
   const { dateobject } = useParams();
   const { exceptionHandle } = useCustomLogin();
   const { moveToMoneyRead, moveToMoneyList } = useCustomMoney();
   const [moneyDetailIncomeParam, setMoneyDetailIncomeParam] = useState([]);
   const [moneyDetailExpenseParam, setMoneyDetailExpenseParam] = useState([]);
 
-  console.log(
-    "MoneyReadComponent.js useEffect() 진입 objectdate=> ",
-    dateobject
-  );
+  // console.log(
+  //   "MoneyReadComponent.js useEffect() 진입 objectdate=> ",
+  //   dateobject
+  // );
 
   //api
   useEffect(() => {
@@ -168,10 +168,10 @@ const MoneyReadComponent = () => {
       await getMoney(dateobject)
         .then((result) => {
           if (result !== null) {
-            console.log(
-              "MoneyReadComponent.js useEffect 내 getMoney axios 호출후 then() => ",
-              result
-            );
+            // console.log(
+            //   "MoneyReadComponent.js useEffect 내 getMoney axios 호출후 then() => ",
+            //   result
+            // );
 
             moneyParam["id"] = result.id;
             setMoneyParam(moneyParam);
@@ -191,10 +191,10 @@ const MoneyReadComponent = () => {
           } //if 결과 null 아닐경우
         })
         .catch((err) => {
-          console.log(
-            "MoneyReadComponent.js useEffect 내 getMoney axios 호출후 catch() => ",
-            err
-          );
+          // console.log(
+          //   "MoneyReadComponent.js useEffect 내 getMoney axios 호출후 catch() => ",
+          //   err
+          // );
           exceptionHandle(err);
         }); //catch
 
@@ -208,17 +208,17 @@ const MoneyReadComponent = () => {
   }, []);
 
   const deleteOnClick = (bigchoose) => {
-    console.log(
-      "MoneyReadComponent.js deleteOnClick() 삭제할 가계부 진입 bigchoose -> ",
-      bigchoose
-    );
+    // console.log(
+    //   "MoneyReadComponent.js deleteOnClick() 삭제할 가계부 진입 bigchoose -> ",
+    //   bigchoose
+    // );
     if (window.confirm("해당 가계부를 삭제합니까?")) {
       deleteMoney({ dateobject, bigchoose })
         .then((result) => {
-          console.log(
-            "MoneyReadComponent.js deleteOnClick() then() => ",
-            result
-          );
+          // console.log(
+          //   "MoneyReadComponent.js deleteOnClick() then() => ",
+          //   result
+          // );
           if (result.result === "success") {
             alert(dateobject + "일자의 가계부가 삭제되었습니다.");
 
@@ -230,7 +230,7 @@ const MoneyReadComponent = () => {
           }
         })
         .catch((err) => {
-          console.log("MoneyReadComponent.js deleteOnClick() catch() => ", err);
+          //console.log("MoneyReadComponent.js deleteOnClick() catch() => ", err);
           alert(dateobject + "일자의 가계부 삭제를 실패했습니다.");
           moveToMoneyRead({
             dateobject: dateobject,

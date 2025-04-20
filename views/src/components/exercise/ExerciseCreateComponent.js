@@ -57,10 +57,10 @@ const ExerciseCreateComponent = () => {
 
   useEffect(() => {
     if (whenchoose) {
-      console.log(
-        "ExerciseCreateComponent.js 쿼리파라미터값 whenchoose -> ",
-        whenchoose
-      );
+      // console.log(
+      //   "ExerciseCreateComponent.js 쿼리파라미터값 whenchoose -> ",
+      //   whenchoose
+      // );
       exerciseParam["whenchoose"] = whenchoose;
       // setExerciseParam((prev) => {
       //   return { ...prev, exerciseParam };
@@ -76,7 +76,7 @@ const ExerciseCreateComponent = () => {
 
   const handleChange = useCallback(
     (e) => {
-      console.log("handleChange() 진입", e.target.name, e.target.value);
+      //console.log("handleChange() 진입", e.target.name, e.target.value);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -84,7 +84,7 @@ const ExerciseCreateComponent = () => {
         let value = Number(e.target.value);
 
         const result = regex.test(value);
-        console.log("regex결과 ", result);
+        //console.log("regex결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("운동시간은 숫자만 입력가능합니다.");
           refQuantity.current.value = 0;
@@ -97,10 +97,10 @@ const ExerciseCreateComponent = () => {
       // });
       setExerciseParam({ ...exerciseParam });
 
-      console.log(
-        "handleChange() 진입 setExerciseParam() 결과 ",
-        exerciseParam
-      );
+      // console.log(
+      //   "handleChange() 진입 setExerciseParam() 결과 ",
+      //   exerciseParam
+      // );
     },
     [exerciseParam]
   );
@@ -110,27 +110,27 @@ const ExerciseCreateComponent = () => {
       const getChooseExerciseEI = async () => {
         await getChooseExercise(dateobject)
           .then((result) => {
-            console.log(
-              "ExerciseCreateComponent.js useEffect() axios 결과 then() -> ",
-              result
-            );
+            // console.log(
+            //   "ExerciseCreateComponent.js useEffect() axios 결과 then() -> ",
+            //   result
+            // );
 
             if (result.result.length !== 0) {
-              console.log(
-                "ExerciseCreateComponent.js useEffect() axios 결과 배열존재할경우 진입 -> "
-              );
+              // console.log(
+              //   "ExerciseCreateComponent.js useEffect() axios 결과 배열존재할경우 진입 -> "
+              // );
 
               let alertcontent = "";
               result.result.forEach((v) => {
                 if (v === "1") {
-                  console.log("1진입");
+                  //console.log("1진입");
                   setFirstblock(true);
                   //const indexf = resultwhenchoose.indexOf("1");
                   //resultwhenchoose.splice(indexf, 1);
                   alertcontent += "아침 ";
                 }
                 if (v === "2") {
-                  console.log("2진입");
+                  //console.log("2진입");
                   setSecondblock(true);
 
                   //const indexf = resultwhenchoose.indexOf("2");
@@ -138,7 +138,7 @@ const ExerciseCreateComponent = () => {
                   alertcontent += "점심 ";
                 }
                 if (v === "3") {
-                  console.log("3진입");
+                  //console.log("3진입");
                   setThirdblock(true);
                   //        const indexf = resultwhenchoose.indexOf("3");
                   //      resultwhenchoose.splice(indexf, 1);
@@ -160,17 +160,17 @@ const ExerciseCreateComponent = () => {
               result.message === "Network Error" ||
               result.name === "AxiosError"
             ) {
-              console.log(
-                "ExerciseCreateComponent.js useEffect() axios 결과 then() 네트워크에러진입-> "
-              );
+              // console.log(
+              //   "ExerciseCreateComponent.js useEffect() axios 결과 then() 네트워크에러진입-> "
+              // );
               navigate("/login");
             }
           })
           .catch((err) => {
-            console.log(
-              "ExerciseCreateComponent.js useEffect() axios 결과 catch() -> ",
-              err
-            );
+            // console.log(
+            //   "ExerciseCreateComponent.js useEffect() axios 결과 catch() -> ",
+            //   err
+            // );
           });
       };
 
@@ -190,7 +190,7 @@ const ExerciseCreateComponent = () => {
   //운동시간에 여러 운동등록할경우 필요
   const handleDetailChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -198,7 +198,7 @@ const ExerciseCreateComponent = () => {
         let value = Number(e.target.value);
 
         const result = regex.test(value);
-        console.log("regex결과 ", result);
+        //console.log("regex결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("운동시간은 숫자만 입력가능합니다.");
           refQuantity.current.value = 0;
@@ -222,11 +222,11 @@ const ExerciseCreateComponent = () => {
     }
 
     const compound = exerciseDetailParam.content + exerciseDetailParam.minute;
-    exerciseDetailFinalArray.forEach((i) =>
-      console.log("dietDetailFinalArray -> ", i)
-    );
+    // exerciseDetailFinalArray.forEach((i) =>
+    //console.log("dietDetailFinalArray -> ", i)
+    //);
     const sameResult = exerciseDetailFinalArray.filter((i) => i === compound);
-    console.log("handleDetailOnclick sameResult-> ", sameResult);
+    //console.log("handleDetailOnclick sameResult-> ", sameResult);
     if (sameResult.length !== 0) {
       alert("이미 운동에 추가했습니다!");
       setExerciseDetailParam({ ...initDetailState });
@@ -243,7 +243,7 @@ const ExerciseCreateComponent = () => {
     ]);
 
     //    console.log("handleDetailOnclick -> ", compound);
-    console.log("typeof -> ", typeof compound);
+    //console.log("typeof -> ", typeof compound);
     setExerciseDetailFinalArray((dietDetailFinalArray) => [
       ...dietDetailFinalArray,
       compound,
@@ -254,10 +254,10 @@ const ExerciseCreateComponent = () => {
 
   //-----------------등록 form submit 이벤트
   const handleSubmitExercise = (e) => {
-    console.log(
-      "ExerciseCreateComponent.js handleSubmitExercise() 등록전 확인 exerciseParam -> ",
-      exerciseParam
-    );
+    // console.log(
+    //   "ExerciseCreateComponent.js handleSubmitExercise() 등록전 확인 exerciseParam -> ",
+    //   exerciseParam
+    // );
 
     e.preventDefault();
     if (exerciseParam.whenchoose === "") {
@@ -286,14 +286,14 @@ const ExerciseCreateComponent = () => {
     ) {
       postExercise({ dateobject, exerciseParam })
         .then((result) => {
-          console.log(
-            "ExerciseCreateComponent.js handleSubmitExercise() axios then() result => ",
-            result
-          );
-          console.log(
-            "ExerciseCreateComponent.js handleSubmitExercise() axios then() result.result ->",
-            result.result
-          );
+          // console.log(
+          //   "ExerciseCreateComponent.js handleSubmitExercise() axios then() result => ",
+          //   result
+          // );
+          // console.log(
+          //   "ExerciseCreateComponent.js handleSubmitExercise() axios then() result.result ->",
+          //   result.result
+          // );
           if (result.result) {
             alert(dateobject + "일자 운동이 등록되었습니다.");
             moveToExerciseList();
@@ -303,21 +303,21 @@ const ExerciseCreateComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "ExerciseCreateComponent.js handleSubmitExercise() axios catch() ",
-            err
-          );
+          // console.log(
+          //   "ExerciseCreateComponent.js handleSubmitExercise() axios catch() ",
+          //   err
+          // );
         });
     }
   };
 
   const handleDetailRemoveOnClick = (e) => {
-    console.log(
-      "handleDetailRemoveOnClick() dataset =>",
-      e.target.dataset.finalcontent,
-      "e.target.dataset.finalminute -> ",
-      e.target.dataset.finalminute
-    );
+    // console.log(
+    //   "handleDetailRemoveOnClick() dataset =>",
+    //   e.target.dataset.finalcontent,
+    //   "e.target.dataset.finalminute -> ",
+    //   e.target.dataset.finalminute
+    // );
     const finalcontent = e.target.dataset.finalcontent;
     const finalminute = e.target.dataset.finalminute;
 
@@ -328,7 +328,7 @@ const ExerciseCreateComponent = () => {
     const newProduce = exerciseDetailFinalArray.filter(
       (i) => i !== `${finalcontent}${finalminute}`
     );
-    console.log("handleDetailRemoveOnClick() newProduce =>", newProduce);
+    //console.log("handleDetailRemoveOnClick() newProduce =>", newProduce);
     setExerciseDetailFinalArray([...newProduce]);
 
     const newFinalObject = finalObjectArray.filter(

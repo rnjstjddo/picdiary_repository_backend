@@ -19,7 +19,7 @@ import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 
 // const switchFn = (category, obsrValue) => {
 //   let result = "";
-//   //  console.log("T1H 진입");
+//    console.log("T1H 진입");
 
 //   switch (category) {
 //     case "T1H":
@@ -40,7 +40,7 @@ import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 //     default:
 //       break;
 //   }
-//   //console.log("switchFn 결과 -> ", result);
+//   console.log("switchFn 결과 -> ", result);
 //   return result;
 // }; //switchFn
 
@@ -95,10 +95,10 @@ const chooseReturn = (number) => {
 
 const MainComponent = () => {
   const { loginState, isLogin } = useCustomLogin();
-  console.log(isLogin);
+  //console.log(isLogin);
 
   const { exceptionHandle } = useCustomLogin();
-  console.log(loginState); //user, accessToken 2개 들어있다 이렇게 슬라이스에보관
+  //console.log(loginState); //user, accessToken 2개 들어있다 이렇게 슬라이스에보관
 
   //공공api
   const [weatherVisible, setWeatherVisible] = useState(false);
@@ -135,16 +135,16 @@ const MainComponent = () => {
   // base_time: "2200",
 
   useLayoutEffect(() => {
-    console.log("MainComponent.js useLayoutEffect 기존데이터 초기화 진입");
+    //console.log("MainComponent.js useLayoutEffect 기존데이터 초기화 진입");
     if (!isLogin) {
       alert("로그인이 필요합니다!");
       return moveToLogin();
     }
   }, []);
   useLayoutEffect(() => {
-    console.log(
-      "MainComponent.js  useLayoutEffect 날짜구해서 state 데이터넣기 진입"
-    );
+    // console.log(
+    //   "MainComponent.js  useLayoutEffect 날짜구해서 state 데이터넣기 진입"
+    // );
 
     let today = new Date();
     // 현재 날짜를 가져옵니다.
@@ -186,14 +186,14 @@ const MainComponent = () => {
   }, []);
 
   useEffect(() => {
-    console.log("MainComponent.js useEffect() 위치기반 날씨 axios 요청 진입");
+    //console.log("MainComponent.js useEffect() 위치기반 날씨 axios 요청 진입");
 
     const weatherapiEI = async () => {
       await weatherapi({ weatherDate, weatherTime }).then((result) => {
-        console.log(
-          "MainComponent.js useEffect() 위치기반 날씨 axios 요청 후 결과 -> ",
-          result
-        );
+        // console.log(
+        //   "MainComponent.js useEffect() 위치기반 날씨 axios 요청 후 결과 -> ",
+        //   result
+        // );
 
         if (Array.isArray(result) && result.length !== 0) {
           let newObj = [];
@@ -220,7 +220,7 @@ const MainComponent = () => {
               newO["category"] = "강수량";
               newO["obsrValue"] = r.obsrValue + "(시간당mm)";
             }
-            console.log("newO 객체 => ", newO);
+            //console.log("newO 객체 => ", newO);
             if (Object.keys(newO).length !== 0) {
               newObj.push(newO);
             }
@@ -229,10 +229,10 @@ const MainComponent = () => {
           setWeatherResult(() => newObj);
           setWeatherVisible(true);
 
-          console.log(
-            "weatherapiEI setState 후 출력 weatherResult => ",
-            weatherResult
-          );
+          // console.log(
+          //   "weatherapiEI setState 후 출력 weatherResult => ",
+          //   weatherResult
+          // );
         } //공공api데이터 존재할경우진입
         else {
           //결과 undefined
@@ -247,62 +247,62 @@ const MainComponent = () => {
   }, [weatherDate]);
 
   useEffect(() => {
-    console.log("useLayoutEffect() 서버axios요청으로 데이터 가져오기진입=>");
+    //console.log("useLayoutEffect() 서버axios요청으로 데이터 가져오기진입=>");
 
     const getTodayManagementEI = async () => {
       await getTodayManagement(findDate)
         .then((result) => {
-          console.log("useEffect()진입 axios 결과 -> ", result);
+          //console.log("useEffect()진입 axios 결과 -> ", result);
 
           if (result.message === "") {
-            console.log("서버에서 res.locals 담긴 jwtemail 없어서 그냥 보임");
+            //console.log("서버에서 res.locals 담긴 jwtemail 없어서 그냥 보임");
           } else {
             //if (result) {
-            console.log("useEffect()진입 axios 결과 존재할경우 진입");
+            //console.log("useEffect()진입 axios 결과 존재할경우 진입");
 
             setDiaryResultArray(() => result.diary);
 
             if (result.diet.length !== 0) {
-              console.log("result.diet 넣기 진입");
+              //console.log("result.diet 넣기 진입");
 
               //setDietId(result.diet[0]?.Dietdetails[0]?.DietId);
 
               //아래로 수정
               //setDietId(result.diet[0].id);
               result.diet?.forEach((v) => {
-                console.log(
-                  "result.diet 넣기 진입 result.diet forEach 진입 => ",
-                  v
-                );
+                // console.log(
+                //   "result.diet 넣기 진입 result.diet forEach 진입 => ",
+                //   v
+                // );
 
                 v.Dietdetails.forEach((d) => {
-                  console.log(
-                    "result.diet 넣기 진입 result.diet.Dietdetails forEach 진입 => ",
-                    d
-                  );
+                  // console.log(
+                  //   "result.diet 넣기 진입 result.diet.Dietdetails forEach 진입 => ",
+                  //   d
+                  // );
 
                   if (d.choose === "1") {
-                    console.log(
-                      "result.diet 넣기 진입 result.diet.Dietdetails choose 1 진입"
-                    );
+                    // console.log(
+                    //   "result.diet 넣기 진입 result.diet.Dietdetails choose 1 진입"
+                    // );
 
                     setDietMorning((prev) => [...prev, d]);
                   } else if (d.choose === "2") {
-                    console.log(
-                      "result.diet 넣기 진입 result.diet.Dietdetails choose 2 진입"
-                    );
+                    // console.log(
+                    //   "result.diet 넣기 진입 result.diet.Dietdetails choose 2 진입"
+                    // );
 
                     setDietLunch((prev) => [...prev, d]);
                   } else if (d.choose === "3") {
-                    console.log(
-                      "result.diet 넣기 진입 result.diet.Dietdetails choose 3 진입"
-                    );
+                    // console.log(
+                    //   "result.diet 넣기 진입 result.diet.Dietdetails choose 3 진입"
+                    // );
 
                     setDietEvening((prev) => [...prev, d]);
                   } else {
-                    console.log(
-                      "result.diet 넣기 진입 result.diet.Dietdetails choose 4 진입"
-                    );
+                    // console.log(
+                    //   "result.diet 넣기 진입 result.diet.Dietdetails choose 4 진입"
+                    // );
 
                     setDietSnack((prev) => [...prev, d]);
                   }
@@ -310,36 +310,36 @@ const MainComponent = () => {
               });
             }
 
-            console.log("diet dietMorning-> ", dietMorning);
-            console.log("diet dietLunch-> ", dietLunch);
-            console.log("diet dietEvening-> ", dietEvening);
-            console.log("diet dietSnack-> ", dietSnack);
+            //console.log("diet dietMorning-> ", dietMorning);
+            //console.log("diet dietLunch-> ", dietLunch);
+            //console.log("diet dietEvening-> ", dietEvening);
+            //console.log("diet dietSnack-> ", dietSnack);
 
             if (result.money.length !== 0) {
-              console.log("money 넣기 진입");
+              //console.log("money 넣기 진입");
 
               result.money?.forEach((v) => {
-                console.log(
-                  "result.money 넣기 진입 result.money forEach 진입 => ",
-                  v
-                );
+                // console.log(
+                //   "result.money 넣기 진입 result.money forEach 진입 => ",
+                //   v
+                // );
 
                 v.Moneydetails.forEach((d) => {
-                  console.log(
-                    "result.money 넣기 진입 result.money.Moneydetails forEach 진입 => ",
-                    d
-                  );
+                  // console.log(
+                  //   "result.money 넣기 진입 result.money.Moneydetails forEach 진입 => ",
+                  //   d
+                  // );
 
                   if (d.choose === "1") {
-                    console.log(
-                      "result.money 넣기 진입 result.money.Moneydetails choose 1 진입"
-                    );
+                    // console.log(
+                    //   "result.money 넣기 진입 result.money.Moneydetails choose 1 진입"
+                    // );
                     d.amount = Number(d.amount).toLocaleString("ko-KR");
                     setMoneyIncome((prev) => [...prev, d]);
                   } else if (d.choose === "2") {
-                    console.log(
-                      "result.money 넣기 진입 result.money.Moneydetails choose 2 진입"
-                    );
+                    // console.log(
+                    //   "result.money 넣기 진입 result.money.Moneydetails choose 2 진입"
+                    // );
                     d.amount = Number(d.amount).toLocaleString("ko-KR");
 
                     setMoneyExpense((prev) => [...prev, d]);
@@ -347,13 +347,13 @@ const MainComponent = () => {
                 });
               });
 
-              console.log("money moneyIncome-> ", moneyIncome);
-              console.log("money moneyExpense-> ", moneyExpense);
+              //console.log("money moneyIncome-> ", moneyIncome);
+              //console.log("money moneyExpense-> ", moneyExpense);
 
               let sum = {};
 
               if (result.money.length !== 0 && result.sum.length !== 0) {
-                console.log("sum 넣기 진입");
+                //console.log("sum 넣기 진입");
 
                 sum["sumincome"] = Number(
                   result.money[0].income
@@ -374,7 +374,7 @@ const MainComponent = () => {
             } //money배열존재할 경우
 
             if (result.exercise.length !== 0) {
-              console.log("exercise 넣기 진입");
+              //console.log("exercise 넣기 진입");
 
               result.exercise.forEach((v) => {
                 let objectexercise = {};
@@ -388,7 +388,7 @@ const MainComponent = () => {
           }
         }) //then
         .catch((err) => {
-          console.log("useEffect()진입 axios 에러-> ", err);
+          //console.log("useEffect()진입 axios 에러-> ", err);
           //          exceptionHandle(err);
         });
     }; //getTodayManagementEI()
@@ -411,14 +411,14 @@ const MainComponent = () => {
   }, [findDate]);
 
   useEffect(() => {
-    console.log("useEffect()진입 일자버튼 출력");
+    //console.log("useEffect()진입 일자버튼 출력");
 
     const getDate = async () => {
       let getDateResult = [];
       let firstDay = new Date(selectYear, selectMonth - 1, 1).getDate();
       let lastDay = new Date(selectYear, selectMonth, 0).getDate();
-      console.log("getDate() firstDay => ", firstDay);
-      console.log("getDate() lastDay=> ", lastDay);
+      //console.log("getDate() firstDay => ", firstDay);
+      //console.log("getDate() lastDay=> ", lastDay);
 
       for (let i = firstDay; i <= lastDay; i++) {
         getDateResult.push(i);
@@ -439,8 +439,8 @@ const MainComponent = () => {
       let getDateResult = [];
       let firstDay = new Date(selectYear, selectMonth - 1, 1).getDate();
       let lastDay = new Date(selectYear, selectMonth, 0).getDate();
-      console.log("getDate() firstDay => ", firstDay);
-      console.log("getDate() lastDay=> ", lastDay);
+      //console.log("getDate() firstDay => ", firstDay);
+      //console.log("getDate() lastDay=> ", lastDay);
 
       for (let i = firstDay; i <= lastDay; i++) {
         getDateResult.push(i);
@@ -457,8 +457,8 @@ const MainComponent = () => {
       let getDateResult = [];
       let firstDay = new Date(selectYear, selectMonth - 1, 1).getDate();
       let lastDay = new Date(selectYear, selectMonth, 0).getDate();
-      console.log("getDate() firstDay => ", firstDay);
-      console.log("getDate() lastDay=> ", lastDay);
+      //console.log("getDate() firstDay => ", firstDay);
+      //console.log("getDate() lastDay=> ", lastDay);
 
       for (let i = firstDay; i <= lastDay; i++) {
         getDateResult.push(i);
@@ -470,7 +470,7 @@ const MainComponent = () => {
 
   //달력일버튼나열
   const handleDateManagement = (d) => {
-    console.log("handleDateManagement()진입 선택한 일자 -> ", d);
+    //console.log("handleDateManagement()진입 선택한 일자 -> ", d);
     setTodayDate(() => d);
     let selectMonthAdd = selectMonth < 10 ? "0" + selectMonth : selectMonth;
     let dAdd = d < 10 ? "0" + d : d;

@@ -14,7 +14,7 @@ import useCustomLogin from "../../hooks/useCustomLogin";
 import { getDietList } from "../../api/dietApi";
 
 const chooseReturn = (number) => {
-  console.log("DietListComponent.js chooseReturn() 진입 매개변수 => ", number);
+  //console.log("DietListComponent.js chooseReturn() 진입 매개변수 => ", number);
   let result = "";
   for (let n of number) {
     switch (n) {
@@ -30,19 +30,19 @@ const chooseReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const makeCalendar = (d) => {
-  console.log("makeCalendar() 진입 매개변수 확인 => ", d);
+  //console.log("makeCalendar() 진입 매개변수 확인 => ", d);
   let date = new Date(d);
   const currentYear = new Date(date).getFullYear();
-  console.log("makeCalendar() 진입 currentYear -> ", currentYear);
+  //console.log("makeCalendar() 진입 currentYear -> ", currentYear);
 
   const currentMonth = new Date(date).getMonth() + 1;
-  console.log("makeCalendar() 진입 currentMonth -> ", currentMonth);
+  //console.log("makeCalendar() 진입 currentMonth -> ", currentMonth);
   const firstDay = new Date(date.setDate(1)).getDay();
-  console.log("makeCalendar() 진입 firstDay -> ", firstDay);
+  //console.log("makeCalendar() 진입 firstDay -> ", firstDay);
 
   //현재 달력첫째날
   let calfirst = "";
@@ -59,22 +59,22 @@ const makeCalendar = (d) => {
   } //calfirst 현재달력첫날
 
   const lastDay = new Date(currentYear, currentMonth, 0).getDate();
-  console.log("lastDay값 ->" + lastDay); //30
+  //console.log("lastDay값 ->" + lastDay); //30
   const limitDay = firstDay + lastDay;
-  console.log("limitDay값 ->" + limitDay); //31
+  //console.log("limitDay값 ->" + limitDay); //31
   const nextDay = Math.ceil(limitDay / 7) * 7;
-  console.log("nextDay값 ->" + nextDay); //35 35-31=4칸 빈칸만들어진다.
+  //console.log("nextDay값 ->" + nextDay); //35 35-31=4칸 빈칸만들어진다.
 
   return { firstDay, lastDay, limitDay, nextDay };
 };
 
 const CalendarItem = (props) => {
-  console.log("CalendarItem() 진입");
+  //console.log("CalendarItem() 진입");
 
   //UserId, content ,createdAt ,id , picture
   const { diet, dateobject } = props.i; //api서버후 db에서 받은값
-  console.log("DietListComponent.js props diet=> ", diet);
-  console.log("DietListComponent.js props dateobject=> ", dateobject);
+  //console.log("DietListComponent.js props diet=> ", diet);
+  //console.log("DietListComponent.js props dateobject=> ", dateobject);
 
   // console.log("props.i.diet[0] ", props.i.diet[0]);
   //console.log("props.i ", props.i);
@@ -143,7 +143,7 @@ const CalendarItem = (props) => {
     </React.Fragment>
   ));
 };
-console.log("컴포넌트 밖");
+//console.log("컴포넌트 밖");
 
 const DietListComponent = () => {
   const [searchParams] = useSearchParams();
@@ -170,13 +170,13 @@ const DietListComponent = () => {
   const [check, setCheck] = useState(0);
   const [make, setMake] = useState(false);
 
-  console.log("컴포넌트 시작");
+  //console.log("컴포넌트 시작");
 
   let searchParamsYear = searchParams.get("year");
   let searchParamsMonth = searchParams.get("month");
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect()  진입");
+    //console.log("useLayoutEffect()  진입");
     setDateItem(() => []);
     setMake(() => false);
     let date = new Date();
@@ -187,21 +187,21 @@ const DietListComponent = () => {
     date = `${basicYear}-${basicMonth}-01`;
 
     if (searchParamsYear !== null && searchParamsMonth !== null) {
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsYear
-      );
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsMonth
-      );
+      //console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsYear
+      // );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsMonth
+      // );
       setSearchMonth(() => Number(searchParamsMonth));
       setSearchYear(() => searchParamsYear);
 
       date = new Date(`${searchParamsYear}-${searchParamsMonth}-01`);
-      console.log("date-> ", date);
+      //console.log("date-> ", date);
     }
-    console.log("useLayoutEffect()  setCurrentDate 넣기전-> ", date);
+    //console.log("useLayoutEffect()  setCurrentDate 넣기전-> ", date);
 
     setCurrentDate(() => date); //2025-03-25
     const longdate = new Date(date);
@@ -212,10 +212,10 @@ const DietListComponent = () => {
 
   useEffect(() => {
     if (fullcurrentDate !== "") {
-      console.log(
-        "useEffect() fullcurrentDate 존재할경우 =>  ",
-        fullcurrentDate
-      );
+      // console.log(
+      //   "useEffect() fullcurrentDate 존재할경우 =>  ",
+      //   fullcurrentDate
+      // );
 
       const { firstDay, nextDay, limitDay, lastDay } =
         makeCalendar(fullcurrentDate);
@@ -227,7 +227,7 @@ const DietListComponent = () => {
     } //if
 
     return () => {
-      console.log("useEffect() makeCalendar() 반환변수들 초기화");
+      //console.log("useEffect() makeCalendar() 반환변수들 초기화");
 
       setLastDay(() => "");
       setFirstDay(() => "");
@@ -238,15 +238,15 @@ const DietListComponent = () => {
 
   //달력에서 이전빈칸
   useEffect(() => {
-    console.log("useEffect() 달력 데이터넣기 진입");
+    //console.log("useEffect() 달력 데이터넣기 진입");
 
     if (make === true) {
-      console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
+      //console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
 
       let dateItem = [];
 
       for (let i = 1, j = 0; i <= lastDay; i++, j++) {
-        console.log("useEffect() 달력 데이터넣기 for문 진입");
+        //console.log("useEffect() 달력 데이터넣기 for문 진입");
 
         let currentYear = new Date(fullcurrentDate).getFullYear();
         let currentMonth = new Date(fullcurrentDate).getMonth() + 1;
@@ -286,17 +286,17 @@ const DietListComponent = () => {
   }, [make]);
 
   useEffect(() => {
-    console.log("useEffect() 진입 axios 비동기요청 ");
+    //console.log("useEffect() 진입 axios 비동기요청 ");
     if (currentDate !== "") {
-      console.log(
-        "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
-        currentDate
-      );
+      // console.log(
+      //   "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
+      //   currentDate
+      // );
 
       const getDietListEI = async () => {
         await getDietList({ currentDate })
           .then((result) => {
-            console.log("useEffect() then()진입 ", result);
+            //console.log("useEffect() then()진입 ", result);
 
             if (result) {
               setDiet(() => result);
@@ -304,7 +304,7 @@ const DietListComponent = () => {
             setMake(() => true);
           })
           .catch((err) => {
-            console.log("useEffect() catch()진입 ", err);
+            //console.log("useEffect() catch()진입 ", err);
             effectException(err);
           });
       }; //getDiet
@@ -314,41 +314,41 @@ const DietListComponent = () => {
 
   // 이전달 이동
   const BeforeMonthMove = (currentDate) => {
-    console.log("BeforeMonthMove() 진입  => ", currentDate);
+    //console.log("BeforeMonthMove() 진입  => ", currentDate);
     const tempdate = new Date(currentDate);
     let beforechangeDate = new Date(tempdate.setMonth(tempdate.getMonth() - 1));
     let beforecurrentYear = new Date(beforechangeDate).getFullYear();
-    console.log(
-      "BeforeMonthMove() 진입 beforecurrentYear => ",
-      beforecurrentYear
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforecurrentYear => ",
+    //   beforecurrentYear
+    // );
 
     let beforechangeMonth = new Date(beforechangeDate).getMonth() + 1;
     beforechangeMonth =
       beforechangeMonth < 10 ? "0" + beforechangeMonth : beforechangeMonth;
-    console.log(
-      "BeforeMonthMove() 진입 beforechangeMonth => ",
-      beforechangeMonth
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforechangeMonth => ",
+    //   beforechangeMonth
+    // );
 
     navigate(`?year=${beforecurrentYear}&month=${beforechangeMonth}`);
   };
 
   //다음달이동
   const NextMonthMove = (currentDate) => {
-    console.log("NextMonthMove() 진입 currentDate ->", currentDate);
+    //console.log("NextMonthMove() 진입 currentDate ->", currentDate);
     const tempdate = new Date(currentDate);
 
     let afterchangeDate = new Date(tempdate.setMonth(tempdate.getMonth()));
-    console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
+    //console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
 
     let aftercurrentYear = new Date(afterchangeDate).getFullYear();
-    console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
+    //console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
 
     let afterchangeMonth = new Date(afterchangeDate).getMonth() + 2;
     afterchangeMonth =
       afterchangeMonth < 10 ? "0" + afterchangeMonth : afterchangeMonth;
-    console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
+    //console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
 
     navigate(`?year=${aftercurrentYear}&month=${afterchangeMonth}`);
   };
@@ -407,6 +407,7 @@ const DietListComponent = () => {
                     >
                       &nbsp;&nbsp;모두보기
                     </Link>
+                    <br />
                     <CalendarItem key={index} i={i} />
                   </>
                 ) : (

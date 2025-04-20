@@ -30,18 +30,18 @@ const chooseReturn = (number) => {
 };
 
 const chooseSectorExpenseReturn = (number) => {
-  console.log(
-    "MoneyCreateComponent.js chooseReturn() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "MoneyCreateComponent.js chooseReturn() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log("MoneyCreateComponent.js chooseReturn() 진입 배열변경 => ", arr);
+  //console.log("MoneyCreateComponent.js chooseReturn() 진입 배열변경 => ", arr);
   let result = "";
   for (let n of arr) {
     switch (n) {
@@ -72,14 +72,14 @@ const chooseSectorExpenseReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const chooseSectorIncomeReturn = (chooseincome) => {
   if (!chooseincome) {
     return;
   }
-  console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
+  //console.log("chooseSectorIncomeReturn 매개변수 -> ", chooseincome);
   switch (chooseincome) {
     case "21":
       return "급여";
@@ -93,21 +93,21 @@ const chooseSectorIncomeReturn = (chooseincome) => {
 };
 
 const chooseCheckbox = (number) => {
-  console.log(
-    "MoneyCreateComponent.js chooseCheckbox() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  //console.log(
+  //   "MoneyCreateComponent.js chooseCheckbox() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log(
-    "MoneyCreateComponent.js chooseCheckbox() 진입 배열변경 => ",
-    arr
-  );
+  // console.log(
+  //   "MoneyCreateComponent.js chooseCheckbox() 진입 배열변경 => ",
+  //   arr
+  // );
   return arr;
 };
 const initDetailState = {
@@ -123,10 +123,10 @@ const MoneyCreateComponent = () => {
 
   const choose = searchParams.get("choose");
   if (choose) {
-    console.log(
-      "MoneyCreateComponent.js 파라미터 choose 존재할경우 -> ",
-      choose
-    );
+    // console.log(
+    //   "MoneyCreateComponent.js 파라미터 choose 존재할경우 -> ",
+    //   choose
+    // );
   }
 
   const [moneyParam, setMoneyParam] = useState({ ...initState });
@@ -161,7 +161,7 @@ const MoneyCreateComponent = () => {
 
   const handleChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       if (e.target.name === "choose" && e.target.value === "1") {
         setIncomeVisible(true);
@@ -179,7 +179,7 @@ const MoneyCreateComponent = () => {
         let value = Number(e.target.value);
 
         const result = regex.test(value);
-        console.log("결과 ", result);
+        //console.log("결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("금액은 숫자만 입력가능합니다.");
           refAmount.current.value = 0;
@@ -197,7 +197,7 @@ const MoneyCreateComponent = () => {
   //---------------------- 추가시 입력받는 state
   const handleDetailChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -205,7 +205,7 @@ const MoneyCreateComponent = () => {
         let value = Number(e.target.value.replaceAll(",", ""));
 
         const result = regex.test(value);
-        console.log("regex결과 ", result);
+        //console.log("regex결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("금액은 숫자만 입력가능합니다.");
           refAmount.current.value = 0;
@@ -225,8 +225,8 @@ const MoneyCreateComponent = () => {
       alert("내용을 모두 입력해주세요!");
       return;
     }
-    console.log("handleDetailOnclick sameResult-> ", moneyParam.choose);
-    console.log("handleDetailOnclick sameResult-> ", moneyParam.choosesector);
+    //console.log("handleDetailOnclick sameResult-> ", moneyParam.choose);
+    //console.log("handleDetailOnclick sameResult-> ", moneyParam.choosesector);
 
     if (moneyParam.choose === null || moneyParam.choose === "") {
       alert("수입/지출을 선택해주세요");
@@ -258,13 +258,13 @@ const MoneyCreateComponent = () => {
         // moneyDetailParam.amount;
 
         transamountExpense;
-      console.log("handleDetailOnClick 지출일때 총합침-compound> ", compound);
+      //console.log("handleDetailOnClick 지출일때 총합침-compound> ", compound);
 
-      moneyExpenseFinalArray.forEach((i) =>
-        console.log("moneyExpenseFinalArray -> ", i)
-      );
+      //moneyExpenseFinalArray.forEach((i) =>
+      //console.log("moneyExpenseFinalArray -> ", i)
+      // );
       const sameResult = moneyExpenseFinalArray.filter((i) => i === compound);
-      console.log("handleDetailOnclick sameResult-> ", sameResult);
+      //console.log("handleDetailOnclick sameResult-> ", sameResult);
       if (sameResult.length !== 0) {
         alert("이미 가계부에 추가했습니다!");
         setMoneyDetailParam({ ...initDetailState });
@@ -302,13 +302,13 @@ const MoneyCreateComponent = () => {
         moneyDetailParam.content +
         //moneyDetailParam.amount;
         transamountIncome;
-      console.log("handleDetailOnClick 수입일때 총합침-compound> ", compound);
+      //console.log("handleDetailOnClick 수입일때 총합침-compound> ", compound);
 
-      moneyIncomeFinalArray.forEach((i) =>
-        console.log("moneyIncomeFinalArray -> ", i)
-      );
+      //moneyIncomeFinalArray.forEach((i) =>
+      //console.log("moneyIncomeFinalArray -> ", i)
+      //);
       const sameResult = moneyIncomeFinalArray.filter((i) => i === compound);
-      console.log("handleDetailOnclick sameResult-> ", sameResult);
+      //console.log("handleDetailOnclick sameResult-> ", sameResult);
       if (sameResult.length !== 0) {
         alert("이미 가계부에 추가했습니다!");
         setMoneyDetailParam({ ...initDetailState });
@@ -356,19 +356,19 @@ const MoneyCreateComponent = () => {
       });
 
       finalExpenseObjectArray.map((i) => {
-        console.log(
-          "지출객체배열에서 amount 자리수제거해서 넣기 => ",
-          i.amount
-        );
+        //console.log(
+        //   "지출객체배열에서 amount 자리수제거해서 넣기 => ",
+        //   i.amount
+        // );
         i["amount"] = Number(i.amount.replaceAll(",", ""));
       });
 
       console.log("expense -> ", expenseValue);
       const moneyExpenseFinalObject = moneyExpenseFinalArray.join(" ");
-      console.log(
-        "MoneyCreateComponent.js moneyExpenseFinalArray 지출 문자열로 만듬 -> ",
-        moneyExpenseFinalObject
-      );
+      //console.log(
+      //   "MoneyCreateComponent.js moneyExpenseFinalArray 지출 문자열로 만듬 -> ",
+      //   moneyExpenseFinalObject
+      // );
       submitcontent += " " + moneyExpenseFinalObject;
 
       console.log("지출 submitcontent -> ", submitcontent);
@@ -381,44 +381,44 @@ const MoneyCreateComponent = () => {
         // console.log("수입 문자열배열 amount 자리수 제거위해 한개씩 출력 => ", i.amount);
         incomeValue += Number(i.amount.replaceAll(",", ""));
       });
-      console.log("income -> ", incomeValue);
+      //console.log("income -> ", incomeValue);
 
       finalIncomeObjectArray.forEach((i) => {
-        console.log(
-          "수입객체배열에서 amount 자리수제거해서 넣기 => ",
-          i.amount
-        );
+        // console.log(
+        //   "수입객체배열에서 amount 자리수제거해서 넣기 => ",
+        //   i.amount
+        // );
         i["amount"] = Number(i.amount.replaceAll(",", ""));
       });
 
       const moneyIncomeFinalObject = moneyIncomeFinalArray.join(" ");
-      console.log(
-        "MoneyCreateComponent.js moneyIncomeFinalArray 문자열로 만듬 -> ",
-        moneyIncomeFinalObject
-      );
+      // console.log(
+      //   "MoneyCreateComponent.js moneyIncomeFinalArray 문자열로 만듬 -> ",
+      //   moneyIncomeFinalObject
+      // );
       // moneyParam["content"] = moneyIncomeFinalObject;
 
       submitcontent += " " + moneyIncomeFinalObject;
-      console.log("수입 submitcontent -> ", submitcontent);
+      //console.log("수입 submitcontent -> ", submitcontent);
     }
     moneyParam["expense"] = expenseValue;
     moneyParam["income"] = incomeValue;
 
     moneyParam["content"] = submitcontent;
     setMoneyParam({ ...moneyParam });
-    console.log("MoneyCreateComponent.js handleSubmitDiet -> ", moneyParam);
+    //console.log("MoneyCreateComponent.js handleSubmitDiet -> ", moneyParam);
 
     // const { picture } = e.target;
     // postDietC({ moneyParam, picture })
 
-    console.log(
-      "MoneyCreateComponent.js finalExpenseObjectArray -> ",
-      finalExpenseObjectArray
-    );
-    console.log(
-      "MoneyCreateComponent.js finalExpenseObjectArray -> ",
-      finalIncomeObjectArray
-    );
+    // //console.log(
+    //   "MoneyCreateComponent.js finalExpenseObjectArray -> ",
+    //   finalExpenseObjectArray
+    // );
+    // console.log(
+    //   "MoneyCreateComponent.js finalExpenseObjectArray -> ",
+    //   finalIncomeObjectArray
+    // );
 
     postMoneyC({
       moneyParam,
@@ -427,21 +427,21 @@ const MoneyCreateComponent = () => {
       dateobject,
     })
       .then((result) => {
-        console.log(
-          "MoneyCreateComponent.js axios postMoneyC then() 진입 -> ",
-          result
-        );
+        // console.log(
+        //   "MoneyCreateComponent.js axios postMoneyC then() 진입 -> ",
+        //   result
+        // );
         if (result.payload.result === "success") {
           alert(dateobject + " 일자 가계부를 등록했습니다.!");
           // if (result.payload.image) {
           //   URL.revokeObjectURL(image);
           //   setImage("");
           // }
-          console.log(result.payload.id);
+          //console.log(result.payload.id);
           moveToMoneyList();
         }
         if (result.payload.error) {
-          console.log("result.payload.error -> ", result.payload.error);
+          //console.log("result.payload.error -> ", result.payload.error);
           alert(dateobject + " 일자 가계부 등록 실패했습니다.");
           moveToMoneyCreate(dateobject);
         }
@@ -452,7 +452,7 @@ const MoneyCreateComponent = () => {
         }
       })
       .catch((err) => {
-        console.log("MoneyCreateComponent.js axios postDietC catch()", err);
+        //console.log("MoneyCreateComponent.js axios postDietC catch()", err);
         alert(dateobject + "일자 가계부 등록 실패했습니다.");
         moveToMoneyCreate(dateobject);
       });
@@ -508,16 +508,16 @@ const MoneyCreateComponent = () => {
   // }, []);
 
   const handleDetailRemoveOnClick = (e) => {
-    console.log(
-      "handleDetailRemoveOnClick() dataset =>",
-      e.target.dataset.finalcontent,
-      "e.target.dataset.finalamount -> ",
-      e.target.dataset.finalamount,
-      "e.target.dataset.finalchoose -> ",
-      e.target.dataset.finalchoose,
-      "e.target.dataset.finalchoosesector -> ",
-      e.target.dataset.finalchoosesector
-    );
+    // console.log(
+    //   "handleDetailRemoveOnClick() dataset =>",
+    //   e.target.dataset.finalcontent,
+    //   "e.target.dataset.finalamount -> ",
+    //   e.target.dataset.finalamount,
+    //   "e.target.dataset.finalchoose -> ",
+    //   e.target.dataset.finalchoose,
+    //   "e.target.dataset.finalchoosesector -> ",
+    //   e.target.dataset.finalchoosesector
+    // );
     const finalcontent = e.target.dataset.finalcontent;
     const finalamount = e.target.dataset.finalamount;
     const finalchoose = e.target.dataset.finalchoose;
@@ -533,7 +533,7 @@ const MoneyCreateComponent = () => {
           i !==
           `${finalchoose}${finalchoosesector}${finalcontent}${finalamount}`
       );
-      console.log("handleDetailRemoveOnClick() 지출 newProduce =>", newProduce);
+      //console.log("handleDetailRemoveOnClick() 지출 newProduce =>", newProduce);
       setmoneyExpenseFinalArray([...newProduce]);
 
       const newFinalObject = finalExpenseObjectArray.filter(
@@ -551,7 +551,7 @@ const MoneyCreateComponent = () => {
           i !==
           `${finalchoose}${finalchoosesector}${finalcontent}${finalamount}`
       );
-      console.log("handleDetailRemoveOnClick() 수입 newProduce =>", newProduce);
+      //console.log("handleDetailRemoveOnClick() 수입 newProduce =>", newProduce);
       setmoneyIncomeFinalArray([...newProduce]);
 
       const newFinalObject = finalIncomeObjectArray.filter(

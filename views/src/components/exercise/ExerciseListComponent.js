@@ -99,7 +99,7 @@ const CalendarItem = (props) => {
   //UserId, content ,createdAt ,id , picture
   const { exercise, dateobject } = props.i; //api서버후 db에서 받은값
 
-  console.log("ExerciseListComponent.js CalendarItem exercise -> ", exercise);
+  //console.log("ExerciseListComponent.js CalendarItem exercise -> ", exercise);
   return exercise.map((i, index) => (
     <React.Fragment key={index}>
       {i.id && i.whenchoose === "1" ? (
@@ -177,7 +177,7 @@ const ExerciseListComponent = () => {
   let searchParamsMonth = searchParams.get("month");
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect()  진입");
+    //console.log("useLayoutEffect()  진입");
     setDateItem(() => []);
     setMake(() => false);
     let date = new Date();
@@ -188,19 +188,19 @@ const ExerciseListComponent = () => {
     date = `${basicYear}-${basicMonth}-01`;
 
     if (searchParamsYear !== null && searchParamsMonth !== null) {
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsYear
-      );
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsMonth
-      );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsYear
+      // );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsMonth
+      // );
       setSearchMonth(() => Number(searchParamsMonth));
       setSearchYear(() => searchParamsYear);
 
       date = new Date(`${searchParamsYear}-${searchParamsMonth}-01`);
-      console.log("date-> ", date);
+      //console.log("date-> ", date);
     }
     setCurrentDate(() => date);
     const newdate = new Date(date);
@@ -211,10 +211,10 @@ const ExerciseListComponent = () => {
 
   useEffect(() => {
     if (fullcurrentDate !== "") {
-      console.log(
-        "useEffect() fullcurrentDate 존재할경우 =>  ",
-        fullcurrentDate
-      );
+      // console.log(
+      //   "useEffect() fullcurrentDate 존재할경우 =>  ",
+      //   fullcurrentDate
+      // );
 
       const { firstDay, nextDay, limitDay, lastDay } =
         makeCalendar(fullcurrentDate);
@@ -226,7 +226,7 @@ const ExerciseListComponent = () => {
     } //if
 
     return () => {
-      console.log("useEffect() makeCalendar() 반환변수들 초기화");
+      //console.log("useEffect() makeCalendar() 반환변수들 초기화");
 
       setLastDay(() => "");
       setFirstDay(() => "");
@@ -237,22 +237,22 @@ const ExerciseListComponent = () => {
 
   //달력에서 이전빈칸
   useEffect(() => {
-    console.log("useEffect() 달력 데이터넣기 진입");
+    //console.log("useEffect() 달력 데이터넣기 진입");
 
     if (make === true) {
-      console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
+      //console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
 
       let dateItem = [];
 
       for (let i = 1, j = 0; i <= lastDay; i++, j++) {
-        console.log("useEffect() 달력 데이터넣기 for문 진입");
+        //console.log("useEffect() 달력 데이터넣기 for문 진입");
 
         let currentYear = new Date(fullcurrentDate).getFullYear();
         let currentMonth = new Date(fullcurrentDate).getMonth() + 1;
         currentMonth = currentMonth < 10 ? "0" + currentMonth : currentMonth;
         let ichange = i < 10 ? "0" + i : i;
         let dateobject = `${currentYear}-${currentMonth}-${ichange}`;
-        console.log("dateobject-> ", dateobject);
+        //console.log("dateobject-> ", dateobject);
         dateItem[j] = {
           dateitem: i,
           dateobject: dateobject,
@@ -286,14 +286,14 @@ const ExerciseListComponent = () => {
 
   useEffect(() => {
     if (currentDate !== "") {
-      console.log(
-        "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
-        currentDate
-      );
+      // console.log(
+      //   "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
+      //   currentDate
+      // );
       const getExerciseListEI = async () => {
         getExerciseList({ currentDate })
           .then((result) => {
-            console.log("ExerciseListComponent.js then()진입 ", result);
+            //console.log("ExerciseListComponent.js then()진입 ", result);
             if (!result.error) {
               setExercise(() => result);
               setMake(() => true);
@@ -302,7 +302,7 @@ const ExerciseListComponent = () => {
             }
           })
           .catch((err) => {
-            console.log("ExerciseListComponent.js catch()진입 ", err);
+            //console.log("ExerciseListComponent.js catch()진입 ", err);
             effectException(err);
           });
       }; //getExerciseListEI
@@ -312,73 +312,73 @@ const ExerciseListComponent = () => {
 
   // 이전달 이동
   const BeforeMonthMove = (currentDate) => {
-    console.log("BeforeMonthMove() 진입  => ", currentDate);
+    //console.log("BeforeMonthMove() 진입  => ", currentDate);
     const tempdate = new Date(currentDate);
     let beforechangeDate = new Date(tempdate.setMonth(tempdate.getMonth() - 1));
     let beforecurrentYear = new Date(beforechangeDate).getFullYear();
-    console.log(
-      "BeforeMonthMove() 진입 beforecurrentYear => ",
-      beforecurrentYear
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforecurrentYear => ",
+    //   beforecurrentYear
+    // );
 
     let beforechangeMonth = new Date(beforechangeDate).getMonth() + 1;
     beforechangeMonth =
       beforechangeMonth < 10 ? "0" + beforechangeMonth : beforechangeMonth;
-    console.log(
-      "BeforeMonthMove() 진입 beforechangeMonth => ",
-      beforechangeMonth
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforechangeMonth => ",
+    //   beforechangeMonth
+    // );
 
     navigate(`?year=${beforecurrentYear}&month=${beforechangeMonth}`);
   };
 
   //다음달이동
   const NextMonthMove = (currentDate) => {
-    console.log("NextMonthMove() 진입 currentDate ->", currentDate);
+    //console.log("NextMonthMove() 진입 currentDate ->", currentDate);
     const tempdate = new Date(currentDate);
 
     let afterchangeDate = new Date(tempdate.setMonth(tempdate.getMonth()));
-    console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
+    //console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
 
     let aftercurrentYear = new Date(afterchangeDate).getFullYear();
-    console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
+    //console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
 
     let afterchangeMonth = new Date(afterchangeDate).getMonth() + 2;
     afterchangeMonth =
       afterchangeMonth < 10 ? "0" + afterchangeMonth : afterchangeMonth;
-    console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
+    //console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
 
     navigate(`?year=${aftercurrentYear}&month=${afterchangeMonth}`);
   };
 
   const createHandler = (dateitem) => {
-    console.log(
-      "ExerciseListComponent.js createHandler() dateitme => ",
-      dateitem
-    );
+    // console.log(
+    //   "ExerciseListComponent.js createHandler() dateitme => ",
+    //   dateitem
+    // );
     const paramMonth = currentMonth < 10 ? "0" + currentMonth : currentMonth;
     dateitem = dateitem < 10 ? "0" + dateitem : dateitem;
     const paramdate = `${currentYear}-${paramMonth}-${dateitem}`;
-    console.log(
-      "ExerciseListComponent.js createHandler() paramdate => ",
-      paramdate
-    );
+    // console.log(
+    //   "ExerciseListComponent.js createHandler() paramdate => ",
+    //   paramdate
+    // );
 
     const getChooseExerciseEI = async () => {
       await getChooseExercise(paramdate).then((result) => {
-        console.log(
-          "ExerciseListComponent.js createHandler() axios 결과 then() -> ",
-          result
-        ); //"1234"
+        // console.log(
+        //   "ExerciseListComponent.js createHandler() axios 결과 then() -> ",
+        //   result
+        // ); //"1234"
         if (result.result !== "" || result.result !== null) {
           console.log("if문 진입");
           if (result.result.length === 3) {
-            console.log("갯수 3일경우 진입");
+            //console.log("갯수 3일경우 진입");
 
             alert(paramdate + "일자 운동을 모두 작성했습니다.");
             return;
           } else {
-            console.log("갯수 3이아닐경우 진입");
+            //console.log("갯수 3이아닐경우 진입");
 
             moveToExerciseCreate(paramdate);
           }

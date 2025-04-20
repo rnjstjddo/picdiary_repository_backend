@@ -28,7 +28,7 @@ const DiaryReadComponent = () => {
   } = useCustomDiary();
 
   useEffect(() => {
-    console.log("DiaryReadComponent.js useEffect() 진입 id=> ", id);
+    //console.log("DiaryReadComponent.js useEffect() 진입 id=> ", id);
 
     //api
     const getDiaryEI = async () =>
@@ -41,10 +41,10 @@ const DiaryReadComponent = () => {
           setDiaryParam({ ...result.data });
         })
         .catch((err) => {
-          console.log(
-            "DiaryReadComponent.js useEffect 내 getDiary axios 호출후 catch() => ",
-            err
-          );
+          // console.log(
+          //   "DiaryReadComponent.js useEffect 내 getDiary axios 호출후 catch() => ",
+          //   err
+          // );
         });
 
     getDiaryEI();
@@ -54,10 +54,11 @@ const DiaryReadComponent = () => {
     if (window.confirm("해당 다이어리를 삭제하십니까?")) {
       deleteDiaryC(diaryParam.id)
         .then((result) => {
-          console.log(
-            "DiaryReadComponent.js deleteOnClick() then() => ",
-            result
-          );
+          //console.log(
+          //   "DiaryReadComponent.js deleteOnClick() then() => ",
+          //   result
+          // );
+
           if (result.payload.result === "success") {
             alert(diaryParam.dateobject + "일자의 다이어리가 삭제되었습니다.");
 
@@ -71,7 +72,7 @@ const DiaryReadComponent = () => {
           }
         })
         .catch((err) => {
-          console.log("DiaryReadComponent.js deleteOnClick() catch() => ", err);
+          //console.log("DiaryReadComponent.js deleteOnClick() catch() => ", err);
           alert(diaryParam.dateobject + "일자의 다이어리 삭제를 실패했습니다.");
           moveToDiaryRead(diaryParam.id);
         });

@@ -47,7 +47,7 @@ const BasicMenu = (props) => {
     setChatroompassword(() => e.target.value);
   };
   const chatStartClick = (e) => {
-    console.log("chatStartClick 이벤트핸들러함수 진입 ");
+    //console.log("chatStartClick 이벤트핸들러함수 진입 ");
 
     e.preventDefault();
     if (!isLogin) {
@@ -101,7 +101,7 @@ const BasicMenu = (props) => {
   const handleSubmitChat = (e) => {
     e.preventDefault();
 
-    console.log("handleSubmitChat() 진입 ");
+    //console.log("handleSubmitChat() 진입 ");
     const sendData = {
       //message: e.target.chatcontents.value,
       message: msg,
@@ -114,7 +114,7 @@ const BasicMenu = (props) => {
 
   useEffect(() => {
     function messageCallback(msg) {
-      console.log("handleSubmitChat() 진입 message 콜백함수 진입 msg-> ", msg);
+      //console.log("handleSubmitChat() 진입 message 콜백함수 진입 msg-> ", msg);
 
       const { message, username, chatroomname } = msg;
 
@@ -133,10 +133,10 @@ const BasicMenu = (props) => {
       setMsg(() => "");
     }
     function goodbyeCallback(msg) {
-      console.log(
-        "out 이벤트 리액트에서 받아서 goodbyeCallback() 진입 msg => ",
-        msg
-      );
+      // console.log(
+      //   "out 이벤트 리액트에서 받아서 goodbyeCallback() 진입 msg => ",
+      //   msg
+      // );
       setMsgList((prev) => [
         ...prev,
         {
@@ -147,7 +147,7 @@ const BasicMenu = (props) => {
       ]);
 
       const socketidcheck = socket.id;
-      console.log("goodbyeCallback() 소켓 id확인 ", socketidcheck);
+      //console.log("goodbyeCallback() 소켓 id확인 ", socketidcheck);
     }
 
     function roomcreateCallback(msg) {
@@ -177,9 +177,9 @@ const BasicMenu = (props) => {
   }, [socket]);
 
   const chatCloseModal = () => {
-    console.log("chatCloseModal() 진입");
+    //console.log("chatCloseModal() 진입");
     if (window.confirm("채팅방에서 나가시겠습니까?")) {
-      console.log("chatCloseModal onClick 내 out 소켓이벤트 전달전 ");
+      //console.log("chatCloseModal onClick 내 out 소켓이벤트 전달전 ");
       socket.emit("out", { chatroomname, loginState, chatroompassword });
       setSocket(null);
       setMsgList([]);

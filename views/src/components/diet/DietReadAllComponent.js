@@ -15,7 +15,7 @@ const chooseSwitch = (choose) => {
   if (!choose) {
     return;
   }
-  console.log("chooseSwitch 매개변수 -> ", choose);
+  //console.log("chooseSwitch 매개변수 -> ", choose);
   switch (choose) {
     case "1":
       return "아침";
@@ -31,18 +31,18 @@ const chooseSwitch = (choose) => {
 };
 const chooseReturn = (number) => {
   //1234 이렇게 들어온다.
-  console.log(
-    "DietReadAllomponent.js chooseReturn() 진입 매개변수 => ",
-    number,
-    "typeof -> ",
-    typeof number
-  );
+  // console.log(
+  //   "DietReadAllomponent.js chooseReturn() 진입 매개변수 => ",
+  //   number,
+  //   "typeof -> ",
+  //   typeof number
+  // );
   if (!number) {
     return;
   }
   const str = number;
   const arr = str.split("");
-  console.log("DietReadAllomponent.js chooseReturn() 진입 배열변경 => ", arr);
+  //console.log("DietReadAllomponent.js chooseReturn() 진입 배열변경 => ", arr);
   let result = "";
   for (let n of arr) {
     switch (n) {
@@ -58,7 +58,7 @@ const chooseReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const initState = {
@@ -75,28 +75,28 @@ const DietReadAllComponent = () => {
   const [dietParam, setDietParam] = useState([]);
   //Diet배열받아서 Dietdetails배열바음
 
-  console.log("dietParam -> ", dietParam);
+  //console.log("dietParam -> ", dietParam);
   const { dateobject } = useParams();
   const { moveToDietReadAll, moveToDietList, deleteDietC } = useCustomDiet();
   const [addDietParam, setAddDietParam] = useState([]);
 
-  console.log("addDietParam -> ", addDietParam);
+  //console.log("addDietParam -> ", addDietParam);
 
   useEffect(() => {
-    console.log(
-      "DietReadAllComponent.js useEffect() 진입 objectdate=> ",
-      dateobject
-    );
+    // console.log(
+    //   "DietReadAllComponent.js useEffect() 진입 objectdate=> ",
+    //   dateobject
+    // );
 
     //let dietData=[]
     //api
     const getDietEI = async () =>
       await getDietAll(dateobject)
         .then((result) => {
-          console.log(
-            "DietReadAllComponent.js useEffect 내 getDietAll axios 호출후 then() => ",
-            result
-          ); //acton.payload 받기에 data 없음
+          // console.log(
+          //   "DietReadAllComponent.js useEffect 내 getDietAll axios 호출후 then() => ",
+          //   result
+          // ); //acton.payload 받기에 data 없음
           setDietParam(result);
 
           let chooseArray = ["1", "2", "3", "4"];
@@ -116,17 +116,17 @@ const DietReadAllComponent = () => {
             }
           }); //forEach
 
-          console.log(
-            "DietReadAllComponent.js useEffect 내 getDietAll axios 호출후 chooseArray => ",
-            chooseArray
-          );
+          // console.log(
+          //   "DietReadAllComponent.js useEffect 내 getDietAll axios 호출후 chooseArray => ",
+          //   chooseArray
+          // );
           setAddDietParam(chooseArray);
         })
         .catch((err) => {
-          console.log(
-            "DietReadAllComponent.js useEffect 내 getDietAll axios 호출후 catch() => ",
-            err
-          );
+          // console.log(
+          //   "DietReadAllComponent.js useEffect 내 getDietAll axios 호출후 catch() => ",
+          //   err
+          // );
         });
 
     getDietEI();
@@ -137,18 +137,18 @@ const DietReadAllComponent = () => {
 
   //---------------삭제
   const deleteOnClick = (choose) => {
-    console.log(
-      "DietReadAllComponent.js deleteOnClick() 삭제할 식단 choose => ",
-      choose
-    );
+    // console.log(
+    //   "DietReadAllComponent.js deleteOnClick() 삭제할 식단 choose => ",
+    //   choose
+    // );
 
     if (window.confirm("해당 식단을 삭제하십니까?")) {
       deleteDiet({ choose, dateobject })
         .then((result) => {
-          console.log(
-            "DietReadAllComponent.js deleteOnClick() then() => ",
-            result
-          );
+          // console.log(
+          //   "DietReadAllComponent.js deleteOnClick() then() => ",
+          //   result
+          // );
           if (result.result === "success") {
             alert(
               dateobject +
@@ -165,10 +165,10 @@ const DietReadAllComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "DietReadAllComponent.js deleteOnClick() catch() => ",
-            err
-          );
+          // console.log(
+          //   "DietReadAllComponent.js deleteOnClick() catch() => ",
+          //   err
+          // );
           alert(dateobject + "일자의 식단 삭제를 실패했습니다.");
           moveToDietReadAll(dateobject);
         });

@@ -56,7 +56,7 @@ const chooseReturn = (number) => {
         break;
     }
   }
-  console.log("DietCreateComponent.js chooseReturn() 진입 결과 ->", result);
+  //console.log("DietCreateComponent.js chooseReturn() 진입 결과 ->", result);
 
   return result;
 };
@@ -65,7 +65,7 @@ const chooseSwitch = (choose) => {
   if (!choose) {
     return;
   }
-  console.log("chooseSwitch 매개변수 -> ", choose);
+  //console.log("chooseSwitch 매개변수 -> ", choose);
   switch (choose) {
     case "1":
       return "아침";
@@ -86,7 +86,7 @@ const chooseCheckbox = (number) => {
   }
   const str = number;
   const arr = str.split("");
-  console.log("DietCreateComponent.js chooseCheckbox() 진입 배열변경 => ", arr);
+  //console.log("DietCreateComponent.js chooseCheckbox() 진입 배열변경 => ", arr);
   return arr;
 };
 
@@ -102,10 +102,10 @@ const DietCreateComponent = () => {
 
   const choose = searchParams.get("choose");
   if (choose) {
-    console.log(
-      "DietCreateComponent.js 파라미터 choose 존재할경우 -> ",
-      choose
-    );
+    // console.log(
+    //   "DietCreateComponent.js 파라미터 choose 존재할경우 -> ",
+    //   choose
+    // );
   }
 
   const [dietParam, setDietParam] = useState({ ...initState });
@@ -143,7 +143,7 @@ const DietCreateComponent = () => {
 
   const handleChange = useCallback(
     (e) => {
-      console.log(e.target.value, e.target.name);
+      //console.log(e.target.value, e.target.name);
 
       const regex = new RegExp(/^[0-9]+$/);
 
@@ -151,7 +151,7 @@ const DietCreateComponent = () => {
         let value = Number(e.target.value);
 
         const result = regex.test(value);
-        console.log("결과 ", result);
+        //console.log("결과 ", result);
         if (!regex.test(value) || value === "NaN") {
           alert("식단 양은 숫자만 입력가능합니다.");
           refQuantity.current.value = 0;
@@ -228,7 +228,7 @@ const DietCreateComponent = () => {
     ]);
 
     //    console.log("handleDetailOnclick -> ", compound);
-    console.log("typeof -> ", typeof compound);
+    //console.log("typeof -> ", typeof compound);
     setdietDetailFinalArray((dietDetailFinalArray) => [
       ...dietDetailFinalArray,
       compound,
@@ -240,10 +240,10 @@ const DietCreateComponent = () => {
   const handleSubmitDiet = (e) => {
     e.preventDefault();
 
-    console.log(
-      "handleSubmitDiet() 내 e.target.choose.value-> ",
-      e.target.choose.value
-    );
+    // console.log(
+    //   "handleSubmitDiet() 내 e.target.choose.value-> ",
+    //   e.target.choose.value
+    // );
     if (!e.target.choose.value) {
       alert("시간을 선택해주세요!");
       return;
@@ -265,26 +265,26 @@ const DietCreateComponent = () => {
     //initDetailState -> content, quantity
 
     const dietDetailFinalObject = dietDetailFinalArray.join(" ");
-    console.log(
-      "DietCreateComponent.js dietDetailFinalObject 문자열로 만듬 -> ",
-      dietDetailFinalObject
-    );
+    // console.log(
+    //   "DietCreateComponent.js dietDetailFinalObject 문자열로 만듬 -> ",
+    //   dietDetailFinalObject
+    // );
     dietParam["quantity"] = 0;
     //해당컬럼삭제시킴    dietParam["content"] = dietDetailFinalObject;
     setDietParam({ ...dietParam });
-    console.log("DietCreateComponent.js handleSubmitDiet -> ", dietParam);
+    //console.log("DietCreateComponent.js handleSubmitDiet -> ", dietParam);
 
-    console.log(
-      "DietCreateComponent.js finalObjectArray -> ",
-      finalObjectArray
-    );
+    //console.log(
+    //   "DietCreateComponent.js finalObjectArray -> ",
+    //   finalObjectArray
+    // );
 
     postDietC({ dietParam, finalObjectArray })
       .then((result) => {
-        console.log(
-          "DietCreateComponent.js axios postDiet then() 진입 -> ",
-          result
-        );
+        // console.log(
+        //   "DietCreateComponent.js axios postDiet then() 진입 -> ",
+        //   result
+        // );
         if (result.payload.result === "success") {
           alert(dateobject + " 일자 식단 등록했습니다.!");
           // if (result.payload.image) {
@@ -294,13 +294,13 @@ const DietCreateComponent = () => {
           moveToDietList();
         }
         if (result.payload.error) {
-          console.log("result.payload.error -> ", result.payload.error);
+          //console.log("result.payload.error -> ", result.payload.error);
           alert(dateobject + " 일자 식단 등록 실패했습니다.");
           moveToDietCreate(dateobject);
         }
       })
       .catch((err) => {
-        console.log("DietCreateComponent.js axios postDietC catch()", err);
+        //console.log("DietCreateComponent.js axios postDietC catch()", err);
         alert(dateobject + "일자 식단 등록 실패했습니다.");
         moveToDietCreate(dateobject);
       });
@@ -312,14 +312,14 @@ const DietCreateComponent = () => {
     const getChooseDietEI = async () => {
       await getChooseDiet(dateobject)
         .then((result) => {
-          console.log(
-            "DietCreateComponent.js useLayoutEffect() axios 결과 then() -> ",
-            result
-          );
+          // console.log(
+          //   "DietCreateComponent.js useLayoutEffect() axios 결과 then() -> ",
+          //   result
+          // );
           if (result.result.length !== 0) {
-            console.log(
-              "DietCreateComponent.js useLayoutEffect() axios 결과 숫자존재할경우진입 "
-            );
+            // console.log(
+            //   "DietCreateComponent.js useLayoutEffect() axios 결과 숫자존재할경우진입 "
+            // );
 
             if (result.result.length === 4) {
               alert(
@@ -333,7 +333,7 @@ const DietCreateComponent = () => {
             result.result.forEach((r) => {
               numberchoose += r.choose;
             });
-            console.log("useLayoutEffect() numberchoose => ", numberchoose); //예 "1234"
+            //console.log("useLayoutEffect() numberchoose => ", numberchoose); //예 "1234"
             setChooseResult(() => chooseReturn(numberchoose)); //아침점심저녁.. 출력
             setChooseCheckArray(() => chooseCheckbox(numberchoose)); //["1","2",,,] 출력
             setVisible(true);
@@ -342,10 +342,10 @@ const DietCreateComponent = () => {
           }
         })
         .catch((err) => {
-          console.log(
-            "DietCreateComponent.js useEffect() axios 결과 catch() -> ",
-            err
-          );
+          // console.log(
+          //   "DietCreateComponent.js useEffect() axios 결과 catch() -> ",
+          //   err
+          // );
           exceptionHandle(err);
         });
     };
@@ -360,7 +360,7 @@ const DietCreateComponent = () => {
   useEffect(() => {
     if (chooseCheckArray.length !== 0) {
       chooseCheckArray.forEach((c) => {
-        console.log("useEffect() 라디오버튼 checked 진입 ", c);
+        //console.log("useEffect() 라디오버튼 checked 진입 ", c);
 
         if (c === "1") {
           radiofirst.current.disabled = true;
@@ -387,7 +387,7 @@ const DietCreateComponent = () => {
     // );
     const finalcontent = e.target.dataset.finalcontent;
     const finalquantity = e.target.dataset.finalquantity;
-    console.log("handleDetailRemoveOnClick() 진입");
+    //console.log("handleDetailRemoveOnClick() 진입");
     // const newProduce = produce(dietDetailFinalArray, (draft) => {
     //   draft.filter((d) => d !== finalcontent);
     // });

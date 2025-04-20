@@ -36,31 +36,30 @@ const diarySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getDiaryListAsync.fulfilled, (state, action) => {
-        console.log(
-          "diarySlice.js getDiaryListAsyncfulfilled() 진입 action.payload -> ",
-          action.payload
-        );
+        // console.log(
+        //   "diarySlice.js getDiaryListAsyncfulfilled() 진입 action.payload -> ",
+        //   action.payload
+        // );
 
         return action.payload;
       })
       .addCase(getDiaryListAsync.pending, (state, action) => {
-        console.log(
-          "diarySlice.js getDiaryListAsync.pending() 진입 action.payload -> ",
-          action.payload
-        );
+        // console.log(
+        //   "diarySlice.js getDiaryListAsync.pending() 진입 action.payload -> ",
+        //   action.payload
+        // );
       })
       .addCase(getDiaryListAsync.rejected, (state, action) => {
-        console.log(
-          "diarySlice.js getDiaryListAsync.rejected() 진입 action.payload -> ",
-          action.payload
-        );
+        // console.log(
+        //   "diarySlice.js getDiaryListAsync.rejected() 진입 action.payload -> ",
+        //   action.payload
+        // );
       })
       .addCase(postDiaryAsync.fulfilled, (state, action) => {
-        console.log(
-          "diarySlice.js postDiaryAsync.fulfilled() 진입 action.payload -> ",
-          action.payload
-        );
-
+        // console.log(
+        //   "diarySlice.js postDiaryAsync.fulfilled() 진입 action.payload -> ",
+        //   action.payload
+        // );
         //return action.payload;
       })
       .addCase(postDiaryAsync.pending, (state, action) => {

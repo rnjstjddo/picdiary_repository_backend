@@ -28,7 +28,7 @@ const chooseReturn = (number) => {
 };
 
 const chooseSectorReturn = (number) => {
-  console.log("MoneyListComponent.js chooseReturn() 진입 매개변수 => ", number);
+  //console.log("MoneyListComponent.js chooseReturn() 진입 매개변수 => ", number);
   let result = "";
   for (let n of number) {
     switch (n) {
@@ -56,7 +56,7 @@ const chooseSectorReturn = (number) => {
         return null;
     }
   }
-  console.log(result);
+  //console.log(result);
 };
 
 const makeCalendar = (d) => {
@@ -167,7 +167,7 @@ const MoneyListComponent = () => {
   let searchParamsMonth = searchParams.get("month");
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect()  진입");
+    //console.log("useLayoutEffect()  진입");
     setDateItem(() => []);
     setMake(() => false);
     let date = new Date();
@@ -178,19 +178,19 @@ const MoneyListComponent = () => {
     date = `${basicYear}-${basicMonth}-01`;
 
     if (searchParamsYear !== null && searchParamsMonth !== null) {
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsYear
-      );
-      console.log(
-        "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
-        searchParamsMonth
-      );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsYear
+      // );
+      // console.log(
+      //   "useLayoutEffect() 쿼리파라미터 존재할경우 진입 -> ",
+      //   searchParamsMonth
+      // );
       setSearchMonth(() => Number(searchParamsMonth));
       setSearchYear(() => searchParamsYear);
 
       date = new Date(`${searchParamsYear}-${searchParamsMonth}-01`);
-      console.log("date-> ", date);
+      //console.log("date-> ", date);
     }
     setCurrentDate(() => date);
     const newdate = new Date(date);
@@ -201,10 +201,10 @@ const MoneyListComponent = () => {
 
   useEffect(() => {
     if (fullcurrentDate !== "") {
-      console.log(
-        "useEffect() fullcurrentDate 존재할경우 =>  ",
-        fullcurrentDate
-      );
+      // console.log(
+      //   "useEffect() fullcurrentDate 존재할경우 =>  ",
+      //   fullcurrentDate
+      // );
 
       const { firstDay, nextDay, limitDay, lastDay } =
         makeCalendar(fullcurrentDate);
@@ -216,7 +216,7 @@ const MoneyListComponent = () => {
     } //if
 
     return () => {
-      console.log("useEffect() makeCalendar() 반환변수들 초기화");
+      //console.log("useEffect() makeCalendar() 반환변수들 초기화");
 
       setLastDay(() => "");
       setFirstDay(() => "");
@@ -227,15 +227,15 @@ const MoneyListComponent = () => {
 
   //달력에서 이전빈칸
   useEffect(() => {
-    console.log("useEffect() 달력 데이터넣기 진입");
+    //console.log("useEffect() 달력 데이터넣기 진입");
 
     if (make === true) {
-      console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
+      //console.log("useEffect() 달력 데이터넣기 진입 make상태가 true진입");
 
       let dateItem = [];
 
       for (let i = 1, j = 0; i <= lastDay; i++, j++) {
-        console.log("useEffect() 달력 데이터넣기 for문 진입");
+        //console.log("useEffect() 달력 데이터넣기 for문 진입");
 
         let currentYear = new Date(fullcurrentDate).getFullYear();
         let currentMonth = new Date(fullcurrentDate).getMonth() + 1;
@@ -249,7 +249,7 @@ const MoneyListComponent = () => {
           money: money.filter((a) => a.dateobject === dateobject),
         };
       }
-      console.log("dateItem -> ", dateItem);
+      //console.log("dateItem -> ", dateItem);
       setDateItem(() => dateItem);
 
       const beforeDateItem = firstDay - 0;
@@ -277,14 +277,14 @@ const MoneyListComponent = () => {
 
   useEffect(() => {
     if (currentDate !== "") {
-      console.log(
-        "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
-        currentDate
-      );
+      // console.log(
+      //   "useEffect() 진입 axios 비동기요청 currentDate 존재할경우 ->",
+      //   currentDate
+      // );
       const getMoneyListEI = async () =>
         await getMoneyList({ currentDate })
           .then((result) => {
-            console.log("MoneyListComponent.js then()진입 ", result);
+            //console.log("MoneyListComponent.js then()진입 ", result);
 
             if (Array.isArray(result)) {
               let moneyResult = result.map((i) => {
@@ -294,10 +294,10 @@ const MoneyListComponent = () => {
                   expense: Number(i.expense).toLocaleString("ko-KR"),
                 };
               });
-              console.log(
-                "서버에서 데이터 받고 새로운 배열 담은 결과 => ",
-                moneyResult
-              );
+              // console.log(
+              //   "서버에서 데이터 받고 새로운 배열 담은 결과 => ",
+              //   moneyResult
+              // );
               setMoney(() => moneyResult);
               setMake(true);
             } else {
@@ -305,7 +305,7 @@ const MoneyListComponent = () => {
             } //if
           }) //then
           .catch((err) => {
-            console.log("MoneyListComponent.js catch()진입 ", err);
+            //console.log("MoneyListComponent.js catch()진입 ", err);
             exceptionHandle(err);
           });
       getMoneyListEI();
@@ -318,53 +318,53 @@ const MoneyListComponent = () => {
 
   // 이전달 이동
   const BeforeMonthMove = (currentDate) => {
-    console.log("BeforeMonthMove() 진입  => ", currentDate);
+    //console.log("BeforeMonthMove() 진입  => ", currentDate);
     const tempdate = new Date(currentDate);
     let beforechangeDate = new Date(tempdate.setMonth(tempdate.getMonth() - 1));
     let beforecurrentYear = new Date(beforechangeDate).getFullYear();
-    console.log(
-      "BeforeMonthMove() 진입 beforecurrentYear => ",
-      beforecurrentYear
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforecurrentYear => ",
+    //   beforecurrentYear
+    // );
 
     let beforechangeMonth = new Date(beforechangeDate).getMonth() + 1;
     beforechangeMonth =
       beforechangeMonth < 10 ? "0" + beforechangeMonth : beforechangeMonth;
-    console.log(
-      "BeforeMonthMove() 진입 beforechangeMonth => ",
-      beforechangeMonth
-    );
+    // console.log(
+    //   "BeforeMonthMove() 진입 beforechangeMonth => ",
+    //   beforechangeMonth
+    // );
 
     navigate(`?year=${beforecurrentYear}&month=${beforechangeMonth}`);
   };
 
   //다음달이동
   const NextMonthMove = (currentDate) => {
-    console.log("NextMonthMove() 진입 currentDate ->", currentDate);
+    //console.log("NextMonthMove() 진입 currentDate ->", currentDate);
     const tempdate = new Date(currentDate);
 
     let afterchangeDate = new Date(tempdate.setMonth(tempdate.getMonth()));
-    console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
+    //console.log("NextMonthMove() 진입 afterchangeDate ->", afterchangeDate);
 
     let aftercurrentYear = new Date(afterchangeDate).getFullYear();
-    console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
+    //console.log("NextMonthMove() 진입 aftercurrentYear ->", aftercurrentYear);
 
     let afterchangeMonth = new Date(afterchangeDate).getMonth() + 2;
     afterchangeMonth =
       afterchangeMonth < 10 ? "0" + afterchangeMonth : afterchangeMonth;
-    console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
+    //console.log("NextMonthMove() 진입 afterchangeMonth ->", afterchangeMonth);
 
     navigate(`?year=${aftercurrentYear}&month=${afterchangeMonth}`);
   };
 
   const onClickDate = (dateobject) => {
-    console.log(
-      "MoneyListComponent.js 일자버튼 클릭 onClickDate() 함수진입 -> ",
-      dateobject
-    );
+    // console.log(
+    //   "MoneyListComponent.js 일자버튼 클릭 onClickDate() 함수진입 -> ",
+    //   dateobject
+    // );
     choosecheck({ dateobject })
       .then((result) => {
-        console.log("MoneyListComponent.js then() 결과 ", result);
+        //console.log("MoneyListComponent.js then() 결과 ", result);
         if (
           Number(result.result?.income) > 0 &&
           Number(result.result?.expense) > 0
@@ -373,7 +373,7 @@ const MoneyListComponent = () => {
         }
       })
       .catch((e) => {
-        console.log("MoneyListComponent.js catch() 에러 ", e);
+        //console.log("MoneyListComponent.js catch() 에러 ", e);
       });
   };
 

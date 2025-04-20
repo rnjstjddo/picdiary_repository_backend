@@ -31,7 +31,7 @@ const navigatorFn = () => {
     }
 
     function handleError() {
-      console.log("cant not access to location");
+      //console.log("cant not access to location");
     }
 
     function askForCoords() {
@@ -39,10 +39,10 @@ const navigatorFn = () => {
     }
 
     let loadedCoords = localStorage.getItem("COORDS");
-    console.log(
-      "loadCoords 로컬저장소에서 저장된 위도경도 가져오기 : ",
-      JSON.stringify(loadedCoords)
-    );
+    //console.log(
+    //  "loadCoords 로컬저장소에서 저장된 위도경도 가져오기 : ",
+    //  JSON.stringify(loadedCoords)
+    //);
     loadedCoords = JSON.parse(loadedCoords);
 
     if (loadedCoords === null) {
@@ -64,9 +64,9 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
   var weatherapiresult = null;
 
   const xyresult = navigatorFn();
-  console.log("weatherapi() 내 위경도를 xy변경후 : ", xyresult);
-  console.log("weatherapi() 내 weatherDate 확인 ->  ", weatherDate);
-  console.log("weatherapi() 내 weatherTime 확인 ->  : ", weatherTime);
+  //console.log("weatherapi() 내 위경도를 xy변경후 : ", xyresult);
+  //console.log("weatherapi() 내 weatherDate 확인 ->  ", weatherDate);
+  //console.log("weatherapi() 내 weatherTime 확인 ->  : ", weatherTime);
   try {
     //로컬시
     // const result = await axios.get(URL, {
@@ -95,27 +95,27 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
       ny: xyresult.y,
     };
 
-    console.log(
-      "openApi.js axios.post(/api/main/openapi) 보내기전 요청본문 내용확인 -> ",
-      params
-    );
+    //console.log(
+    //  "openApi.js axios.post(/api/main/openapi) 보내기전 요청본문 내용확인 -> ",
+    //  params
+    //);
 
     await axios
       .post("/api/main/openapi", { url: URL, params })
       .then((result) => {
         weatherapiresult = result.data.result;
-        console.log(
-          "openApi.js axios.post(/api/main/openapi) 결과 result.data.result-> ",
-          weatherapiresult
-        );
+        //console.log(
+        //  "openApi.js axios.post(/api/main/openapi) 결과 result.data.result-> ",
+        //  weatherapiresult
+        //);
       });
-    console.log(
-      "openApi.js axios.post(/api/main/openapi) 결과 result.data.result-> ",
-      weatherapiresult
-    );
+    //console.log(
+    //  "openApi.js axios.post(/api/main/openapi) 결과 result.data.result-> ",
+    //  weatherapiresult
+    //);
 
     return weatherapiresult;
   } catch (e) {
-    console.log("openApi.js axios.post(/api/main/openapi) 에러발생", e);
+    //console.log("openApi.js axios.post(/api/main/openapi) 에러발생", e);
   }
 }; //weatherapi

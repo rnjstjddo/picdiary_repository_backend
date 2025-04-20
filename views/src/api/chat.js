@@ -5,14 +5,14 @@ import { API_SERVER_HOST } from "./memberApi";
 const prefix = `/api/chat`;
 
 export const chatGetPost = async ({ chatroomname, chatroompassword }) => {
-  console.log(
-    "api/chat.js chatGetPost 매개변수확인 chatroomname -> ",
-    chatroomname
-  );
-  console.log(
-    "api/chat.js chatGetPost 매개변수확인 chatroompassword -> ",
-    chatroompassword
-  );
+  //console.log(
+  //  "api/chat.js chatGetPost 매개변수확인 chatroomname -> ",
+  //  chatroomname
+  //);
+  //console.log(
+  //  "api/chat.js chatGetPost 매개변수확인 chatroompassword -> ",
+  //  chatroompassword
+  //);
   const res = await jwtAxios.post(`${prefix}/${chatroomname}`, {
     chatroompassword,
   });
@@ -31,18 +31,18 @@ export const chatAdd = async ({
   chatroompassword,
   loginState,
 }) => {
-  console.log(
-    "api/chat.js chatAdd 매개변수확인 chatroomname -> ",
-    chatroomname
-  );
-  console.log(
-    "api/chat.js chatAdd 매개변수확인 chatroompassword -> ",
-    chatroompassword
-  );
-  console.log(
-    "api/chat.js chatAdd 매개변수확인 chatroomname -> ",
-    chatroomname
-  );
+  //console.log(
+  //  "api/chat.js chatAdd 매개변수확인 chatroomname -> ",
+  //  chatroomname
+  //);
+  //console.log(
+  //  "api/chat.js chatAdd 매개변수확인 chatroompassword -> ",
+  //  chatroompassword
+  //);
+  //console.log(
+  //  "api/chat.js chatAdd 매개변수확인 chatroomname -> ",
+  //  chatroomname
+  //);
   const res = await jwtAxios.post(`${prefix}/create`, {
     chatroomname,
     chatroompassword,
