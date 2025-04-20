@@ -108,9 +108,13 @@ export const weatherapi = async ({ weatherDate, weatherTime }) => {
           "openApi.js axios.post(/api/main/openapi) 결과 result.data.result-> ",
           weatherapiresult
         );
-
-        return weatherapiresult;
       });
+    console.log(
+      "openApi.js axios.post(/api/main/openapi) 결과 result.data.result-> ",
+      weatherapiresult
+    );
+
+    return weatherapiresult;
   } catch (e) {
     console.log("openApi.js axios.post(/api/main/openapi) 에러발생", e);
   }
