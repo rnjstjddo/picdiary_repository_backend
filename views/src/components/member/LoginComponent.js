@@ -30,7 +30,7 @@ const LoginComponent = () => {
   );
 
   const handleSubmitLogin = (e) => {
-    console.log("LoginComponent.js handleSubmitLogin() 진입");
+    //console.log("LoginComponent.js handleSubmitLogin() 진입");
     e.preventDefault();
 
     //비동기안될경우
@@ -47,21 +47,21 @@ const LoginComponent = () => {
 
     doLogin(loginParam)
       .then((data) => {
-        console.log(
-          "LoginComponent.js handleClickLogin() loginPostAsync 결과 ",
-          data
-        );
+        // console.log(
+        //   "LoginComponent.js handleClickLogin() loginPostAsync 결과 ",
+        //   data
+        // );
 
         if (data.error) {
           alert("일치하는 정보가 없습니다 회원가입을 해주세요!");
-          console.log("data.error => ", data.error);
+          //console.log("data.error => ", data.error);
           moveToPath("/login");
         } else {
           moveToPath("/");
         }
       })
       .catch((err) => {
-        console.log("LoginComponent.js thunk함수 실행결과 catch() 진입 ", err);
+        //console.log("LoginComponent.js thunk함수 실행결과 catch() 진입 ", err);
         alert("일치하는 정보가 없습니다 회원가입을 해주세요!");
         moveToPath("/login");
       });

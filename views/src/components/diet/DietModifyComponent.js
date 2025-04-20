@@ -195,10 +195,10 @@ const DietModifyComponent = () => {
   const handleModifyDiet = (e) => {
     e.preventDefault();
 
-    console.log(
-      "handleModifyDiet() 내 e.target.choose.value-> ",
-      e.target.choose.value
-    );
+    // console.log(
+    //   "handleModifyDiet() 내 e.target.choose.value-> ",
+    //   e.target.choose.value
+    // );
     setInputVisible(false);
     if (dietModifyFinalArray.length === 0) {
       alert("식단내용을 입력해주세요!");
@@ -228,25 +228,25 @@ const DietModifyComponent = () => {
     // const { picture } = e.target;
     // postDietC({ dietParam, picture })
 
-    console.log(
-      "DietCreateComponent.js finalObjectArray -> ",
-      finalObjectArray
-    );
+    // console.log(
+    //   "DietCreateComponent.js finalObjectArray -> ",
+    //   finalObjectArray
+    // );
 
     //수정 보냄 axios
     patchDiet({ finalObjectArray, choose, dateobject })
       .then((result) => {
-        console.log(
-          "DietCreateComponent.js axios patchDietC then() 진입 -> ",
-          result
-        );
+        // console.log(
+        //   "DietCreateComponent.js axios patchDietC then() 진입 -> ",
+        //   result
+        // );
         if (result.result === "success") {
           alert(dateobject + " 일자 식단 수정했습니다.!");
           // if (result.payload.image) {
           //   URL.revokeObjectURL(image);
           //   setImage("");
           // }
-          console.log(result.id);
+          //console.log(result.id);
           dietModifyParam["content"] = "";
           dietModifyParam["quantity"] = 0;
           setDietModifyParam((prev) => {

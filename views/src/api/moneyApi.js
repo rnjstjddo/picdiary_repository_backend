@@ -25,7 +25,7 @@ export const patchMoney = async ({
   dateobject,
   bigchoose,
 }) => {
-  console.log("moneyApi.js moneyParam -> ", moneyParam);
+  //console.log("moneyApi.js moneyParam -> ", moneyParam);
   const res = await jwtAxios.patch(`${host}/modify/${dateobject}`, {
     moneyParam,
     finalIncomeObjectArray,

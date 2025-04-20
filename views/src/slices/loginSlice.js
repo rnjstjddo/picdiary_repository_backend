@@ -9,10 +9,10 @@ const initState = {
 //애플리케이션 로딩시 쿠키값가져오기
 const loadMemberCookie = () => {
   const memberInfo = getCookie("member");
-  console.log(
-    "loginSlice.js loadMemberCookie() 진입 애플리케이션로딩시 member 이름 쿠키가져옴 -> ",
-    memberInfo
-  );
+  // console.log(
+  //   "loginSlice.js loadMemberCookie() 진입 애플리케이션로딩시 member 이름 쿠키가져옴 -> ",
+  //   memberInfo
+  // );
   const accessToken = getCookie("accessToken");
 
   //if (memberInfo && memberInfo.user) { 서버에서 전달받은 엑세스코드와 유저정보중에 유저정보만 쿠키에 담았기에 변경 아래와같이
