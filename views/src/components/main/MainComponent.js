@@ -189,55 +189,56 @@ const MainComponent = () => {
     console.log("MainComponent.js useEffect() 위치기반 날씨 axios 요청 진입");
 
     const weatherapiEI = async () => {
-      const result = await weatherapi({ weatherDate, weatherTime });
-      console.log(
-        "MainComponent.js useEffect() 위치기반 날씨 axios 요청 후 결과 -> ",
-        result
-      );
-
-      if (Array.isArray(result) && result.length !== 0) {
-        let newObj = [];
-
-        result?.forEach((r) => {
-          let newO = {};
-          if (r.category === "T1H") {
-            newO["category"] = "온도";
-            newO["obsrValue"] = r.obsrValue + "(도)";
-          }
-          if (r.category === "REH") {
-            newO["category"] = "습도";
-            newO["obsrValue"] = r.obsrValue + "(%)";
-          }
-          if (r.category === "WSD") {
-            newO["category"] = "풍속";
-            newO["obsrValue"] = r.obsrValue + "(m/s)";
-          }
-          if (r.category === "PTY" && r.obsrValue > 1) {
-            newO["category"] = "비/눈";
-            newO["obsrValue"] = switchFn(r.obsrValue);
-          }
-          if (r.category === "RN1" && newObj["PTY"]) {
-            newO["category"] = "강수량";
-            newO["obsrValue"] = r.obsrValue + "(시간당mm)";
-          }
-          console.log("newO 객체 => ", newO);
-          if (Object.keys(newO).length !== 0) {
-            newObj.push(newO);
-          }
-        });
-
-        setWeatherResult(() => newObj);
-        setWeatherVisible(true);
-
+      await weatherapi({ weatherDate, weatherTime }).then((result) => {
         console.log(
-          "weatherapiEI setState 후 출력 weatherResult => ",
-          weatherResult
+          "MainComponent.js useEffect() 위치기반 날씨 axios 요청 후 결과 -> ",
+          result
         );
-      } //공공api데이터 존재할경우진입
-      else {
-        //결과 undefined
-        setAlertOpenApi(true);
-      }
+
+        if (Array.isArray(result) && result.length !== 0) {
+          let newObj = [];
+
+          result?.forEach((r) => {
+            let newO = {};
+            if (r.category === "T1H") {
+              newO["category"] = "온도";
+              newO["obsrValue"] = r.obsrValue + "(도)";
+            }
+            if (r.category === "REH") {
+              newO["category"] = "습도";
+              newO["obsrValue"] = r.obsrValue + "(%)";
+            }
+            if (r.category === "WSD") {
+              newO["category"] = "풍속";
+              newO["obsrValue"] = r.obsrValue + "(m/s)";
+            }
+            if (r.category === "PTY" && r.obsrValue > 1) {
+              newO["category"] = "비/눈";
+              newO["obsrValue"] = switchFn(r.obsrValue);
+            }
+            if (r.category === "RN1" && newObj["PTY"]) {
+              newO["category"] = "강수량";
+              newO["obsrValue"] = r.obsrValue + "(시간당mm)";
+            }
+            console.log("newO 객체 => ", newO);
+            if (Object.keys(newO).length !== 0) {
+              newObj.push(newO);
+            }
+          });
+
+          setWeatherResult(() => newObj);
+          setWeatherVisible(true);
+
+          console.log(
+            "weatherapiEI setState 후 출력 weatherResult => ",
+            weatherResult
+          );
+        } //공공api데이터 존재할경우진입
+        else {
+          //결과 undefined
+          setAlertOpenApi(true);
+        }
+      }); //then
     }; //weatherapiEI
 
     if (weatherDate !== "" && weatherTime !== "") {
