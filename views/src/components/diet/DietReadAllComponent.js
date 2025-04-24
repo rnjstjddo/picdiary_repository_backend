@@ -179,7 +179,7 @@ const DietReadAllComponent = () => {
     <div className="container">
       <br />
       <br />
-      <h4>식단조회</h4>
+      <h4>전체식단조회</h4>
       <hr />
       <br />
       <p>각 식단의 단위는 생략합니다 (단위:g/ml) </p>

@@ -288,7 +288,7 @@ const ExerciseModifyComponent = () => {
       <br />
       <br />
 
-      <h4>운동관리</h4>
+      <h4>운동수정</h4>
       <hr />
       <br />
       <Form onSubmit={handleSubmitExercise}>
@@ -603,7 +603,7 @@ const ExerciseModifyComponent = () => {
         </Form.Group>
         <br />
         <Button variant="outline-primary" type="submit">
-          운동량수정완료
+          위와 같이 운동수정
         </Button>
         &nbsp;
         <Button
