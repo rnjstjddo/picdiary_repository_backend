@@ -9,6 +9,8 @@ var XO = 43; // 기준점 X좌표(GRID)
 var YO = 136; // 기1준점 Y좌표(GRID)
 
 // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
+// LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
+
 export const dfs_xy_conv = (code, v1, v2) => {
   // LCC DFS 좌표변환을 위한 기초 자료
   //console.log(" dfs_xy_conv 함수진입");
