@@ -247,9 +247,12 @@ const MainComponent = () => {
   }, [weatherDate]);
 
   useEffect(() => {
-    //console.log("useLayoutEffect() 서버axios요청으로 데이터 가져오기진입=>");
-
     const getTodayManagementEI = async () => {
+      console.log(
+        "useEffect() getTodayManagementEI 서버axios요청으로 데이터 가져오기진입 findDate =>",
+        findDate
+      );
+
       await getTodayManagement(findDate)
         .then((result) => {
           //console.log("useEffect()진입 axios 결과 -> ", result);
@@ -470,10 +473,16 @@ const MainComponent = () => {
 
   //달력일버튼나열
   const handleDateManagement = (d) => {
-    //console.log("handleDateManagement()진입 선택한 일자 -> ", d);
+    console.log("handleDateManagement()진입 선택한 일자 -> ", d);
     setTodayDate(() => d);
     let selectMonthAdd = selectMonth < 10 ? "0" + selectMonth : selectMonth;
+    console.log(
+      "handleDateManagement()진입 선택한 selectMonthAdd -> ",
+      selectMonthAdd
+    );
+
     let dAdd = d < 10 ? "0" + d : d;
+    console.log("handleDateManagement()진입 선택한 dAdd -> ", dAdd);
 
     setFindDate(() => `${selectYear}-${selectMonthAdd}-${dAdd}`);
   };
